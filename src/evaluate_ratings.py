@@ -355,6 +355,60 @@ def generate_charts(history: pd.DataFrame, comparison: pd.DataFrame) -> None:
     fig.savefig(FIGURES_DIR / "04_rating_confusion_matrix.png")
     plt.close(fig)
 
+    # 5. Graf prvej sezóny: Elo vs. Glicko vs. Glicko-2 (s využitím NumPy)
+    generate_first_season_chart(history)
+
+
+def generate_first_season_chart(history: pd.DataFrame) -> Path:
+    """Vykreslí porovnanie Elo, Glicko a Glicko-2 pre najlepší tím prvej sezóny pomocou NumPy."""
+    first_season = str(history["season"].min())
+    sub = history[history["season"] == first_season].sort_values("date").copy()
+
+    last_home = sub.groupby("home_team")["g2_H"].last()
+    last_away = sub.groupby("away_team")["g2_A"].last()
+    best_team = str(pd.concat([last_home, last_away]).groupby(level=0).max().idxmax())
+
+    h_rows = sub[sub["home_team"] == best_team][
+        ["date", "elo_H", "g1_H", "g2_H", "g2_rd_H"]
+    ].rename(columns={"elo_H": "elo", "g1_H": "g1", "g2_H": "g2", "g2_rd_H": "rd"})
+
+    a_rows = sub[sub["away_team"] == best_team][
+        ["date", "elo_A", "g1_A", "g2_A", "g2_rd_A"]
+    ].rename(columns={"elo_A": "elo", "g1_A": "g1", "g2_A": "g2", "g2_rd_A": "rd"})
+
+    team_df = pd.concat([h_rows, a_rows]).sort_values("date").reset_index(drop=True)
+
+    x = np.arange(1, len(team_df) + 1)
+    elo_arr = team_df["elo"].to_numpy(dtype=float)
+    g1_arr = team_df["g1"].to_numpy(dtype=float)
+    g2_arr = team_df["g2"].to_numpy(dtype=float)
+    rd_arr = team_df["rd"].to_numpy(dtype=float)
+
+    fig, ax = plt.subplots(figsize=(10, 5.0))
+    ax.plot(x, elo_arr, label="Elo", color="#2a9d8f", linewidth=2.2, linestyle="--")
+    ax.plot(x, g1_arr, label="Glicko", color="#e9c46a", linewidth=2.2)
+    ax.plot(x, g2_arr, label="Glicko-2", color="#264653", linewidth=2.5)
+    ax.fill_between(
+        x,
+        g2_arr - rd_arr,
+        g2_arr + rd_arr,
+        color="#264653",
+        alpha=0.14,
+        label="Glicko-2 neistota (± RD)",
+    )
+    ax.axhline(1500.0, color="#95a5a6", linestyle=":", linewidth=1.2, label="Štartovací rating (1500)")
+
+    ax.set_title(f"Porovnanie Elo, Glicko a Glicko-2 v prvej sezóne ({first_season}) – {best_team}")
+    ax.set_xlabel("Poradie zápasu v sezóne")
+    ax.set_ylabel("Rating")
+    ax.legend(loc="best")
+    fig.tight_layout()
+
+    out_path = FIGURES_DIR / "05_first_season_elo_glicko.png"
+    fig.savefig(out_path)
+    plt.close(fig)
+    return out_path
+
 
 def run_pipeline() -> pd.DataFrame:
     ensure_directories()
