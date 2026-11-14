@@ -43,6 +43,18 @@ Celý pipeline (sťahovanie → čistenie → atribúty → tréning → vyhodno
 .\run_all.ps1
 ```
 
+Ak PowerShell skripty blokuje (chyba *running scripts is disabled on this system*):
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File .\run_all.ps1
+```
+
+alebo trvalo:
+
+```powershell
+Set-ExecutionPolicy -Scope CurrentUser RemoteSigned
+```
+
 Jednotlivé kroky:
 
 ```powershell
@@ -80,9 +92,10 @@ aplikacia/
 │   └── evaluate.py     # vyhodnotenie, kalibrácia, value bets
 ├── models/             # natrénované .pkl modely + metadata.json
 ├── reports/
-│   ├── figures/        # grafy 300 dpi pre prácu
+│   ├── figures/        # grafy 300 dpi pre prácu + screenshoty appky
 │   └── tables/         # tabuľky a zhrnutia pre prácu
-├── tests/              # pytest testy (ochrana proti leakage)
+├── tests/              # pytest testy (ochrana proti leakage, smoke test appky)
+├── .streamlit/         # konfigurácia témy Streamlit aplikácie
 ├── streamlit_app.py    # webová aplikácia
 ├── run_all.ps1         # celý pipeline jedným príkazom
 └── requirements.txt

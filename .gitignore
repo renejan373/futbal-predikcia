@@ -4,7 +4,6 @@ __pycache__/
 .pytest_cache/
 .idea/
 .vscode/
-.streamlit/
 
 # Vygenerované dáta a modely (reprodukuje ich run_all.ps1)
 data/raw/*.csv
@@ -13,7 +12,9 @@ data/processed/*.csv
 models/*.pkl
 models/metadata.json
 
-# Vygenerované reporty
+# Vygenerované reporty (grafy a tabuľky sa dajú znova vytvoriť)
 reports/figures/*.png
 reports/tables/*
-!reports/tables/.gitkeep
+
+# Screenshoty aplikácie sa robia ručne, tie v Gite zostávajú
+!reports/figures/*.jpg
