@@ -370,9 +370,13 @@ def run_pipeline() -> pd.DataFrame:
     generate_charts(history, comparison)
 
     # Uloženie metadát
+    seasons_list = sorted(history["season"].unique())
     meta = {
         "test_season": TEST_SEASON,
         "total_matches": len(history),
+        "n_seasons": len(seasons_list),
+        "first_season": seasons_list[0] if seasons_list else "",
+        "last_season": seasons_list[-1] if seasons_list else "",
         "comparison": comparison.to_dict(orient="records"),
     }
     RATING_METADATA_JSON.write_text(json.dumps(meta, indent=2, ensure_ascii=False), encoding="utf-8")

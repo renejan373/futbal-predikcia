@@ -31,13 +31,17 @@ MODEL_METADATA_JSON = MODELS_DIR / "metadata.json"
 # ---------------------------------------------------------------------------
 # Dáta a sezóny
 # ---------------------------------------------------------------------------
-SEASON_CODES: dict[str, str] = {
-    "2021/22": "2122",
-    "2022/23": "2223",
-    "2023/24": "2324",
-    "2024/25": "2425",
-    "2025/26": "2526",
-}
+def _build_season_codes(start_year: int = 1993, end_year: int = 2025) -> dict[str, str]:
+    """Vygeneruje kódy sezón pre football-data.co.uk (od 1993/94 po 2025/26)."""
+    codes: dict[str, str] = {}
+    for year in range(start_year, end_year + 1):
+        y1 = year % 100
+        y2 = (year + 1) % 100
+        codes[f"{year}/{y2:02d}"] = f"{y1:02d}{y2:02d}"
+    return codes
+
+
+SEASON_CODES: dict[str, str] = _build_season_codes(1993, 2025)
 SEASONS: list[str] = list(SEASON_CODES)
 
 # Aktuálna prebiehajúca sezóna pre živú predikciu v aplikácii
@@ -49,10 +53,10 @@ ALL_SEASON_CODES: dict[str, str] = {
 }
 ALL_SEASONS: list[str] = list(ALL_SEASON_CODES)
 
-# Časovo podmienené rozdelenie: staršie sezóny trénujú, novšie testujú.
-TRAIN_SEASONS: list[str] = SEASONS[:3]
-VALID_SEASON: str = SEASONS[3]
-TEST_SEASON: str = SEASONS[4]
+# Časovo podmienené rozdelenie: staršie sezóny trénujú, posledná ukončená testuje.
+TRAIN_SEASONS: list[str] = SEASONS[:-2]
+VALID_SEASON: str = SEASONS[-2]
+TEST_SEASON: str = SEASONS[-1]
 
 BASE_URL = "https://www.football-data.co.uk/mmz4281/{code}/E0.csv"
 REQUEST_TIMEOUT_SECONDS = 90

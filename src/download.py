@@ -18,6 +18,7 @@ from pathlib import Path
 import pandas as pd
 
 from src.config import (
+    ALL_SEASON_CODES as SEASON_CODES,
     BASE_URL,
     RAW_DIR,
     REQUEST_TIMEOUT_SECONDS,

@@ -295,8 +295,8 @@ def main() -> int:
     ensure_directories()
 
     frames: list[pd.DataFrame] = []
-    for season in SEASONS:
-        path = RAW_DIR / f"E0_{SEASON_CODES[season]}.csv"
+    for season in ALL_SEASONS:
+        path = RAW_DIR / f"E0_{ALL_SEASON_CODES[season]}.csv"
         if not path.exists():
             print(f"[skip] {season}: chyba {path.name} (spusti download)")
             continue

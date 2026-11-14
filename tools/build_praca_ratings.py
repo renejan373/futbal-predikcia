@@ -172,7 +172,12 @@ def build_chapters(builder: DocumentBuilder) -> None:
         "prehľadnú webovú aplikáciu na predikciu výsledkov aktuálnej sezóny."
     )
     builder.paragraph("Z hlavného cieľa vyplývajú nasledujúce čiastkové ciele:")
-    builder.bullet("Zhromaždiť a očistiť historické dáta zápasov Premier League za 5 sezón (1 900 zápasov).")
+    n_seasons = META.get("n_seasons", 5)
+    total_matches = META.get("total_matches", 1900)
+    first_s = META.get("first_season", "2021/22")
+    last_s = META.get("last_season", "2025/26")
+
+    builder.bullet(f"Zhromaždiť a očistiť historické dáta zápasov Premier League za {n_seasons} sezón ({total_matches} zápasov).")
     builder.bullet("Implementovať algoritmy Elo, Glicko a Glicko-2 v jazyku Python bez použitia zložitého strojového učenia.")
     builder.bullet("Chronologicky vyhodnotiť presnosť predikcií na testovacej sezóne 2025/26 a porovnať ich s kurzami Bet365.")
     builder.bullet("Vytvoriť interaktívnu webovú aplikáciu v knižnici Streamlit s možnosťou živého sťahovania výsledkov pre sezónu 2026/27.")
@@ -181,8 +186,8 @@ def build_chapters(builder: DocumentBuilder) -> None:
     builder.heading("3 MATERIÁL A METODIKA", level=1)
     builder.paragraph(
         "Dáta boli získané z verejne dostupného futbalového archívu football-data.co.uk vo formáte CSV. "
-        "Použili sme 5 kompletných sezón najvyššej anglickej súťaže Premier League (2021/22 až 2025/26), "
-        "čo predstavuje spolu 1 900 odohraných zápasov (380 zápasov v každej sezóne). Pre každý zápas "
+        f"Použili sme {n_seasons} sezón najvyššej anglickej súťaže Premier League ({first_s} až {last_s}), "
+        f"čo predstavuje spolu {total_matches} odohraných zápasov. Pre každý zápas "
         "sme použili dátum, názov domáceho a hosťujúceho tímu, konečný výsledok (H, D, A) a na porovnanie "
         "aj predzápasové kurzy stávkovej kancelárie Bet365."
     )
@@ -273,7 +278,7 @@ def build_chapters(builder: DocumentBuilder) -> None:
     # 6 ZÁVER
     builder.heading("6 ZÁVER", level=1)
     builder.paragraph(
-        "Práca úspešne splnila všetky stanovené ciele. Na 1 900 historických zápasoch Premier League sme "
+        f"Práca úspešne splnila všetky stanovené ciele. Na {total_matches} historických zápasoch Premier League sme "
         "naprogramovali a porovnali tri známe ratingové systémy – Elo, Glicko a Glicko-2. Ukázali sme, "
         "že aj bez zložitej umelej inteligencie dokážeme s čistou matematikou dosiahnuť takmer 50 % presnosť "
         "predikcií a priblížiť sa profesionálnym trhovým odhadom."
@@ -293,7 +298,7 @@ def build_chapters(builder: DocumentBuilder) -> None:
         "sú vysvetlené princípy hodnotenia sily tímov, miery neistoty (RD) a kolísavosti formy (volatility), "
         "ako aj prepočet rozdielu ratingov na pravdepodobnosť výhry, remízy a prehry pomocou Davidsonovho "
         "modelu. Praktická časť obsahuje vlastnú implementáciu všetkých troch algoritmov v jazyku Python "
-        "a ich chronologické vyhodnotenie na 1 900 zápasoch za 5 sezón. Na testovacej sezóne 2025/26 dosiahol "
+        f"a ich chronologické vyhodnotenie na {total_matches} zápasoch za {n_seasons} sezón. Na testovacej sezóne 2025/26 dosiahol "
         f"najvyššiu presnosť klasický systém Elo ({pct(elo_row['accuracy'])}) a Glicko-2 ({pct(g2_row['accuracy'])}), "
         f"čím sa priblížili ku kurzovému favoritovi Bet365 ({pct(bet_row['accuracy'])}). Súčasťou práce je "
         "interaktívna webová aplikácia v nástroji Streamlit, ktorá umožňuje sledovať rebríček sily tímov, "
