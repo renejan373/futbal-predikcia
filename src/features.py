@@ -20,6 +20,7 @@ import numpy as np
 import pandas as pd
 
 from src.config import (
+    ALL_SEASONS,
     ELO_HOME_ADVANTAGE,
     ELO_K,
     ELO_SEASON_REGRESSION,
@@ -351,8 +352,10 @@ def promoted_teams(matches: pd.DataFrame) -> dict[str, set[str]]:
     }
     promoted: dict[str, set[str]] = {}
     previous: set[str] | None = None
-    for season in SEASONS:
-        current = teams_by_season.get(season, set())
+    for season in ALL_SEASONS:
+        if season not in teams_by_season:
+            continue
+        current = teams_by_season[season]
         promoted[season] = set() if previous is None else current - previous
         previous = current
     return promoted

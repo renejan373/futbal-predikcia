@@ -40,6 +40,15 @@ SEASON_CODES: dict[str, str] = {
 }
 SEASONS: list[str] = list(SEASON_CODES)
 
+# Aktuálna prebiehajúca sezóna pre živú predikciu v aplikácii
+CURRENT_SEASON: str = "2026/27"
+CURRENT_SEASON_CODE: str = "2627"
+ALL_SEASON_CODES: dict[str, str] = {
+    **SEASON_CODES,
+    CURRENT_SEASON: CURRENT_SEASON_CODE,
+}
+ALL_SEASONS: list[str] = list(ALL_SEASON_CODES)
+
 # Časovo podmienené rozdelenie: staršie sezóny trénujú, novšie testujú.
 TRAIN_SEASONS: list[str] = SEASONS[:3]
 VALID_SEASON: str = SEASONS[3]

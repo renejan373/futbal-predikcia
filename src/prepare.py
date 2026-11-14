@@ -19,6 +19,8 @@ from pathlib import Path
 import pandas as pd
 
 from src.config import (
+    ALL_SEASON_CODES,
+    ALL_SEASONS,
     INTERIM_DIR,
     MATCHES_CSV,
     NUMERIC_COLUMNS,
@@ -74,7 +76,7 @@ OUTPUT_COLUMNS = [
 
 def load_season(season: str) -> pd.DataFrame:
     """Nacita jeden raw CSV a vrati ho s jednotnymi nazvami stlpcov."""
-    path = RAW_DIR / f"E0_{SEASON_CODES[season]}.csv"
+    path = RAW_DIR / f"E0_{ALL_SEASON_CODES[season]}.csv"
     if not path.exists():
         raise FileNotFoundError(
             f"Chyba {path}. Najprv spusti: python -m src.download"
@@ -143,7 +145,7 @@ def clean_matches(frame: pd.DataFrame) -> tuple[pd.DataFrame, dict[str, int]]:
     stats["duplicate_ids"] = int(frame.duplicated("match_id").sum())
     frame = frame.drop_duplicates("match_id", keep="last")
 
-    frame["season"] = pd.Categorical(frame["season"], categories=SEASONS, ordered=True)
+    frame["season"] = pd.Categorical(frame["season"], categories=ALL_SEASONS, ordered=True)
     frame = frame.sort_values(["season", "date", "time"]).reset_index(drop=True)
     frame["season"] = frame["season"].astype(str)
 

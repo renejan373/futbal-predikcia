@@ -14,6 +14,7 @@ import pandas as pd
 import streamlit as st
 
 from src.config import (
+    CURRENT_SEASON,
     FEATURES_CSV,
     MATCHES_CSV,
     MODELS_DIR,
@@ -364,12 +365,18 @@ def main() -> None:
     )
 
     seasons = sorted(states["season"].unique(), reverse=True)
+    season = CURRENT_SEASON if CURRENT_SEASON in seasons else seasons[0]
     model_keys = list(metadata["models"].keys())
     best_key = metadata.get("best_model", {}).get("key", model_keys[0])
 
     with st.sidebar:
         st.header("Nastavenia predikcie")
-        season = st.selectbox("Sezóna", seasons)
+        st.markdown(f"**Aktuálna sezóna:** {season}")
+        if season != CURRENT_SEASON:
+            st.warning(
+                f"Dáta pre sezónu {CURRENT_SEASON} zatiaľ nie sú stiahnuté. "
+                "Klikni na tlačidlo nižšie."
+            )
 
         teams = sorted(states[states["season"] == season]["team"].unique())
         default_home = "Arsenal" if "Arsenal" in teams else teams[0]
@@ -398,9 +405,9 @@ def main() -> None:
         st.caption(
             "Stiahne najnovšie odohraté zápasy z internetu a prepočíta formu tímov."
         )
-        if st.button("Stiahnuť najnovšie výsledky", use_container_width=True):
-            with st.spinner(f"Sťahujem a prepočítavam sezónu {season}..."):
-                res = update_live_season_pipeline(season)
+        if st.button(f"Stiahnuť výsledky ({CURRENT_SEASON})", use_container_width=True):
+            with st.spinner(f"Sťahujem a prepočítavam sezónu {CURRENT_SEASON}..."):
+                res = update_live_season_pipeline(CURRENT_SEASON)
                 if res["success"]:
                     st.success(res["message"])
                     st.cache_data.clear()

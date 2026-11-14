@@ -11,13 +11,14 @@ from pathlib import Path
 import pandas as pd
 
 from src.config import (
+    ALL_SEASON_CODES,
+    ALL_SEASONS,
     BASE_URL,
+    CURRENT_SEASON,
     FEATURES_CSV,
     MATCHES_CSV,
     RAW_DIR,
     REQUEST_TIMEOUT_SECONDS,
-    SEASON_CODES,
-    SEASONS,
     TEAM_STATES_CSV,
     USER_AGENT,
     ensure_directories,
@@ -26,12 +27,12 @@ from src.features import build_features, build_team_states
 from src.prepare import OUTPUT_COLUMNS, clean_matches, load_season
 
 
-def fetch_season_data(season: str) -> bytes:
+def fetch_season_data(season: str = CURRENT_SEASON) -> bytes:
     """Stiahne čerstvý CSV súbor pre zvolenú sezónu."""
-    if season not in SEASON_CODES:
+    if season not in ALL_SEASON_CODES:
         raise ValueError(f"Neznáma sezóna: {season}")
 
-    code = SEASON_CODES[season]
+    code = ALL_SEASON_CODES[season]
     url = BASE_URL.format(code=code)
     request = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
 
@@ -44,7 +45,7 @@ def fetch_season_data(season: str) -> bytes:
     return content
 
 
-def update_live_season_pipeline(season: str) -> dict[str, any]:
+def update_live_season_pipeline(season: str = CURRENT_SEASON) -> dict[str, any]:
     """Stiahne najnovšie výsledky, očistí ich a prepočíta priebežné atribúty a stav tímov.
 
     Vracia slovník s výsledkom:
@@ -54,7 +55,7 @@ def update_live_season_pipeline(season: str) -> dict[str, any]:
         last_date: str
     """
     ensure_directories()
-    code = SEASON_CODES.get(season)
+    code = ALL_SEASON_CODES.get(season)
     if not code:
         return {
             "success": False,
@@ -88,8 +89,8 @@ def update_live_season_pipeline(season: str) -> dict[str, any]:
     # 2. Spracovanie a zjednotenie všetkých sezón
     try:
         frames: list[pd.DataFrame] = []
-        for s in SEASONS:
-            path = RAW_DIR / f"E0_{SEASON_CODES[s]}.csv"
+        for s in ALL_SEASONS:
+            path = RAW_DIR / f"E0_{ALL_SEASON_CODES[s]}.csv"
             if path.exists():
                 frames.append(load_season(s))
 
