@@ -19,12 +19,11 @@ def test_app_starts_without_exception() -> None:
     assert len(app.metric) >= 3
 
 
-def test_app_supports_model_and_team_change() -> None:
+def test_app_supports_system_and_team_change() -> None:
     app = _run_app()
-    app.selectbox[2].set_value("gradient_boosting").run()
+    app.selectbox[2].set_value("elo").run()
     assert not app.exception, [exception.value for exception in app.exception]
 
-    # Vyberieme posledný dostupný domáci tím zo zoznamu aktuálnej sezóny
     target_team = app.selectbox[0].options[-1]
     app.selectbox[0].set_value(target_team).run()
     assert not app.exception, [exception.value for exception in app.exception]

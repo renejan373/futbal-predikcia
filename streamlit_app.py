@@ -1,4 +1,4 @@
-"""Streamlit aplikácia – predikcia výsledku futbalového zápasu.
+"""Streamlit aplikácia – predikcia výsledkov futbalových zápasov (Elo, Glicko, Glicko-2).
 
 Spustenie:
     streamlit run streamlit_app.py
@@ -9,20 +9,22 @@ from __future__ import annotations
 import json
 
 import altair as alt
-import joblib
 import pandas as pd
 import streamlit as st
 
-from src.config import (
-    CURRENT_SEASON,
-    FEATURES_CSV,
-    MATCHES_CSV,
-    MODELS_DIR,
-    MODEL_METADATA_JSON,
-    TARGET_NAMES_SK,
-    TEAM_STATES_CSV,
+from src.config import CURRENT_SEASON, MATCHES_CSV, TABLES_DIR
+from src.evaluate_ratings import (
+    CURRENT_RATINGS_CSV,
+    RATING_HISTORY_CSV,
+    RATING_METADATA_JSON,
 )
-from src.features import BASE_FEATURES, FEATURE_COLUMNS
+from src.ratings import (
+    EloSystem,
+    Glicko2System,
+    Glicko2Team,
+    GlickoSystem,
+    GlickoTeam,
+)
 from src.updater import update_live_season_pipeline
 
 st.set_page_config(
@@ -38,118 +40,44 @@ FORM_STYLE = {
     "R": ("#e9c46a", "#1d1d1d"),
     "P": ("#e76f51", "white"),
 }
+SYSTEM_NAMES = {
+    "glicko2": "Glicko-2 (sila + neistota + volatilita)",
+    "glicko": "Glicko (sila + neistota)",
+    "elo": "Elo (klasický rating)",
+}
 
 
 @st.cache_data(ttl=600)
 def load_data() -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, dict]:
-    if not FEATURES_CSV.exists():
+    if not CURRENT_RATINGS_CSV.exists():
         st.error(
-            "Chýbajú spracované dáta. Spusti v termináli:\n\n"
-            "```\npython -m src.download\npython -m src.prepare\npython -m src.features\n```"
+            "Chýbajú vypočítané ratingy. Spusti v termináli:\n\n"
+            "```\npython -m src.evaluate_ratings\n```"
         )
         st.stop()
-    features = pd.read_csv(FEATURES_CSV, parse_dates=["date"])
-    features["season"] = features["season"].astype(str)
+    ratings = pd.read_csv(CURRENT_RATINGS_CSV, parse_dates=["as_of_date"])
+    ratings["season"] = ratings["season"].astype(str)
+    history = pd.read_csv(RATING_HISTORY_CSV, parse_dates=["date"])
+    history["season"] = history["season"].astype(str)
     matches = pd.read_csv(MATCHES_CSV, parse_dates=["date"])
     matches["season"] = matches["season"].astype(str)
-    states = pd.read_csv(TEAM_STATES_CSV, parse_dates=["as_of_date"])
-    states["season"] = states["season"].astype(str)
-    metadata = json.loads(MODEL_METADATA_JSON.read_text(encoding="utf-8"))
-    return features, matches, states, metadata
+    metadata = json.loads(RATING_METADATA_JSON.read_text(encoding="utf-8"))
+    return ratings, history, matches, metadata
 
 
-@st.cache_resource
-def load_model(path: str):
-    return joblib.load(path)
-
-
-def team_state(states: pd.DataFrame, season: str, team: str, venue: str) -> pd.Series:
-    row = states[
-        (states["season"] == season)
-        & (states["team"] == team)
-        & (states["venue"] == venue)
-    ]
-    if row.empty:
-        st.error(f"Pre tím {team} chýba stav pre sezónu {season}.")
-        st.stop()
-    return row.iloc[0]
-
-
-def h2h_history(
-    features: pd.DataFrame, home: str, away: str, until: pd.Timestamp
-) -> tuple[int, int, int, pd.DataFrame]:
-    """Body a gólový rozdiel domácich z posledných vzájomných zápasov."""
-    pair = features[
-        (
-            ((features["home_team"] == home) & (features["away_team"] == away))
-            | ((features["home_team"] == away) & (features["away_team"] == home))
-        )
-        & (features["date"] <= until)
-    ].sort_values("date")
-    last = pair.tail(5)
-
-    points = 0
-    goal_diff = 0
-    for row in last.itertuples(index=False):
-        if row.home_team == home:
-            goals_for, goals_against = row.fthg, row.ftag
-        else:
-            goals_for, goals_against = row.ftag, row.fthg
-        points += 3 if goals_for > goals_against else 1 if goals_for == goals_against else 0
-        goal_diff += goals_for - goals_against
-
-    return points, goal_diff, len(last), last
-
-
-def build_feature_row(
-    home_state: pd.Series,
-    away_state: pd.Series,
-    h2h_points: int,
-    h2h_goal_diff: int,
-    h2h_matches: int,
-) -> pd.DataFrame:
-    row: dict[str, float] = {}
-    for column in BASE_FEATURES:
-        row[f"{column}_H"] = float(home_state[column])
-        row[f"{column}_A"] = float(away_state[column])
-
-    row["elo_H"] = float(home_state["elo"])
-    row["elo_A"] = float(away_state["elo"])
-
-    row["is_promoted_H"] = int(home_state["is_promoted"])
-    row["is_promoted_A"] = int(away_state["is_promoted"])
-    row["h2h_pts_H"] = float(h2h_points)
-    row["h2h_gd_H"] = float(h2h_goal_diff)
-    row["h2h_matches"] = float(h2h_matches)
-
-    row["elo_diff"] = row["elo_H"] - row["elo_A"]
-    row["form_diff"] = row["form_pts_5_H"] - row["form_pts_5_A"]
-    row["venue_form_diff"] = row["form_pts_venue_5_H"] - row["form_pts_venue_5_A"]
-    row["pts_pg_diff"] = row["season_pts_pg_H"] - row["season_pts_pg_A"]
-    row["rest_diff"] = row["rest_days_H"] - row["rest_days_A"]
-    row["attack_defense_H"] = row["gf_avg_5_H"] - row["ga_avg_5_A"]
-    row["attack_defense_A"] = row["gf_avg_5_A"] - row["ga_avg_5_H"]
-    row["sot_adv_H"] = row["sot_for_avg_5_H"] - row["sot_against_avg_5_A"]
-    row["sot_adv_A"] = row["sot_for_avg_5_A"] - row["sot_against_avg_5_H"]
-
-    return pd.DataFrame([row])[FEATURE_COLUMNS]
-
-
-def recent_results(
-    matches: pd.DataFrame, team: str, before: pd.Timestamp, limit: int = 5
-) -> list[str]:
+def recent_results(matches: pd.DataFrame, season: str, team: str, limit: int = 5) -> list[str]:
     rows = matches[
-        ((matches["home_team"] == team) | (matches["away_team"] == team))
-        & (matches["date"] < before)
+        (matches["season"] == season)
+        & ((matches["home_team"] == team) | (matches["away_team"] == team))
     ].sort_values("date").tail(limit)
 
     results = []
     for row in rows.itertuples(index=False):
         if row.home_team == team:
-            goals_for, goals_against = row.fthg, row.ftag
+            gf, ga = row.fthg, row.ftag
         else:
-            goals_for, goals_against = row.ftag, row.fthg
-        results.append("V" if goals_for > goals_against else "R" if goals_for == goals_against else "P")
+            gf, ga = row.ftag, row.fthg
+        results.append("V" if gf > ga else "R" if gf == ga else "P")
     return results
 
 
@@ -157,19 +85,19 @@ def form_badges(results: list[str]) -> str:
     if not results:
         return "<span style='color:#888'>žiadne zápasy</span>"
     badges = []
-    for result in results:
-        background, color = FORM_STYLE[result]
+    for r in results:
+        bg, fg = FORM_STYLE[r]
         badges.append(
             f"<span style='display:inline-block;width:28px;height:28px;line-height:28px;"
-            f"text-align:center;border-radius:6px;background:{background};color:{color};"
-            f"font-weight:600;margin-right:4px'>{result}</span>"
+            f"text-align:center;border-radius:6px;background:{bg};color:{fg};"
+            f"font-weight:600;margin-right:4px'>{r}</span>"
         )
     return "".join(badges)
 
 
-def probability_chart(probabilities) -> alt.Chart:
+def probability_chart(probabilities: tuple[float, float, float]) -> alt.Chart:
     frame = pd.DataFrame(
-        {"Výsledok": OUTCOME_LABELS, "Pravdepodobnosť": probabilities}
+        {"Výsledok": OUTCOME_LABELS, "Pravdepodobnosť": list(probabilities)}
     )
     base = alt.Chart(frame).encode(
         x=alt.X("Výsledok:N", sort=None, axis=alt.Axis(labelAngle=0, title=None)),
@@ -193,181 +121,48 @@ def probability_chart(probabilities) -> alt.Chart:
     labels = base.mark_text(dy=-12, fontSize=14, fontWeight="bold").encode(
         text=alt.Text("Pravdepodobnosť:Q", format=".1%")
     )
-    return (bars + labels).properties(height=320)
+    return (bars + labels).properties(height=300)
 
 
-def render_prediction_tab(
-    probabilities,
-    home: str,
-    away: str,
-    home_state: pd.Series,
-    away_state: pd.Series,
-) -> None:
-    best_index = int(probabilities.argmax())
-    best_probability = float(probabilities[best_index])
+def compute_all_predictions(home_row: pd.Series, away_row: pd.Series) -> dict[str, tuple[float, float, float]]:
+    elo_sys = EloSystem()
+    g1_sys = GlickoSystem()
+    g2_sys = Glicko2System()
 
-    h_matches = int(home_state.get("matches_played", 0))
-    a_matches = int(away_state.get("matches_played", 0))
-    st.subheader(f"{home} – {away}")
-    st.caption(
-        f"Predikcia vychádza z odohratých zápasov v sezóne: "
-        f"**{home}** ({h_matches} zápasov k {home_state['as_of_date']:%d. %m. %Y}) vs. "
-        f"**{away}** ({a_matches} zápasov k {away_state['as_of_date']:%d. %m. %Y})."
+    elo_p = elo_sys.predict_proba(float(home_row["elo_rating"]), float(away_row["elo_rating"]))
+    g1_p = g1_sys.predict_proba(
+        GlickoTeam(float(home_row["glicko_rating"]), float(home_row["glicko_rd"])),
+        GlickoTeam(float(away_row["glicko_rating"]), float(away_row["glicko_rd"])),
     )
-
-    columns = st.columns(3)
-    for column, label, probability in zip(columns, OUTCOME_LABELS, probabilities):
-        column.metric(label, f"{probability:.1%}")
-
-    st.altair_chart(probability_chart(probabilities), width="stretch")
-    st.success(
-        f"Model tipuje **{OUTCOME_LABELS[best_index].lower()}** "
-        f"s pravdepodobnosťou **{best_probability:.1%}**."
+    g2_p = g2_sys.predict_proba(
+        Glicko2Team(
+            float(home_row["glicko2_rating"]),
+            float(home_row["glicko2_rd"]),
+            float(home_row["glicko2_vol"]),
+        ),
+        Glicko2Team(
+            float(away_row["glicko2_rating"]),
+            float(away_row["glicko2_rd"]),
+            float(away_row["glicko2_vol"]),
+        ),
     )
-    st.info(
-        "Predikcia je odhad na základe historických dát a nemá slúžiť ako "
-        "stávková rada. Futbal je ovplyvnený aj náhodnými udalosťami "
-        "(zranenia, červené karty, rozhodcovské verdikty)."
-    )
-
-
-def render_comparison_tab(
-    matches: pd.DataFrame,
-    home: str,
-    away: str,
-    home_state: pd.Series,
-    away_state: pd.Series,
-    h2h_points: int,
-    h2h_goal_diff: int,
-    h2h_matches: int,
-    h2h_frame: pd.DataFrame,
-) -> None:
-    st.subheader("Porovnanie aktuálnej formy")
-
-    left, right = st.columns(2)
-    for column, team, state in (
-        (left, home, home_state),
-        (right, away, away_state),
-    ):
-        results = recent_results(matches, team, state["as_of_date"])
-        column.markdown(f"### {team}")
-        column.markdown(form_badges(results), unsafe_allow_html=True)
-        column.caption(
-            f"Body z posledných 5 zápasov: **{state['form_pts_5']:.0f}** · "
-            f"priemer gólov: **{state['gf_avg_5']:.2f}** strelených / "
-            f"**{state['ga_avg_5']:.2f}** inkasovaných"
-        )
-
-    table = pd.DataFrame(
-        {
-            "Ukazovateľ": [
-                "Body z posledných 5 zápasov",
-                "Body na zápas v sezóne",
-                "Priemer strelených gólov",
-                "Priemer inkasovaných gólov",
-                "Priemer striel na bránu",
-                "Elo rating",
-                "Dni od posledného zápasu",
-                "Odohrané zápasy v sezóne",
-            ],
-            home: [
-                f"{home_state['form_pts_5']:.0f}",
-                f"{home_state['season_pts_pg']:.2f}",
-                f"{home_state['gf_avg_5']:.2f}",
-                f"{home_state['ga_avg_5']:.2f}",
-                f"{home_state['sot_for_avg_5']:.2f}",
-                f"{home_state['elo']:.0f}",
-                f"{home_state['rest_days']:.0f}",
-                f"{home_state['matches_played']:.0f}",
-            ],
-            away: [
-                f"{away_state['form_pts_5']:.0f}",
-                f"{away_state['season_pts_pg']:.2f}",
-                f"{away_state['gf_avg_5']:.2f}",
-                f"{away_state['ga_avg_5']:.2f}",
-                f"{away_state['sot_for_avg_5']:.2f}",
-                f"{away_state['elo']:.0f}",
-                f"{away_state['rest_days']:.0f}",
-                f"{away_state['matches_played']:.0f}",
-            ],
-        }
-    )
-    st.dataframe(table, hide_index=True, width="stretch")
-
-    st.subheader("Vzájomná bilancia (posledných 5 zápasov)")
-    if h2h_matches == 0:
-        st.write("Tímy proti sebe v dostupných dátach ešte nehrali.")
-    else:
-        summary = st.columns(3)
-        summary[0].metric("Body domácich vo vzájomných zápasoch", f"{h2h_points:.0f}")
-        summary[1].metric("Gólový rozdiel domácich", f"{h2h_goal_diff:+.0f}")
-        summary[2].metric("Odohraných vzájomných zápasov", f"{h2h_matches}")
-
-        history = h2h_frame.assign(
-            Dátum=h2h_frame["date"].dt.strftime("%d. %m. %Y"),
-            Zápas=h2h_frame["home_team"] + " – " + h2h_frame["away_team"],
-            Výsledok=h2h_frame["fthg"].astype(str) + " : " + h2h_frame["ftag"].astype(str),
-        )[["Dátum", "Zápas", "Výsledok"]].iloc[::-1]
-        st.dataframe(history, hide_index=True, width="stretch")
-
-
-def render_model_tab(metadata: dict, selected_key: str) -> None:
-    st.subheader("O použitom modeli")
-    model_info = metadata["models"][selected_key]
-    metrics = model_info["test_metrics"]
-
-    columns = st.columns(4)
-    columns[0].metric("Accuracy", f"{metrics['accuracy']:.1%}")
-    columns[1].metric("F1 (macro)", f"{metrics['f1_macro']:.3f}")
-    columns[2].metric("Log loss", f"{metrics['log_loss']:.3f}")
-    columns[3].metric("Brier score", f"{metrics['brier']:.3f}")
-
-    st.caption(
-        f"Metriky sú z testovacej sezóny {metadata['test_season']}, ktorú model "
-        "počas trénovania nevidel."
-    )
-
-    st.markdown("#### Porovnanie všetkých modelov")
-    rows = []
-    for key, info in metadata["models"].items():
-        test = info["test_metrics"]
-        rows.append(
-            {
-                "Model": info["name_sk"],
-                "Accuracy": f"{test['accuracy']:.1%}",
-                "F1 (macro)": f"{test['f1_macro']:.3f}",
-                "Log loss": f"{test['log_loss']:.3f}",
-            }
-        )
-    st.dataframe(pd.DataFrame(rows), hide_index=True, width="stretch")
-
-    st.markdown("#### Nastavenie modelu")
-    st.json(model_info.get("best_params", {}))
-
-    st.markdown("#### Dátová základňa")
-    st.write(
-        f"- Tréningové sezóny: {', '.join(metadata['train_seasons'])}\n"
-        f"- Validačná sezóna: {metadata['valid_season']}\n"
-        f"- Testovacia sezóna: {metadata['test_season']}\n"
-        f"- Počet zápasov: {metadata['n_train'] + metadata['n_valid'] + metadata['n_test']}\n"
-        f"- Počet atribútov: {len(FEATURE_COLUMNS)}\n"
-        f"- Knižnica scikit-learn: {metadata['sklearn_version']}"
-    )
+    return {"elo": elo_p, "glicko": g1_p, "glicko2": g2_p}
 
 
 def main() -> None:
-    features, matches, states, metadata = load_data()
+    ratings, history, matches, metadata = load_data()
 
     st.title("⚽ Predikcia výsledkov futbalových zápasov")
     st.caption(
         "Stredoškolská odborná činnosť · odbor 11 – Informatika · "
-        "historické dáta Premier League (football-data.co.uk)"
+        "porovnanie ratingových systémov Elo, Glicko a Glicko-2"
     )
 
-    seasons = sorted(states["season"].unique(), reverse=True)
-    season = CURRENT_SEASON if CURRENT_SEASON in seasons else seasons[0]
-    model_keys = list(metadata["models"].keys())
-    best_key = metadata.get("best_model", {}).get("key", model_keys[0])
+    available_seasons = sorted(ratings["season"].unique(), reverse=True)
+    season = CURRENT_SEASON if CURRENT_SEASON in available_seasons else available_seasons[0]
+
+    season_ratings = ratings[ratings["season"] == season].copy()
+    teams = sorted(season_ratings["team"].unique())
 
     with st.sidebar:
         st.header("Nastavenia predikcie")
@@ -375,36 +170,28 @@ def main() -> None:
         if season != CURRENT_SEASON:
             st.warning(
                 f"Dáta pre sezónu {CURRENT_SEASON} zatiaľ nie sú stiahnuté. "
-                "Klikni na tlačidlo nižšie."
+                "Klikni na tlačidlo nižšie (aktuálne sú zobrazené dáta zo sezóny "
+                f"{season})."
             )
 
-        teams = sorted(states[states["season"] == season]["team"].unique())
         default_home = "Arsenal" if "Arsenal" in teams else teams[0]
         home = st.selectbox("Domáci tím", teams, index=teams.index(default_home))
 
-        away_options = [team for team in teams if team != home]
+        away_options = [t for t in teams if t != home]
         default_away = "Chelsea" if "Chelsea" in away_options else away_options[0]
-        away = st.selectbox(
-            "Hosťujúci tím",
-            away_options,
-            index=away_options.index(default_away),
+        away = st.selectbox("Hosťujúci tím", away_options, index=away_options.index(default_away))
+
+        system_keys = list(SYSTEM_NAMES.keys())
+        selected_system = st.selectbox(
+            "Ratingový systém",
+            system_keys,
+            index=0,
+            format_func=lambda k: SYSTEM_NAMES[k],
         )
 
-        selected_model = st.selectbox(
-            "Model",
-            model_keys,
-            index=model_keys.index(best_key),
-            format_func=lambda key: metadata["models"][key]["name_sk"],
-        )
-        st.caption(
-            f"Predvolený model je vybraný podľa log loss na sezóne "
-            f"{metadata['valid_season']}."
-        )
         st.divider()
         st.subheader("🔄 Živá aktualizácia")
-        st.caption(
-            "Stiahne najnovšie odohraté zápasy z internetu a prepočíta formu tímov."
-        )
+        st.caption("Stiahne najnovšie výsledky z internetu a prepočíta ratingy tímov.")
         if st.button(f"Stiahnuť výsledky ({CURRENT_SEASON})", use_container_width=True):
             with st.spinner(f"Sťahujem a prepočítavam sezónu {CURRENT_SEASON}..."):
                 res = update_live_season_pipeline(CURRENT_SEASON)
@@ -415,58 +202,133 @@ def main() -> None:
                 else:
                     st.error(res["message"])
 
+    home_row = season_ratings[season_ratings["team"] == home].iloc[0]
+    away_row = season_ratings[season_ratings["team"] == away].iloc[0]
+
+    all_preds = compute_all_predictions(home_row, away_row)
+    probs = all_preds[selected_system]
+
+    tab_pred, tab_rank, tab_comp = st.tabs(
+        ["Predikcia zápasu", "Rebríček sily tímov", "Vývoj sily a porovnanie modelov"]
+    )
+
+    with tab_pred:
+        st.subheader(f"{home} – {away}")
         st.caption(
-            "Dáta: football-data.co.uk · "
-            f"testovacia sezóna {metadata['test_season']}"
+            f"Predikcia na základe aktuálnych ratingov zo sezóny {season}: "
+            f"**{home}** ({int(home_row['matches_played'])} zápasov k {home_row['as_of_date']:%d. %m. %Y}) vs. "
+            f"**{away}** ({int(away_row['matches_played'])} zápasov k {away_row['as_of_date']:%d. %m. %Y})."
         )
 
-    home_state = team_state(states, season, home, "home")
-    away_state = team_state(states, season, away, "away")
+        cols = st.columns(3)
+        for col, label, p in zip(cols, OUTCOME_LABELS, probs):
+            col.metric(label, f"{p:.1%}")
 
-    season_end = features[features["season"] == season]["date"].max()
-    h2h_points, h2h_goal_diff, h2h_matches, h2h_frame = h2h_history(
-        features, home, away, season_end
-    )
+        st.altair_chart(probability_chart(probs), use_container_width=True)
 
-    features_row = build_feature_row(
-        home_state,
-        away_state,
-        h2h_points,
-        h2h_goal_diff,
-        h2h_matches,
-    )
-
-    model_path = MODELS_DIR / f"{selected_model}.pkl"
-    if not model_path.exists():
-        st.error(
-            f"Chýba súbor modelu {model_path.name}. Spusti `python -m src.train`."
+        best_idx = max(range(3), key=lambda i: probs[i])
+        st.success(
+            f"Systém **{SYSTEM_NAMES[selected_system].split(' ')[0]}** tipuje "
+            f"**{OUTCOME_LABELS[best_idx].lower()}** s pravdepodobnosťou **{probs[best_idx]:.1%}**."
         )
-        st.stop()
 
-    model = load_model(str(model_path))
-    probabilities = model.predict_proba(features_row)[0]
+        st.divider()
+        st.subheader("Porovnanie oboch tímov")
+        left, right = st.columns(2)
+        for col, team_name, row in ((left, home, home_row), (right, away, away_row)):
+            col.markdown(f"### {team_name}")
+            results = recent_results(matches, season, team_name)
+            col.markdown(form_badges(results), unsafe_allow_html=True)
+            col.write(
+                f"- **Elo rating:** {row['elo_rating']:.1f}\n"
+                f"- **Glicko rating:** {row['glicko_rating']:.1f} (± {row['glicko_rd']:.1f} RD)\n"
+                f"- **Glicko-2 rating:** {row['glicko2_rating']:.1f} (± {row['glicko2_rd']:.1f} RD, "
+                f"volatilita {row['glicko2_vol']:.4f})"
+            )
 
-    prediction_tab, comparison_tab, model_tab = st.tabs(
-        ["Predikcia", "Porovnanie tímov", "O modeli"]
-    )
-    with prediction_tab:
-        render_prediction_tab(
-            probabilities, home, away, home_state, away_state
+        st.markdown("#### Čo tipujú jednotlivé systémy pre tento zápas?")
+        sys_rows = []
+        for k, p_tuple in all_preds.items():
+            sys_rows.append(
+                {
+                    "Systém": SYSTEM_NAMES[k].split(" ")[0],
+                    "Výhra domácich": f"{p_tuple[0]:.1%}",
+                    "Remíza": f"{p_tuple[1]:.1%}",
+                    "Výhra hostí": f"{p_tuple[2]:.1%}",
+                }
+            )
+        st.dataframe(pd.DataFrame(sys_rows), hide_index=True, use_container_width=True)
+
+    with tab_rank:
+        st.subheader(f"Rebríček sily tímov Premier League ({season})")
+        st.caption("Tímy zoradené podľa najnovšieho Glicko-2 ratingu.")
+        ranked = season_ratings.sort_values("glicko2_rating", ascending=False).reset_index(drop=True)
+        ranked.index = ranked.index + 1
+        ranked = ranked.reset_index().rename(
+            columns={
+                "index": "Poradie",
+                "team": "Tím",
+                "matches_played": "Zápasy",
+                "glicko2_rating": "Glicko-2",
+                "glicko2_rd": "Neistota (RD)",
+                "glicko2_vol": "Volatilita (σ)",
+                "glicko_rating": "Glicko",
+                "elo_rating": "Elo",
+            }
         )
-    with comparison_tab:
-        render_comparison_tab(
-            matches,
-            home,
-            away,
-            home_state,
-            away_state,
-            h2h_points,
-            h2h_goal_diff,
-            h2h_matches,
-            h2h_frame,
+        st.dataframe(
+            ranked[["Poradie", "Tím", "Zápasy", "Glicko-2", "Neistota (RD)", "Volatilita (σ)", "Glicko", "Elo"]],
+            hide_index=True,
+            use_container_width=True,
         )
-    with model_tab:
-        render_model_tab(metadata, selected_model)
+
+    with tab_comp:
+        st.subheader(f"Vývoj sily vybraných tímov počas sezóny {season}")
+        sub_hist = history[history["season"] == season]
+        plot_rows = []
+        for team_name in (home, away):
+            h_df = sub_hist[sub_hist["home_team"] == team_name][["date", "g2_H"]].rename(
+                columns={"g2_H": "Rating"}
+            )
+            a_df = sub_hist[sub_hist["away_team"] == team_name][["date", "g2_A"]].rename(
+                columns={"g2_A": "Rating"}
+            )
+            t_df = pd.concat([h_df, a_df]).sort_values("date")
+            t_df["Tím"] = team_name
+            plot_rows.append(t_df)
+
+        if plot_rows:
+            chart_df = pd.concat(plot_rows)
+            line_chart = (
+                alt.Chart(chart_df)
+                .mark_line(point=True)
+                .encode(
+                    x=alt.X("date:T", title="Dátum"),
+                    y=alt.Y("Rating:Q", title="Glicko-2 rating", scale=alt.Scale(zero=False)),
+                    color="Tím:N",
+                    tooltip=["Tím:N", alt.Tooltip("date:T", format="%d. %m. %Y"), alt.Tooltip("Rating:Q", format=".1f")],
+                )
+                .properties(height=340)
+            )
+            st.altair_chart(line_chart, use_container_width=True)
+
+        st.divider()
+        st.subheader(f"Presnosť algoritmov na testovacej sezóne {metadata['test_season']}")
+        comp_df = pd.DataFrame(metadata["comparison"]).rename(
+            columns={
+                "model": "Model",
+                "typ": "Typ",
+                "accuracy": "Presnosť (Accuracy)",
+                "f1_macro": "F1 (macro)",
+                "log_loss": "Log loss",
+                "brier": "Brier score",
+            }
+        )
+        comp_df["Presnosť (Accuracy)"] = comp_df["Presnosť (Accuracy)"].map(lambda v: f"{v:.1%}")
+        st.dataframe(comp_df, hide_index=True, use_container_width=True)
+        st.caption(
+            "Poznámka: Log loss a Brier score hodnotia kvalitu odhadnutých pravdepodobností (menšie číslo je lepšie)."
+        )
 
 
 main()

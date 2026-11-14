@@ -5,8 +5,6 @@ from __future__ import annotations
 import io
 import urllib.error
 import urllib.request
-from datetime import datetime
-from pathlib import Path
 
 import pandas as pd
 
@@ -15,15 +13,13 @@ from src.config import (
     ALL_SEASONS,
     BASE_URL,
     CURRENT_SEASON,
-    FEATURES_CSV,
     MATCHES_CSV,
     RAW_DIR,
     REQUEST_TIMEOUT_SECONDS,
-    TEAM_STATES_CSV,
     USER_AGENT,
     ensure_directories,
 )
-from src.features import build_features, build_team_states
+from src.evaluate_ratings import CURRENT_RATINGS_CSV, RATING_HISTORY_CSV, compute_all_ratings
 from src.prepare import OUTPUT_COLUMNS, clean_matches, load_season
 
 
@@ -45,15 +41,8 @@ def fetch_season_data(season: str = CURRENT_SEASON) -> bytes:
     return content
 
 
-def update_live_season_pipeline(season: str = CURRENT_SEASON) -> dict[str, any]:
-    """Stiahne najnovšie výsledky, očistí ich a prepočíta priebežné atribúty a stav tímov.
-
-    Vracia slovník s výsledkom:
-        success: bool
-        message: str
-        matches_count: int
-        last_date: str
-    """
+def update_live_season_pipeline(season: str = CURRENT_SEASON) -> dict[str, object]:
+    """Stiahne najnovšie výsledky, očistí ich a prepočíta Elo, Glicko a Glicko-2."""
     ensure_directories()
     code = ALL_SEASON_CODES.get(season)
     if not code:
@@ -67,7 +56,6 @@ def update_live_season_pipeline(season: str = CURRENT_SEASON) -> dict[str, any]:
     # 1. Stiahnutie z internetu
     try:
         content = fetch_season_data(season)
-        # Overenie platnosti CSV
         test_df = pd.read_csv(io.BytesIO(content), encoding="latin-1")
         if not {"HomeTeam", "AwayTeam", "FTR"}.issubset(test_df.columns):
             return {
@@ -86,7 +74,7 @@ def update_live_season_pipeline(season: str = CURRENT_SEASON) -> dict[str, any]:
             "message": f"Nepodarilo sa stiahnuť dáta: {e}",
         }
 
-    # 2. Spracovanie a zjednotenie všetkých sezón
+    # 2. Spracovanie a prepočet ratingov
     try:
         frames: list[pd.DataFrame] = []
         for s in ALL_SEASONS:
@@ -101,25 +89,22 @@ def update_live_season_pipeline(season: str = CURRENT_SEASON) -> dict[str, any]:
         merged = merged[OUTPUT_COLUMNS]
         merged.to_csv(MATCHES_CSV, index=False, encoding="utf-8")
 
-        # 3. Prepočet atribútov a stavu tímov
-        features = build_features(merged)
-        features.to_csv(FEATURES_CSV, index=False, encoding="utf-8")
+        history, current = compute_all_ratings(merged)
+        history.to_csv(RATING_HISTORY_CSV, index=False, encoding="utf-8")
+        current.to_csv(CURRENT_RATINGS_CSV, index=False, encoding="utf-8")
 
-        states = build_team_states(features)
-        states.to_csv(TEAM_STATES_CSV, index=False, encoding="utf-8")
-
-        # Štatistiky k aktuálnej sezóne
         cur_matches = merged[merged["season"] == season]
         matches_count = len(cur_matches)
-        if matches_count > 0:
-            last_date = cur_matches["date"].max().strftime("%d. %m. %Y")
-        else:
-            last_date = "neznámy"
+        last_date = (
+            cur_matches["date"].max().strftime("%d. %m. %Y")
+            if matches_count > 0
+            else "neznámy"
+        )
 
         return {
             "success": True,
             "message": (
-                f"Dáta boli úspešne stiahnuté a aktualizované! "
+                f"Dáta boli úspešne stiahnuté a prepočítané! "
                 f"V sezóne {season} je k {last_date} odohratých {matches_count} zápasov."
             ),
             "matches_count": matches_count,
