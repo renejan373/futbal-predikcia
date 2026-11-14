@@ -22,6 +22,7 @@ from src.config import (
     TEAM_STATES_CSV,
 )
 from src.features import BASE_FEATURES, FEATURE_COLUMNS
+from src.updater import update_live_season_pipeline
 
 st.set_page_config(
     page_title="Predikcia futbalových zápasov",
@@ -204,10 +205,13 @@ def render_prediction_tab(
     best_index = int(probabilities.argmax())
     best_probability = float(probabilities[best_index])
 
+    h_matches = int(home_state.get("matches_played", 0))
+    a_matches = int(away_state.get("matches_played", 0))
     st.subheader(f"{home} – {away}")
     st.caption(
-        "Predikcia vychádza zo stavu tímov pred ich posledným odohraným zápasom "
-        f"v sezóne ({home_state['as_of_date']:%d. %m. %Y} / {away_state['as_of_date']:%d. %m. %Y})."
+        f"Predikcia vychádza z odohratých zápasov v sezóne: "
+        f"**{home}** ({h_matches} zápasov k {home_state['as_of_date']:%d. %m. %Y}) vs. "
+        f"**{away}** ({a_matches} zápasov k {away_state['as_of_date']:%d. %m. %Y})."
     )
 
     columns = st.columns(3)
@@ -390,6 +394,20 @@ def main() -> None:
             f"{metadata['valid_season']}."
         )
         st.divider()
+        st.subheader("🔄 Živá aktualizácia")
+        st.caption(
+            "Stiahne najnovšie odohraté zápasy z internetu a prepočíta formu tímov."
+        )
+        if st.button("Stiahnuť najnovšie výsledky", use_container_width=True):
+            with st.spinner(f"Sťahujem a prepočítavam sezónu {season}..."):
+                res = update_live_season_pipeline(season)
+                if res["success"]:
+                    st.success(res["message"])
+                    st.cache_data.clear()
+                    st.rerun()
+                else:
+                    st.error(res["message"])
+
         st.caption(
             "Dáta: football-data.co.uk · "
             f"testovacia sezóna {metadata['test_season']}"
