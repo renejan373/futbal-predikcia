@@ -250,18 +250,7 @@ def build_rating_comparison_chart(
     y_scale = alt.Scale(domain=y_domain, zero=False, nice=False)
 
     is_single = len(systems) == 1
-    right_cols = 1 if len(selected_teams) <= 22 else (2 if len(selected_teams) <= 40 else 3)
-    legend_cfg = (
-        alt.Legend(
-            orient="right",
-            columns=right_cols,
-            symbolLimit=0,
-            title="Tímy",
-            labelLimit=130,
-        )
-        if is_single
-        else alt.Legend(orient="bottom", columns=6, symbolLimit=0, title=None)
-    )
+    legend_cfg = alt.Legend(orient="bottom", columns=3, symbolLimit=0, title=None)
 
     sel = alt.selection_point(fields=["Tím"], bind="legend", on="click")
 
@@ -298,14 +287,14 @@ def build_rating_comparison_chart(
     if is_single:
         return (
             alt.layer(baseline, lines)
-            .properties(height=560, title=systems[0][0])
+            .properties(height=420, title=systems[0][0])
         )
 
     layered = (
         alt.layer(baseline, lines)
-        .properties(width=310, height=430)
+        .properties(height=240)
         .facet(
-            column=alt.Column(
+            row=alt.Row(
                 "Systém:N",
                 sort=["Elo", "Glicko", "Glicko-2"],
                 title=None,
