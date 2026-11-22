@@ -239,7 +239,7 @@ def build_rating_comparison_chart(
             "Sezóna:N",
             sort=seasons_in_range,
             title="Sezóna",
-            axis=alt.Axis(labelAngle=-35),
+            axis=alt.Axis(labelAngle=-35, labelOverlap="greedy"),
         )
         tooltip_x = alt.Tooltip("Sezóna:N", title="Sezóna")
 
@@ -251,59 +251,53 @@ def build_rating_comparison_chart(
 
     is_single = len(systems) == 1
     legend_cfg = alt.Legend(orient="bottom", columns=3, symbolLimit=0, title=None)
+    chart_height = 380 if is_single else 250
 
-    sel = alt.selection_point(fields=["Tím"], bind="legend", on="click")
+    charts: list[alt.Chart] = []
+    for sys_label, _ in systems:
+        sub_df = df_long[df_long["Systém"] == sys_label].copy()
+        sel = alt.selection_point(fields=["Tím"], bind="legend", on="click")
 
-    lines = (
-        alt.Chart(df_long)
-        .mark_line(point=len(seasons_in_range) == 1 and len(selected_teams) <= 10)
-        .encode(
-            x=x_enc,
-            y=alt.Y(
-                "Rating:Q",
-                title="Rating",
-                scale=y_scale,
-                axis=alt.Axis(tickCount=10),
-            ),
-            color=alt.Color("Tím:N", legend=legend_cfg),
-            opacity=alt.condition(sel, alt.value(0.95), alt.value(0.18)),
-            strokeWidth=alt.condition(sel, alt.value(3.0), alt.value(1.5)),
-            tooltip=[
-                alt.Tooltip("Tím:N"),
-                alt.Tooltip("Systém:N"),
-                tooltip_x,
-                alt.Tooltip("Rating:Q", format=".1f"),
-            ],
-        )
-        .add_params(sel)
-    )
-
-    baseline = (
-        alt.Chart(df_long)
-        .mark_rule(color="#888888", strokeDash=[4, 4], strokeWidth=1.0)
-        .encode(y=alt.Y(datum=1500.0, scale=y_scale))
-    )
-
-    if is_single:
-        return (
-            alt.layer(baseline, lines)
-            .properties(height=420, title=systems[0][0])
+        lines = (
+            alt.Chart(sub_df)
+            .mark_line(point=len(seasons_in_range) == 1 and len(selected_teams) <= 10)
+            .encode(
+                x=x_enc,
+                y=alt.Y(
+                    "Rating:Q",
+                    title="Rating",
+                    scale=y_scale,
+                    axis=alt.Axis(tickCount=8),
+                ),
+                color=alt.Color("Tím:N", legend=legend_cfg),
+                opacity=alt.condition(sel, alt.value(0.95), alt.value(0.18)),
+                strokeWidth=alt.condition(sel, alt.value(3.0), alt.value(1.5)),
+                tooltip=[
+                    alt.Tooltip("Tím:N"),
+                    alt.Tooltip("Systém:N"),
+                    tooltip_x,
+                    alt.Tooltip("Rating:Q", format=".1f"),
+                ],
+            )
+            .add_params(sel)
         )
 
-    layered = (
-        alt.layer(baseline, lines)
-        .properties(height=240)
-        .facet(
-            row=alt.Row(
-                "Systém:N",
-                sort=["Elo", "Glicko", "Glicko-2"],
-                title=None,
-                header=alt.Header(labelFontSize=14, labelFontWeight="bold"),
+        baseline = (
+            alt.Chart(sub_df)
+            .mark_rule(color="#888888", strokeDash=[4, 4], strokeWidth=1.0)
+            .encode(y=alt.Y(datum=1500.0, scale=y_scale))
+        )
+
+        charts.append(
+            alt.layer(baseline, lines).properties(
+                width="container",
+                height=chart_height,
+                title=sys_label,
+                autosize=alt.AutoSizeParams(type="fit", contains="padding"),
             )
         )
-        .resolve_scale(y="shared")
-    )
-    return layered
+
+    return charts
 
 
 def compute_all_predictions(home_row: pd.Series, away_row: pd.Series) -> dict[str, tuple[float, float, float]]:
@@ -612,10 +606,11 @@ def main() -> None:
                 f"Pri vypadnutých tímoch je čiara v sezóne mimo {active_league} prerušená."
             )
             st.caption(mode_note)
-            comp_chart = build_rating_comparison_chart(
+            comp_charts = build_rating_comparison_chart(
                 ratings, history, selected_teams, seasons_in_range, selected_system=chart_system
             )
-            st.altair_chart(comp_chart, use_container_width=True)
+            for ch in comp_charts:
+                st.altair_chart(ch, use_container_width=True)
 
         st.divider()
         st.subheader(f"Presnosť na sezóne {metadata['test_season']}")
