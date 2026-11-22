@@ -235,11 +235,20 @@ def build_rating_comparison_chart(
                 )
 
         df_long = pd.DataFrame(rows)
+        x_ticks = (
+            [
+                seasons_in_range[0],
+                seasons_in_range[len(seasons_in_range) // 2],
+                seasons_in_range[-1],
+            ]
+            if len(seasons_in_range) > 8
+            else seasons_in_range
+        )
         x_enc = alt.X(
             "Sezóna:N",
             sort=seasons_in_range,
-            title="Sezóna",
-            axis=alt.Axis(labelAngle=-35, labelOverlap="greedy"),
+            title=None,
+            axis=alt.Axis(values=x_ticks, labelAngle=0, labelPadding=6),
         )
         tooltip_x = alt.Tooltip("Sezóna:N", title="Sezóna")
 
@@ -250,8 +259,8 @@ def build_rating_comparison_chart(
     y_scale = alt.Scale(domain=y_domain, zero=False, nice=False)
 
     is_single = len(systems) == 1
-    legend_cfg = alt.Legend(orient="bottom", columns=3, symbolLimit=0, title=None)
-    chart_height = 380 if is_single else 250
+    legend_cfg = alt.Legend(orient="bottom", columns=2, symbolLimit=0, title=None, labelLimit=130)
+    chart_height = 360 if is_single else 300
 
     charts: list[alt.Chart] = []
     for sys_label, _ in systems:
@@ -260,18 +269,18 @@ def build_rating_comparison_chart(
 
         lines = (
             alt.Chart(sub_df)
-            .mark_line(point=len(seasons_in_range) == 1 and len(selected_teams) <= 10)
+            .mark_line(point=len(seasons_in_range) == 1 and len(selected_teams) <= 8)
             .encode(
                 x=x_enc,
                 y=alt.Y(
                     "Rating:Q",
-                    title="Rating",
+                    title=None,
                     scale=y_scale,
-                    axis=alt.Axis(tickCount=8),
+                    axis=alt.Axis(tickCount=6, labelPadding=6),
                 ),
                 color=alt.Color("Tím:N", legend=legend_cfg),
                 opacity=alt.condition(sel, alt.value(0.95), alt.value(0.18)),
-                strokeWidth=alt.condition(sel, alt.value(3.0), alt.value(1.5)),
+                strokeWidth=alt.condition(sel, alt.value(2.8), alt.value(1.5)),
                 tooltip=[
                     alt.Tooltip("Tím:N"),
                     alt.Tooltip("Systém:N"),
@@ -293,7 +302,7 @@ def build_rating_comparison_chart(
                 width="container",
                 height=chart_height,
                 title=sys_label,
-                autosize=alt.AutoSizeParams(type="fit", contains="padding"),
+                padding={"left": 8, "right": 8, "top": 8, "bottom": 4},
             )
         )
 
