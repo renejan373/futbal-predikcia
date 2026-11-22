@@ -54,8 +54,23 @@ def download_season(season: str, force: bool = False) -> Path:
     if len(content) < 1_000:
         raise RuntimeError(f"Prilis mala odpoved ({len(content)} B) pre {season}")
 
-    # latin-1 je bezpecne cistit len na validaciu; subor ukladame tak, ako prisiel.
-    frame = pd.read_csv(io.BytesIO(content), encoding="latin-1")
+    # latin-1 je bezpecne cistit len na validaciu; ak ma CSV viac stlpcov na konci riadku (napr. 2003/04, 2004/05),
+    # orezeme prebytocne koncove stlpce na dlzku hlavicky, aby sa nestratil ziadny zapas.
+    try:
+        frame = pd.read_csv(io.BytesIO(content), encoding="latin-1")
+    except pd.errors.ParserError:
+        import csv
+
+        text = content.decode("latin-1")
+        rows = list(csv.reader(io.StringIO(text)))
+        if not rows:
+            raise
+        n_cols = len(rows[0])
+        cleaned_rows = [rows[0]] + [r[:n_cols] for r in rows[1:] if any(cell.strip() for cell in r)]
+        buf = io.StringIO()
+        csv.writer(buf, lineterminator="\n").writerows(cleaned_rows)
+        content = buf.getvalue().encode("latin-1")
+        frame = pd.read_csv(io.BytesIO(content), encoding="latin-1")
     expected = {"HomeTeam", "AwayTeam", "FTR"}
     if not expected.issubset(frame.columns):
         raise RuntimeError(
