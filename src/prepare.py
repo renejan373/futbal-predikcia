@@ -22,6 +22,7 @@ from src.config import (
     ALL_SEASON_CODES,
     ALL_SEASONS,
     INTERIM_DIR,
+    LEAGUES,
     MATCHES_CSV,
     NUMERIC_COLUMNS,
     RAW_COLUMNS,
@@ -32,6 +33,7 @@ from src.config import (
     TARGET_CLASSES,
     TEAM_ALIASES,
     ensure_directories,
+    get_league_paths,
 )
 
 # Stlpce, ktore musia po vycisteni existovat a nesmu byt prazdne.
@@ -74,12 +76,13 @@ OUTPUT_COLUMNS = [
 ]
 
 
-def load_season(season: str) -> pd.DataFrame:
+def load_season(season: str, league: str = "Premier League") -> pd.DataFrame:
     """Nacita jeden raw CSV a vrati ho s jednotnymi nazvami stlpcov."""
-    path = RAW_DIR / f"E0_{ALL_SEASON_CODES[season]}.csv"
+    div = LEAGUES[league]["div"]
+    path = RAW_DIR / f"{div}_{ALL_SEASON_CODES[season]}.csv"
     if not path.exists():
         raise FileNotFoundError(
-            f"Chyba {path}. Najprv spusti: python -m src.download"
+            f"Chyba {path}. Najprv spusti: python -m src.download --league \"{league}\""
         )
 
     raw = pd.read_csv(path, encoding="latin-1")
@@ -288,20 +291,30 @@ def build_quality_report(
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Vycisti a zluc CSV data Premier League")
+    parser = argparse.ArgumentParser(description="Vycisti a zluc CSV data ligy")
     parser.add_argument("--strict", action="store_true", help="varovania ber ako chybu")
+    parser.add_argument(
+        "--league",
+        choices=list(LEAGUES),
+        default="Premier League",
+        help="liga na spracovanie",
+    )
     args = parser.parse_args()
 
     ensure_directories()
+    league = args.league
+    div = LEAGUES[league]["div"]
+    paths = get_league_paths(league)
+    matches_out = paths["matches_csv"]
 
     frames: list[pd.DataFrame] = []
     for season in ALL_SEASONS:
-        path = RAW_DIR / f"E0_{ALL_SEASON_CODES[season]}.csv"
+        path = RAW_DIR / f"{div}_{ALL_SEASON_CODES[season]}.csv"
         if not path.exists():
-            print(f"[skip] {season}: chyba {path.name} (spusti download)")
+            print(f"[skip] {league} {season}: chyba {path.name} (spusti download)")
             continue
-        frames.append(load_season(season))
-        print(f"[load] {season}: {len(frames[-1])} riadkov")
+        frames.append(load_season(season, league=league))
+        print(f"[load] {league} {season}: {len(frames[-1])} riadkov")
 
     if not frames:
         print("Nemam ziadne data. Spusti najprv: python -m src.download", file=sys.stderr)
@@ -311,14 +324,15 @@ def main() -> int:
     frame = frame[OUTPUT_COLUMNS]
     warnings = validate(frame)
 
-    MATCHES_CSV.parent.mkdir(parents=True, exist_ok=True)
-    frame.to_csv(MATCHES_CSV, index=False, encoding="utf-8")
+    matches_out.parent.mkdir(parents=True, exist_ok=True)
+    frame.to_csv(matches_out, index=False, encoding="utf-8")
 
     report = build_quality_report(frame, stats, warnings)
-    report_path = TABLES_DIR / "01_data_quality.md"
+    suffix = "" if league == "Premier League" else f"_{LEAGUES[league]['slug']}"
+    report_path = TABLES_DIR / f"01_data_quality{suffix}.md"
     report_path.write_text(report, encoding="utf-8")
 
-    print(f"\n[ok] {len(frame)} zapasov -> {MATCHES_CSV}")
+    print(f"\n[ok] {len(frame)} zapasov -> {matches_out}")
     print(f"[ok] report -> {report_path}")
 
     if warnings:

@@ -1,0 +1,50 @@
+{
+  "league": "Premier League",
+  "test_season": "2025/26",
+  "total_matches": 12813,
+  "n_seasons": 34,
+  "first_season": "1993/94",
+  "last_season": "2026/27",
+  "comparison": [
+    {
+      "model": "Vždy výhra domácich",
+      "typ": "baseline",
+      "accuracy": 0.4263,
+      "f1_macro": 0.1993,
+      "log_loss": 3.9637,
+      "brier": 1.1439
+    },
+    {
+      "model": "Elo",
+      "typ": "rating",
+      "accuracy": 0.4947,
+      "f1_macro": 0.3583,
+      "log_loss": 1.0277,
+      "brier": 0.6168
+    },
+    {
+      "model": "Glicko",
+      "typ": "rating",
+      "accuracy": 0.4763,
+      "f1_macro": 0.3477,
+      "log_loss": 1.0273,
+      "brier": 0.6169
+    },
+    {
+      "model": "Glicko-2",
+      "typ": "rating",
+      "accuracy": 0.4842,
+      "f1_macro": 0.3585,
+      "log_loss": 1.0273,
+      "brier": 0.6172
+    },
+    {
+      "model": "Kurzy Bet365",
+      "typ": "trh",
+      "accuracy": 0.4895,
+      "f1_macro": 0.3652,
+      "log_loss": 1.0185,
+      "brier": 0.6115
+    }
+  ]
+}

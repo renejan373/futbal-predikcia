@@ -26,12 +26,14 @@ from sklearn.metrics import accuracy_score, brier_score_loss, confusion_matrix, 
 from src.config import (
     ELO_SEASON_REGRESSION,
     FIGURES_DIR,
+    LEAGUES,
     MATCHES_CSV,
     PROCESSED_DIR,
     TABLES_DIR,
     TARGET_CLASSES,
     TEST_SEASON,
     ensure_directories,
+    get_league_paths,
 )
 from src.ratings import (
     START_RATING,
@@ -410,22 +412,26 @@ def generate_first_season_chart(history: pd.DataFrame) -> Path:
     return out_path
 
 
-def run_pipeline() -> pd.DataFrame:
+def run_pipeline(league: str = "Premier League") -> pd.DataFrame:
     ensure_directories()
-    matches = pd.read_csv(MATCHES_CSV, parse_dates=["date"])
+    paths = get_league_paths(league)
+    matches = pd.read_csv(paths["matches_csv"], parse_dates=["date"])
     history, current = compute_all_ratings(matches)
 
-    history.to_csv(RATING_HISTORY_CSV, index=False, encoding="utf-8")
-    current.to_csv(CURRENT_RATINGS_CSV, index=False, encoding="utf-8")
+    history.to_csv(paths["rating_history_csv"], index=False, encoding="utf-8")
+    current.to_csv(paths["current_ratings_csv"], index=False, encoding="utf-8")
 
     comparison = evaluate_models(history, season=TEST_SEASON)
-    comparison.to_csv(TABLES_DIR / "rating_comparison.csv", index=False, encoding="utf-8")
+    suffix = "" if league == "Premier League" else f"_{LEAGUES[league]['slug']}"
+    comparison.to_csv(TABLES_DIR / f"rating_comparison{suffix}.csv", index=False, encoding="utf-8")
 
-    generate_charts(history, comparison)
+    if league == "Premier League":
+        generate_charts(history, comparison)
 
     # Uloženie metadát
     seasons_list = sorted(history["season"].unique())
     meta = {
+        "league": league,
         "test_season": TEST_SEASON,
         "total_matches": len(history),
         "n_seasons": len(seasons_list),
@@ -433,11 +439,11 @@ def run_pipeline() -> pd.DataFrame:
         "last_season": seasons_list[-1] if seasons_list else "",
         "comparison": comparison.to_dict(orient="records"),
     }
-    RATING_METADATA_JSON.write_text(json.dumps(meta, indent=2, ensure_ascii=False), encoding="utf-8")
+    paths["rating_metadata_json"].write_text(json.dumps(meta, indent=2, ensure_ascii=False), encoding="utf-8")
 
     # Markdown report
     md_lines = [
-        f"# Vyhodnotenie ratingových systémov (testovacia sezóna {TEST_SEASON})",
+        f"# Vyhodnotenie ratingových systémov – {league} (testovacia sezóna {TEST_SEASON})",
         "",
         "| Model | Typ | Accuracy | F1 (macro) | Log loss | Brier |",
         "| :--- | :--- | ---: | ---: | ---: | ---: |",
@@ -446,12 +452,22 @@ def run_pipeline() -> pd.DataFrame:
         md_lines.append(
             f"| {r.model} | {r.typ} | {r.accuracy:.1%} | {r.f1_macro:.3f} | {r.log_loss:.3f} | {r.brier:.3f} |"
         )
-    (TABLES_DIR / "rating_results.md").write_text("\n".join(md_lines), encoding="utf-8")
+    (TABLES_DIR / f"rating_results{suffix}.md").write_text("\n".join(md_lines), encoding="utf-8")
 
+    print(f"[{league}]")
     print(comparison.to_string(index=False))
     return comparison
 
 
 if __name__ == "__main__":
-    import math  # noqa: F401
-    run_pipeline()
+    import argparse
+
+    parser = argparse.ArgumentParser(description="Prepočíta a vyhodnotí ratingy ligy")
+    parser.add_argument(
+        "--league",
+        choices=list(LEAGUES),
+        default="Premier League",
+        help="liga na vyhodnotenie",
+    )
+    args = parser.parse_args()
+    run_pipeline(league=args.league)

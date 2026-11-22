@@ -58,7 +58,33 @@ TRAIN_SEASONS: list[str] = SEASONS[:-2]
 VALID_SEASON: str = SEASONS[-2]
 TEST_SEASON: str = SEASONS[-1]
 
-BASE_URL = "https://www.football-data.co.uk/mmz4281/{code}/E0.csv"
+BASE_URL = "https://www.football-data.co.uk/mmz4281/{code}/{div}.csv"
+LEAGUES: dict[str, dict[str, str]] = {
+    "Premier League": {"div": "E0", "slug": "premier_league"},
+    "La Liga": {"div": "SP1", "slug": "la_liga"},
+}
+
+
+def get_league_paths(league: str = "Premier League") -> dict[str, Path]:
+    """Vráti cesty k dátam pre zvolenú ligu (Premier League alebo La Liga)."""
+    if league not in LEAGUES:
+        raise ValueError(f"Neznáma liga: {league}")
+    if league == "Premier League":
+        return {
+            "matches_csv": MATCHES_CSV,
+            "rating_history_csv": PROCESSED_DIR / "rating_history.csv",
+            "current_ratings_csv": PROCESSED_DIR / "current_ratings.csv",
+            "rating_metadata_json": PROCESSED_DIR / "rating_metadata.json",
+        }
+    slug = LEAGUES[league]["slug"]
+    return {
+        "matches_csv": INTERIM_DIR / f"matches_{slug}.csv",
+        "rating_history_csv": PROCESSED_DIR / f"rating_history_{slug}.csv",
+        "current_ratings_csv": PROCESSED_DIR / f"current_ratings_{slug}.csv",
+        "rating_metadata_json": PROCESSED_DIR / f"rating_metadata_{slug}.json",
+    }
+
+
 REQUEST_TIMEOUT_SECONDS = 90
 USER_AGENT = "Mozilla/5.0 (SOS-project; educational use)"
 EXPECTED_MATCHES_PER_SEASON = 380

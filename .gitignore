@@ -5,10 +5,7 @@ __pycache__/
 .idea/
 .vscode/
 
-# Vygenerované dáta a modely (reprodukuje ich run_all.ps1)
-data/raw/*.csv
-data/interim/*.csv
-data/processed/*.csv
+# Vygenerované modely a reporty (dáta v data/ ponechávame pre Streamlit Cloud)
 models/*.pkl
 models/metadata.json
 

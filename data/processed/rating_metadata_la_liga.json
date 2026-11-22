@@ -1,0 +1,50 @@
+{
+  "league": "La Liga",
+  "test_season": "2025/26",
+  "total_matches": 12823,
+  "n_seasons": 34,
+  "first_season": "1993/94",
+  "last_season": "2026/27",
+  "comparison": [
+    {
+      "model": "Vždy výhra domácich",
+      "typ": "baseline",
+      "accuracy": 0.4895,
+      "f1_macro": 0.2191,
+      "log_loss": 3.5276,
+      "brier": 1.018
+    },
+    {
+      "model": "Elo",
+      "typ": "rating",
+      "accuracy": 0.5289,
+      "f1_macro": 0.3664,
+      "log_loss": 0.9977,
+      "brier": 0.5931
+    },
+    {
+      "model": "Glicko",
+      "typ": "rating",
+      "accuracy": 0.5158,
+      "f1_macro": 0.3583,
+      "log_loss": 0.9975,
+      "brier": 0.5933
+    },
+    {
+      "model": "Glicko-2",
+      "typ": "rating",
+      "accuracy": 0.4974,
+      "f1_macro": 0.3495,
+      "log_loss": 0.9985,
+      "brier": 0.594
+    },
+    {
+      "model": "Kurzy Bet365",
+      "typ": "trh",
+      "accuracy": 0.55,
+      "f1_macro": 0.3876,
+      "log_loss": 0.9637,
+      "brier": 0.571
+    }
+  ]
+}

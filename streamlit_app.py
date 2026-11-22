@@ -14,12 +14,24 @@ import streamlit as st
 
 alt.data_transformers.disable_max_rows()
 
-from src.config import CURRENT_SEASON, MATCHES_CSV, TABLES_DIR
-from src.evaluate_ratings import (
-    CURRENT_RATINGS_CSV,
-    RATING_HISTORY_CSV,
-    RATING_METADATA_JSON,
-)
+import importlib
+
+import src.config as _config_mod
+import src.prepare as _prepare_mod
+import src.evaluate_ratings as _eval_mod
+import src.injuries as _injuries_mod
+import src.updater as _updater_mod
+
+for _mod in (_config_mod, _prepare_mod, _eval_mod, _injuries_mod, _updater_mod):
+    importlib.reload(_mod)
+
+CURRENT_SEASON = _config_mod.CURRENT_SEASON
+LEAGUES = _config_mod.LEAGUES
+get_league_paths = _config_mod.get_league_paths
+CLUB_LOGOS = _injuries_mod.CLUB_LOGOS
+load_injuries_by_league = _injuries_mod.load_injuries_by_league
+update_live_season_pipeline = _updater_mod.update_live_season_pipeline
+
 from src.ratings import (
     EloSystem,
     Glicko2System,
@@ -27,7 +39,6 @@ from src.ratings import (
     GlickoSystem,
     GlickoTeam,
 )
-from src.updater import update_live_season_pipeline
 
 st.set_page_config(
     page_title="Predikcia futbalových zápasov",
@@ -51,20 +62,21 @@ SYSTEM_NAMES = {
 
 
 @st.cache_data(ttl=600)
-def load_data() -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, dict]:
-    if not CURRENT_RATINGS_CSV.exists():
+def load_data(league: str) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, dict]:
+    paths = get_league_paths(league)
+    if not paths["current_ratings_csv"].exists():
         st.error(
-            "Chýbajú vypočítané ratingy. Spusti v termináli:\n\n"
-            "```\npython -m src.evaluate_ratings\n```"
+            f"Chýbajú vypočítané ratingy pre ligu {league}. Spusti v termináli:\n\n"
+            f"```\npython -m src.evaluate_ratings --league \"{league}\"\n```"
         )
         st.stop()
-    ratings = pd.read_csv(CURRENT_RATINGS_CSV, parse_dates=["as_of_date"])
+    ratings = pd.read_csv(paths["current_ratings_csv"], parse_dates=["as_of_date"])
     ratings["season"] = ratings["season"].astype(str)
-    history = pd.read_csv(RATING_HISTORY_CSV, parse_dates=["date"])
+    history = pd.read_csv(paths["rating_history_csv"], parse_dates=["date"])
     history["season"] = history["season"].astype(str)
-    matches = pd.read_csv(MATCHES_CSV, parse_dates=["date"])
+    matches = pd.read_csv(paths["matches_csv"], parse_dates=["date"])
     matches["season"] = matches["season"].astype(str)
-    metadata = json.loads(RATING_METADATA_JSON.read_text(encoding="utf-8"))
+    metadata = json.loads(paths["rating_metadata_json"].read_text(encoding="utf-8"))
     return ratings, history, matches, metadata
 
 
@@ -331,13 +343,68 @@ def compute_all_predictions(home_row: pd.Series, away_row: pd.Series) -> dict[st
 
 
 def main() -> None:
-    ratings, history, matches, metadata = load_data()
+    if "startup_synced" not in st.session_state:
+        st.session_state["startup_synced"] = True
+        with st.spinner("Aktualizujem najnovšie štatistiky a ratingy..."):
+            any_ok = False
+            for lg in LEAGUES:
+                res = update_live_season_pipeline(CURRENT_SEASON, league=lg)
+                if res["success"]:
+                    any_ok = True
+            if any_ok:
+                st.cache_data.clear()
 
-    st.title("⚽ Predikcia výsledkov futbalových zápasov")
+    sections = [
+        "Predikcia zápasu",
+        "Rebríček sily tímov",
+        "Vývoj sily a porovnanie modelov",
+        "Zranenia hráčov",
+    ]
+    section_titles = {
+        "Predikcia zápasu": "⚽ Predikcia výsledkov futbalových zápasov",
+        "Rebríček sily tímov": "📊 Rebríček sily tímov",
+        "Vývoj sily a porovnanie modelov": "📈 Vývoj sily a porovnanie modelov",
+        "Zranenia hráčov": "🏥 Zranenia hráčov",
+    }
+    current_section = st.session_state.get("active_section_nav") or sections[0]
+    if current_section not in sections:
+        current_section = sections[0]
+
+    st.title(section_titles[current_section])
     st.caption(
         "Stredoškolská odborná činnosť · odbor 11 – Informatika · "
         "porovnanie ratingových systémov Elo, Glicko a Glicko-2"
     )
+
+    active_section = (
+        st.segmented_control(
+            "Sekcia",
+            options=sections,
+            default=sections[0],
+            label_visibility="collapsed",
+            key="active_section_nav",
+        )
+        or sections[0]
+    )
+
+    league_names = list(LEAGUES)
+    if active_section != "Zranenia hráčov":
+        active_league = (
+            st.segmented_control(
+                "Liga",
+                options=league_names,
+                default=league_names[0],
+                label_visibility="collapsed",
+                key="active_league_nav",
+            )
+            or league_names[0]
+        )
+    else:
+        active_league = st.session_state.get("active_league_nav") or league_names[0]
+        if active_league not in league_names:
+            active_league = league_names[0]
+
+    ratings, history, matches, metadata = load_data(active_league)
 
     available_seasons = sorted(ratings["season"].unique(), reverse=True)
     season = CURRENT_SEASON if CURRENT_SEASON in available_seasons else available_seasons[0]
@@ -345,43 +412,50 @@ def main() -> None:
     season_ratings = ratings[ratings["season"] == season].copy()
     teams = sorted(season_ratings["team"].unique())
 
-    with st.sidebar:
-        st.header("Nastavenia predikcie")
-        st.markdown(f"**Aktuálna sezóna:** {season}")
-        if season != CURRENT_SEASON:
-            st.warning(
-                f"Dáta pre sezónu {CURRENT_SEASON} zatiaľ nie sú stiahnuté. "
-                "Klikni na tlačidlo nižšie (aktuálne sú zobrazené dáta zo sezóny "
-                f"{season})."
+    preferred_home = "Real Madrid" if active_league == "La Liga" else "Arsenal"
+    preferred_away = "Barcelona" if active_league == "La Liga" else "Chelsea"
+    default_home = preferred_home if preferred_home in teams else teams[0]
+    if "pred_home" not in st.session_state or st.session_state["pred_home"] not in teams:
+        st.session_state["pred_home"] = default_home
+
+    if active_section == "Predikcia zápasu":
+        with st.sidebar:
+            st.header("Nastavenia predikcie")
+            st.markdown(f"**Liga:** {active_league}  \n**Aktuálna sezóna:** {season}")
+            if season != CURRENT_SEASON:
+                st.warning(
+                    f"Dáta pre sezónu {CURRENT_SEASON} zatiaľ nie sú stiahnuté."
+                )
+
+            home = st.selectbox("Domáci tím", teams, key="pred_home")
+
+            away_options = [t for t in teams if t != home]
+            default_away = preferred_away if preferred_away in away_options else away_options[0]
+            if "pred_away" not in st.session_state or st.session_state["pred_away"] not in away_options:
+                st.session_state["pred_away"] = default_away
+            away = st.selectbox("Hosťujúci tím", away_options, key="pred_away")
+
+            system_keys = list(SYSTEM_NAMES.keys())
+            if "pred_system" not in st.session_state or st.session_state["pred_system"] not in system_keys:
+                st.session_state["pred_system"] = system_keys[0]
+            selected_system = st.selectbox(
+                "Ratingový systém",
+                system_keys,
+                key="pred_system",
+                format_func=lambda k: SYSTEM_NAMES[k],
             )
-
-        default_home = "Arsenal" if "Arsenal" in teams else teams[0]
-        home = st.selectbox("Domáci tím", teams, index=teams.index(default_home))
-
+    else:
+        st.markdown(
+            "<style>[data-testid='stSidebar'], [data-testid='stSidebarCollapsedControl'] {display: none;}</style>",
+            unsafe_allow_html=True,
+        )
+        home = st.session_state["pred_home"]
         away_options = [t for t in teams if t != home]
         default_away = "Chelsea" if "Chelsea" in away_options else away_options[0]
-        away = st.selectbox("Hosťujúci tím", away_options, index=away_options.index(default_away))
-
-        system_keys = list(SYSTEM_NAMES.keys())
-        selected_system = st.selectbox(
-            "Ratingový systém",
-            system_keys,
-            index=0,
-            format_func=lambda k: SYSTEM_NAMES[k],
-        )
-
-        st.divider()
-        st.subheader("🔄 Živá aktualizácia")
-        st.caption("Stiahne najnovšie výsledky z internetu a prepočíta ratingy tímov.")
-        if st.button(f"Stiahnuť výsledky ({CURRENT_SEASON})", use_container_width=True):
-            with st.spinner(f"Sťahujem a prepočítavam sezónu {CURRENT_SEASON}..."):
-                res = update_live_season_pipeline(CURRENT_SEASON)
-                if res["success"]:
-                    st.success(res["message"])
-                    st.cache_data.clear()
-                    st.rerun()
-                else:
-                    st.error(res["message"])
+        away = st.session_state.get("pred_away", default_away)
+        if away not in away_options:
+            away = default_away
+        selected_system = st.session_state.get("pred_system", list(SYSTEM_NAMES.keys())[0])
 
     home_row = season_ratings[season_ratings["team"] == home].iloc[0]
     away_row = season_ratings[season_ratings["team"] == away].iloc[0]
@@ -389,11 +463,7 @@ def main() -> None:
     all_preds = compute_all_predictions(home_row, away_row)
     probs = all_preds[selected_system]
 
-    tab_pred, tab_rank, tab_comp = st.tabs(
-        ["Predikcia zápasu", "Rebríček sily tímov", "Vývoj sily a porovnanie modelov"]
-    )
-
-    with tab_pred:
+    if active_section == "Predikcia zápasu":
         st.subheader(f"{home} – {away}")
         st.caption(
             f"Predikcia na základe aktuálnych ratingov zo sezóny {season}: "
@@ -440,8 +510,8 @@ def main() -> None:
             )
         st.dataframe(pd.DataFrame(sys_rows), hide_index=True, use_container_width=True)
 
-    with tab_rank:
-        st.subheader(f"Rebríček sily tímov Premier League ({season})")
+    elif active_section == "Rebríček sily tímov":
+        st.subheader(f"Rebríček sily tímov – {active_league} ({season})")
         st.caption("Tímy zoradené podľa najnovšieho Glicko-2 ratingu.")
         ranked = season_ratings.sort_values("glicko2_rating", ascending=False).reset_index(drop=True)
         ranked.index = ranked.index + 1
@@ -463,7 +533,7 @@ def main() -> None:
             use_container_width=True,
         )
 
-    with tab_comp:
+    elif active_section == "Vývoj sily a porovnanie modelov":
         st.subheader("Porovnanie vývoja ratingov (Elo, Glicko, Glicko-2)")
 
         all_seasons_asc = sorted(ratings["season"].unique())
@@ -479,22 +549,26 @@ def main() -> None:
         teams_in_range = sorted(
             ratings[ratings["season"].isin(seasons_in_range)]["team"].unique()
         )
-        big_clubs = [
-            t
-            for t in ["Man United", "Arsenal", "Liverpool", "Chelsea", "Man City", "Tottenham", "Everton"]
-            if t in teams_in_range
-        ]
+        preset_candidates = (
+            ["Real Madrid", "Barcelona", "Ath Madrid", "Ath Bilbao", "Valencia", "Sevilla", "Sociedad"]
+            if active_league == "La Liga"
+            else ["Man United", "Arsenal", "Liverpool", "Chelsea", "Man City", "Tottenham", "Everton"]
+        )
+        big_clubs = [t for t in preset_candidates if t in teams_in_range]
         default_teams = big_clubs if big_clubs else teams_in_range[:3]
 
-        if "comp_teams_widget" not in st.session_state:
+        if (
+            "comp_teams_widget" not in st.session_state
+            or st.session_state.get("comp_teams_league") != active_league
+        ):
             st.session_state["comp_teams_widget"] = default_teams
+            st.session_state["comp_teams_league"] = active_league
 
-        preset_cols = st.columns([1, 1, 1, 3])
-        if preset_cols[0].button("Big 6 + Everton", use_container_width=True):
+        preset_label = "Top kluby La Ligy" if active_league == "La Liga" else "Big 6 + Everton"
+        preset_cols = st.columns([1, 1, 4])
+        if preset_cols[0].button(preset_label, use_container_width=True):
             st.session_state["comp_teams_widget"] = default_teams
-        if preset_cols[1].button("Aktuálny zápas", use_container_width=True):
-            st.session_state["comp_teams_widget"] = [t for t in (home, away) if t in teams_in_range]
-        if preset_cols[2].button("Všetky tímy", use_container_width=True):
+        if preset_cols[1].button("Všetky tímy", use_container_width=True):
             st.session_state["comp_teams_widget"] = teams_in_range
 
         # Keep only teams valid in the currently selected season range
@@ -522,7 +596,7 @@ def main() -> None:
                 f"Zobrazený priebeh zápas po zápase v sezóne **{start_season}**."
                 if len(seasons_in_range) == 1
                 else f"Zobrazené koncové ratingy sezón **{start_season}** – **{end_season}**. "
-                "Pri vypadnutých tímoch je čiara v sezóne mimo Premier League prerušená."
+                f"Pri vypadnutých tímoch je čiara v sezóne mimo {active_league} prerušená."
             )
             st.caption(mode_note)
             comp_chart = build_rating_comparison_chart(
@@ -547,6 +621,90 @@ def main() -> None:
         st.caption(
             "Poznámka: Log loss a Brier score hodnotia kvalitu odhadnutých pravdepodobností (menšie číslo je lepšie)."
         )
+
+    elif active_section == "Zranenia hráčov":
+        st.subheader("Prehľad zranených hráčov (Top 5 líg)")
+        updated_at, injuries_by_league = load_injuries_by_league()
+        league_options = list(injuries_by_league.keys())
+
+        if not league_options:
+            st.info("Chýbajú dáta o zraneniach (`data/injuries.json`).")
+        else:
+            selected_league = (
+                st.segmented_control(
+                    "Vyber ligu",
+                    options=league_options,
+                    default="La Liga" if "La Liga" in league_options else league_options[0],
+                    key="injuries_league_toggle",
+                )
+                or league_options[0]
+            )
+
+            injuries_by_club = injuries_by_league[selected_league]
+            club_options = list(injuries_by_club.keys())
+
+            if (
+                "injuries_club" not in st.session_state
+                or st.session_state["injuries_club"] not in club_options
+            ):
+                st.session_state["injuries_club"] = club_options[0]
+
+            # Výber z 3 top klubov vybranej ligy s logom
+            sel_cols = st.columns(len(club_options))
+            for idx, club_name in enumerate(club_options):
+                is_selected = st.session_state["injuries_club"] == club_name
+                club_count = len(injuries_by_club.get(club_name, pd.DataFrame()))
+                with sel_cols[idx].container(border=True):
+                    c_logo, c_info = st.columns([1, 2.2], vertical_alignment="center")
+                    logo_path = CLUB_LOGOS.get(club_name)
+                    if logo_path and logo_path.exists():
+                        c_logo.image(str(logo_path), width=52)
+                    c_info.markdown(f"**{club_name}**  \nZranení hráči: **{club_count}**")
+                    if st.button(
+                        "Vybraný ✓" if is_selected else "Vybrať",
+                        key=f"btn_club_{selected_league}_{club_name}",
+                        type="primary" if is_selected else "secondary",
+                        use_container_width=True,
+                    ):
+                        st.session_state["injuries_club"] = club_name
+                        st.rerun()
+
+            selected_club = st.session_state["injuries_club"]
+            club_df = injuries_by_club.get(selected_club, pd.DataFrame())
+
+            st.divider()
+            hdr_logo, hdr_title = st.columns([0.8, 9.2], vertical_alignment="center")
+            sel_logo = CLUB_LOGOS.get(selected_club)
+            if sel_logo and sel_logo.exists():
+                hdr_logo.image(str(sel_logo), width=48)
+            hdr_title.markdown(f"### {selected_club} ({selected_league}) – aktuálne zranenia")
+
+            if club_df.empty:
+                st.info(f"Pre klub {selected_club} zatiaľ nie sú evidované žiadne zranenia.")
+            else:
+                in_match = int(club_df["Kde sa zranil (zápas / tréning)"].str.contains("zápas", case=False, na=False).sum())
+                in_training = int(club_df["Kde sa zranil (zápas / tréning)"].str.contains("tréning", case=False, na=False).sum())
+
+                m_cols = st.columns(3)
+                m_cols[0].metric("Zranení hráči spolu", len(club_df))
+                m_cols[1].metric("Zranení v zápase", in_match)
+                m_cols[2].metric("Na tréningu / preťaženie", in_training)
+
+                st.markdown("")
+                card_cols = st.columns(2)
+                for idx, (_, row) in enumerate(club_df.iterrows()):
+                    col = card_cols[idx % 2]
+                    with col.container(border=True):
+                        st.markdown(f"#### {row['Hráč']}  \n`{row['Pozícia']}` · **{row['Stav']}**")
+                        st.markdown(f"**Zranenie:** {row['Zranenie']}")
+                        d1, d2 = st.columns(2)
+                        d1.markdown(f"**Kedy:** {row['Kedy sa zranil']}")
+                        d2.markdown(f"**Na ako dlho:** {row['Na ako dlho']}")
+                        st.markdown(f"**Návrat:** {row['Predpokladaný návrat']}")
+                        st.markdown(f"**Kde sa zranil:** {row['Kde sa zranil (zápas / tréning)']}")
+
+        if updated_at:
+            st.caption(f"Údaje aktualizované k {updated_at} (zdroj: `data/injuries.json`).")
 
 
 main()

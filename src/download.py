@@ -18,19 +18,20 @@ from pathlib import Path
 import pandas as pd
 
 from src.config import (
-    ALL_SEASON_CODES as SEASON_CODES,
+    ALL_SEASON_CODES,
     BASE_URL,
+    LEAGUES,
     RAW_DIR,
     REQUEST_TIMEOUT_SECONDS,
-    SEASON_CODES,
     USER_AGENT,
     ensure_directories,
 )
 
 
-def raw_path(season: str) -> Path:
-    """Cesta k raw CSV pre danú sezónu."""
-    return RAW_DIR / f"E0_{SEASON_CODES[season]}.csv"
+def raw_path(season: str, league: str = "Premier League") -> Path:
+    """Cesta k raw CSV pre danú sezónu a ligu."""
+    div = LEAGUES[league]["div"]
+    return RAW_DIR / f"{div}_{ALL_SEASON_CODES[season]}.csv"
 
 
 def fetch(url: str) -> bytes:
@@ -40,14 +41,15 @@ def fetch(url: str) -> bytes:
         return response.read()
 
 
-def download_season(season: str, force: bool = False) -> Path:
-    """Stiahne jednu sezónu a overí základnú štruktúru CSV."""
-    path = raw_path(season)
+def download_season(season: str, force: bool = False, league: str = "Premier League") -> Path:
+    """Stiahne jednu sezónu pre zvolenú ligu a overí základnú štruktúru CSV."""
+    path = raw_path(season, league=league)
     if path.exists() and not force:
-        print(f"[skip] {season}: {path.name} uz existuje")
+        print(f"[skip] {league} {season}: {path.name} uz existuje")
         return path
 
-    url = BASE_URL.format(code=SEASON_CODES[season])
+    div = LEAGUES[league]["div"]
+    url = BASE_URL.format(code=ALL_SEASON_CODES[season], div=div)
     print(f"[get ] {season}: {url}")
     content = fetch(url)
 
@@ -86,23 +88,29 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="Stiahne CSV dat z football-data.co.uk")
     parser.add_argument("--force", action="store_true", help="stiahni aj existujuce subory")
     parser.add_argument(
+        "--league",
+        choices=list(LEAGUES),
+        default="Premier League",
+        help="liga na stiahnutie (predvolene Premier League)",
+    )
+    parser.add_argument(
         "--season",
-        choices=SEASON_CODES,
+        choices=ALL_SEASON_CODES,
         action="append",
         help="konkretna sezona (mozno zadat viackrat); predvolene vsetky",
     )
     args = parser.parse_args()
 
     ensure_directories()
-    seasons = args.season or list(SEASON_CODES)
+    seasons = args.season or list(ALL_SEASON_CODES)
 
     failures: list[tuple[str, str]] = []
     for season in seasons:
         try:
-            download_season(season, force=args.force)
+            download_season(season, force=args.force, league=args.league)
         except (urllib.error.URLError, TimeoutError, RuntimeError, pd.errors.ParserError) as exc:
             failures.append((season, str(exc)))
-            print(f"[err ] {season}: {exc}", file=sys.stderr)
+            print(f"[err ] {args.league} {season}: {exc}", file=sys.stderr)
 
     if failures:
         print(f"\nZlyhalo {len(failures)} z {len(seasons)} sezon.", file=sys.stderr)
