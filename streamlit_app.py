@@ -44,6 +44,7 @@ st.set_page_config(
     page_title="Predikcia futbalových zápasov",
     page_icon="⚽",
     layout="wide",
+    initial_sidebar_state="collapsed",
 )
 
 OUTCOME_LABELS = ["Výhra domácich", "Remíza", "Výhra hostí"]
@@ -343,6 +344,16 @@ def compute_all_predictions(home_row: pd.Series, away_row: pd.Series) -> dict[st
 
 
 def main() -> None:
+    st.markdown(
+        """
+        <style>
+            [data-testid='stSidebar'], [data-testid='stSidebarCollapsedControl'] {display: none;}
+            .block-container {padding-top: 1.2rem; padding-left: 1rem; padding-right: 1rem;}
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
+
     if "startup_synced" not in st.session_state:
         st.session_state["startup_synced"] = True
         with st.spinner("Aktualizujem najnovšie štatistiky a ratingy..."):
@@ -355,16 +366,16 @@ def main() -> None:
                 st.cache_data.clear()
 
     sections = [
-        "Predikcia zápasu",
-        "Rebríček sily tímov",
-        "Vývoj sily a porovnanie modelov",
-        "Zranenia hráčov",
+        "⚽ Predikcia",
+        "📊 Rebríček",
+        "📈 Grafy",
+        "🏥 Zranenia",
     ]
     section_titles = {
-        "Predikcia zápasu": "⚽ Predikcia výsledkov futbalových zápasov",
-        "Rebríček sily tímov": "📊 Rebríček sily tímov",
-        "Vývoj sily a porovnanie modelov": "📈 Vývoj sily a porovnanie modelov",
-        "Zranenia hráčov": "🏥 Zranenia hráčov",
+        "⚽ Predikcia": "⚽ Predikcia futbalových zápasov",
+        "📊 Rebríček": "📊 Rebríček sily tímov",
+        "📈 Grafy": "📈 Vývoj sily a porovnanie",
+        "🏥 Zranenia": "🏥 Zranenia hráčov",
     }
     current_section = st.session_state.get("active_section_nav") or sections[0]
     if current_section not in sections:
@@ -372,8 +383,7 @@ def main() -> None:
 
     st.title(section_titles[current_section])
     st.caption(
-        "Stredoškolská odborná činnosť · odbor 11 – Informatika · "
-        "porovnanie ratingových systémov Elo, Glicko a Glicko-2"
+        "SOČ · odbor 11 – Informatika · Elo, Glicko a Glicko-2"
     )
 
     active_section = (
@@ -388,7 +398,7 @@ def main() -> None:
     )
 
     league_names = list(LEAGUES)
-    if active_section != "Zranenia hráčov":
+    if active_section != "🏥 Zranenia":
         active_league = (
             st.segmented_control(
                 "Liga",
@@ -418,44 +428,33 @@ def main() -> None:
     if "pred_home" not in st.session_state or st.session_state["pred_home"] not in teams:
         st.session_state["pred_home"] = default_home
 
-    if active_section == "Predikcia zápasu":
-        with st.sidebar:
-            st.header("Nastavenia predikcie")
-            st.markdown(f"**Liga:** {active_league}  \n**Aktuálna sezóna:** {season}")
-            if season != CURRENT_SEASON:
-                st.warning(
-                    f"Dáta pre sezónu {CURRENT_SEASON} zatiaľ nie sú stiahnuté."
-                )
+    system_keys = list(SYSTEM_NAMES.keys())
+    if "pred_system" not in st.session_state or st.session_state["pred_system"] not in system_keys:
+        st.session_state["pred_system"] = system_keys[0]
 
-            home = st.selectbox("Domáci tím", teams, key="pred_home")
-
+    if active_section == "⚽ Predikcia":
+        with st.container(border=True):
+            c_h, c_a, c_s = st.columns(3)
+            home = c_h.selectbox("Domáci tím", teams, key="pred_home")
             away_options = [t for t in teams if t != home]
             default_away = preferred_away if preferred_away in away_options else away_options[0]
             if "pred_away" not in st.session_state or st.session_state["pred_away"] not in away_options:
                 st.session_state["pred_away"] = default_away
-            away = st.selectbox("Hosťujúci tím", away_options, key="pred_away")
-
-            system_keys = list(SYSTEM_NAMES.keys())
-            if "pred_system" not in st.session_state or st.session_state["pred_system"] not in system_keys:
-                st.session_state["pred_system"] = system_keys[0]
-            selected_system = st.selectbox(
+            away = c_a.selectbox("Hosťujúci tím", away_options, key="pred_away")
+            selected_system = c_s.selectbox(
                 "Ratingový systém",
                 system_keys,
                 key="pred_system",
                 format_func=lambda k: SYSTEM_NAMES[k],
             )
     else:
-        st.markdown(
-            "<style>[data-testid='stSidebar'], [data-testid='stSidebarCollapsedControl'] {display: none;}</style>",
-            unsafe_allow_html=True,
-        )
         home = st.session_state["pred_home"]
         away_options = [t for t in teams if t != home]
-        default_away = "Chelsea" if "Chelsea" in away_options else away_options[0]
+        default_away = preferred_away if preferred_away in away_options else away_options[0]
         away = st.session_state.get("pred_away", default_away)
         if away not in away_options:
             away = default_away
-        selected_system = st.session_state.get("pred_system", list(SYSTEM_NAMES.keys())[0])
+        selected_system = st.session_state["pred_system"]
 
     home_row = season_ratings[season_ratings["team"] == home].iloc[0]
     away_row = season_ratings[season_ratings["team"] == away].iloc[0]
@@ -463,7 +462,7 @@ def main() -> None:
     all_preds = compute_all_predictions(home_row, away_row)
     probs = all_preds[selected_system]
 
-    if active_section == "Predikcia zápasu":
+    if active_section == "⚽ Predikcia":
         st.subheader(f"{home} – {away}")
         st.caption(
             f"Predikcia na základe aktuálnych ratingov zo sezóny {season}: "
@@ -510,7 +509,7 @@ def main() -> None:
             )
         st.dataframe(pd.DataFrame(sys_rows), hide_index=True, use_container_width=True)
 
-    elif active_section == "Rebríček sily tímov":
+    elif active_section == "📊 Rebríček":
         st.subheader(f"Rebríček sily tímov – {active_league} ({season})")
         st.caption("Tímy zoradené podľa najnovšieho Glicko-2 ratingu.")
         ranked = season_ratings.sort_values("glicko2_rating", ascending=False).reset_index(drop=True)
@@ -533,7 +532,7 @@ def main() -> None:
             use_container_width=True,
         )
 
-    elif active_section == "Vývoj sily a porovnanie modelov":
+    elif active_section == "📈 Grafy":
         st.subheader("Porovnanie vývoja ratingov (Elo, Glicko, Glicko-2)")
 
         all_seasons_asc = sorted(ratings["season"].unique())
@@ -622,7 +621,7 @@ def main() -> None:
             "Poznámka: Log loss a Brier score hodnotia kvalitu odhadnutých pravdepodobností (menšie číslo je lepšie)."
         )
 
-    elif active_section == "Zranenia hráčov":
+    elif active_section == "🏥 Zranenia":
         st.subheader("Prehľad zranených hráčov (Top 5 líg)")
         updated_at, injuries_by_league = load_injuries_by_league()
         league_options = list(injuries_by_league.keys())
