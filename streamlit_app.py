@@ -470,9 +470,25 @@ def main() -> None:
             f"**{away}** ({int(away_row['matches_played'])} zápasov k {away_row['as_of_date']:%d. %m. %Y})."
         )
 
-        cols = st.columns(3)
-        for col, label, p in zip(cols, OUTCOME_LABELS, probs):
-            col.metric(label, f"{p:.1%}")
+        st.markdown(
+            f"""
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:8px 0 12px 0;">
+              <div style="background:#f1f3f6;border-radius:10px;padding:10px 6px;text-align:center;">
+                <div style="font-size:12px;color:#555;">Výhra domácich</div>
+                <div style="font-size:22px;font-weight:700;color:#2a9d8f;">{probs[0]:.1%}</div>
+              </div>
+              <div style="background:#f1f3f6;border-radius:10px;padding:10px 6px;text-align:center;">
+                <div style="font-size:12px;color:#555;">Remíza</div>
+                <div style="font-size:22px;font-weight:700;color:#b8860b;">{probs[1]:.1%}</div>
+              </div>
+              <div style="background:#f1f3f6;border-radius:10px;padding:10px 6px;text-align:center;">
+                <div style="font-size:12px;color:#555;">Výhra hostí</div>
+                <div style="font-size:22px;font-weight:700;color:#264653;">{probs[2]:.1%}</div>
+              </div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
 
         st.altair_chart(probability_chart(probs), use_container_width=True)
 
@@ -496,41 +512,50 @@ def main() -> None:
                 f"volatilita {row['glicko2_vol']:.4f})"
             )
 
-        st.markdown("#### Čo tipujú jednotlivé systémy pre tento zápas?")
-        sys_rows = []
-        for k, p_tuple in all_preds.items():
-            sys_rows.append(
-                {
-                    "Systém": SYSTEM_NAMES[k].split(" ")[0],
-                    "Výhra domácich": f"{p_tuple[0]:.1%}",
-                    "Remíza": f"{p_tuple[1]:.1%}",
-                    "Výhra hostí": f"{p_tuple[2]:.1%}",
-                }
-            )
-        st.dataframe(pd.DataFrame(sys_rows), hide_index=True, use_container_width=True)
+        st.markdown("#### Čo tipujú jednotlivé systémy?")
+        rows_html = "".join(
+            f"<tr style='border-bottom:1px solid #e6e8ec;'>"
+            f"<td style='padding:8px 6px;font-weight:600;'>{SYSTEM_NAMES[k].split(' ')[0]}</td>"
+            f"<td style='padding:8px 6px;text-align:center;'>{p_tuple[0]:.1%}</td>"
+            f"<td style='padding:8px 6px;text-align:center;'>{p_tuple[1]:.1%}</td>"
+            f"<td style='padding:8px 6px;text-align:center;'>{p_tuple[2]:.1%}</td>"
+            f"</tr>"
+            for k, p_tuple in all_preds.items()
+        )
+        st.markdown(
+            f"<table style='width:100%;border-collapse:collapse;font-size:14px;'>"
+            f"<thead><tr style='background:#f1f3f6;text-align:center;'>"
+            f"<th style='padding:8px 6px;text-align:left;'>Systém</th>"
+            f"<th style='padding:8px 6px;'>Domáci</th>"
+            f"<th style='padding:8px 6px;'>Remíza</th>"
+            f"<th style='padding:8px 6px;'>Hostia</th>"
+            f"</tr></thead><tbody>{rows_html}</tbody></table>",
+            unsafe_allow_html=True,
+        )
 
     elif active_section == "📊 Rebríček":
         st.subheader(f"Rebríček sily tímov – {active_league} ({season})")
-        st.caption("Tímy zoradené podľa najnovšieho Glicko-2 ratingu.")
+        st.caption("Tímy zoradené podľa najnovšieho Glicko-2 ratingu. Všetky údaje sú viditeľné bez posúvania.")
         ranked = season_ratings.sort_values("glicko2_rating", ascending=False).reset_index(drop=True)
-        ranked.index = ranked.index + 1
-        ranked = ranked.reset_index().rename(
-            columns={
-                "index": "Poradie",
-                "team": "Tím",
-                "matches_played": "Zápasy",
-                "glicko2_rating": "Glicko-2",
-                "glicko2_rd": "Neistota (RD)",
-                "glicko2_vol": "Volatilita (σ)",
-                "glicko_rating": "Glicko",
-                "elo_rating": "Elo",
-            }
-        )
-        st.dataframe(
-            ranked[["Poradie", "Tím", "Zápasy", "Glicko-2", "Neistota (RD)", "Volatilita (σ)", "Glicko", "Elo"]],
-            hide_index=True,
-            use_container_width=True,
-        )
+        cards_html = []
+        for idx, row in enumerate(ranked.itertuples(index=False), start=1):
+            cards_html.append(
+                f"<div style='border:1px solid #e2e5ea;border-radius:10px;padding:10px 12px;margin-bottom:8px;background:#ffffff;'>"
+                f"<div style='display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;'>"
+                f"<span style='font-size:16px;font-weight:700;color:#1d3557;'>{idx}. {row.team}</span>"
+                f"<span style='font-size:12px;color:#666;background:#f1f3f6;padding:2px 8px;border-radius:12px;'>{int(row.matches_played)} záp.</span>"
+                f"</div>"
+                f"<div style='display:grid;grid-template-columns:repeat(3,1fr);gap:6px;font-size:13px;'>"
+                f"<div><span style='color:#666;'>Glicko-2</span><br><b>{row.glicko2_rating:.1f}</b></div>"
+                f"<div><span style='color:#666;'>Glicko</span><br><b>{row.glicko_rating:.1f}</b></div>"
+                f"<div><span style='color:#666;'>Elo</span><br><b>{row.elo_rating:.1f}</b></div>"
+                f"</div>"
+                f"<div style='margin-top:6px;font-size:12px;color:#555;'>"
+                f"Neistota (RD): <b>±{row.glicko2_rd:.1f}</b> &nbsp;·&nbsp; Volatilita (σ): <b>{row.glicko2_vol:.4f}</b>"
+                f"</div>"
+                f"</div>"
+            )
+        st.markdown("".join(cards_html), unsafe_allow_html=True)
 
     elif active_section == "📈 Grafy":
         st.subheader("Porovnanie vývoja ratingov (Elo, Glicko, Glicko-2)")
@@ -583,10 +608,10 @@ def main() -> None:
 
         chart_system = st.segmented_control(
             "Zobrazený ratingový systém",
-            options=["Všetky", "Elo", "Glicko", "Glicko-2"],
-            default="Všetky",
+            options=["Glicko-2", "Glicko", "Elo", "Všetky"],
+            default="Glicko-2",
             key="comp_system_toggle",
-        ) or "Všetky"
+        ) or "Glicko-2"
 
         if not selected_teams:
             st.info("Vyber aspoň jeden tím na zobrazenie grafu.")
@@ -604,19 +629,26 @@ def main() -> None:
             st.altair_chart(comp_chart, use_container_width=True)
 
         st.divider()
-        st.subheader(f"Presnosť algoritmov na testovacej sezóne {metadata['test_season']}")
-        comp_df = pd.DataFrame(metadata["comparison"]).rename(
-            columns={
-                "model": "Model",
-                "typ": "Typ",
-                "accuracy": "Presnosť (Accuracy)",
-                "f1_macro": "F1 (macro)",
-                "log_loss": "Log loss",
-                "brier": "Brier score",
-            }
+        st.subheader(f"Presnosť na sezóne {metadata['test_season']}")
+        comp_rows_html = "".join(
+            f"<tr style='border-bottom:1px solid #e6e8ec;'>"
+            f"<td style='padding:8px 6px;font-weight:600;'>{r['model']}</td>"
+            f"<td style='padding:8px 6px;text-align:center;'>{r['accuracy']:.1%}</td>"
+            f"<td style='padding:8px 6px;text-align:center;'>{r['log_loss']:.3f}</td>"
+            f"<td style='padding:8px 6px;text-align:center;'>{r['brier']:.3f}</td>"
+            f"</tr>"
+            for r in metadata["comparison"]
         )
-        comp_df["Presnosť (Accuracy)"] = comp_df["Presnosť (Accuracy)"].map(lambda v: f"{v:.1%}")
-        st.dataframe(comp_df, hide_index=True, use_container_width=True)
+        st.markdown(
+            f"<table style='width:100%;border-collapse:collapse;font-size:14px;'>"
+            f"<thead><tr style='background:#f1f3f6;text-align:center;'>"
+            f"<th style='padding:8px 6px;text-align:left;'>Model</th>"
+            f"<th style='padding:8px 6px;'>Presnosť</th>"
+            f"<th style='padding:8px 6px;'>Log loss</th>"
+            f"<th style='padding:8px 6px;'>Brier</th>"
+            f"</tr></thead><tbody>{comp_rows_html}</tbody></table>",
+            unsafe_allow_html=True,
+        )
         st.caption(
             "Poznámka: Log loss a Brier score hodnotia kvalitu odhadnutých pravdepodobností (menšie číslo je lepšie)."
         )
