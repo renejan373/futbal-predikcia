@@ -113,15 +113,28 @@ def form_badges(results: list[str]) -> str:
     return "".join(badges)
 
 
-def probability_chart(probabilities: tuple[float, float, float]) -> alt.Chart:
+def probability_chart(probabilities: tuple[float, float, float], is_dark: bool = True) -> alt.Chart:
     frame = pd.DataFrame(
         {"Výsledok": OUTCOME_LABELS, "Pravdepodobnosť": list(probabilities)}
     )
+    label_color = "#f8fafc" if is_dark else "#0f172a"
+    axis_color = "#cbd5e1" if is_dark else "#334155"
+    grid_color = "rgba(148,163,184,0.18)" if is_dark else "#e2e8f0"
     base = alt.Chart(frame).encode(
-        x=alt.X("Výsledok:N", sort=None, axis=alt.Axis(labelAngle=0, title=None)),
+        x=alt.X(
+            "Výsledok:N",
+            sort=None,
+            axis=alt.Axis(labelAngle=0, title=None, labelColor=axis_color),
+        ),
         y=alt.Y(
             "Pravdepodobnosť:Q",
-            axis=alt.Axis(format="%", title="Pravdepodobnosť"),
+            axis=alt.Axis(
+                format="%",
+                title="Pravdepodobnosť",
+                labelColor=axis_color,
+                titleColor=axis_color,
+                gridColor=grid_color,
+            ),
             scale=alt.Scale(domain=[0, 1]),
         ),
     )
@@ -136,7 +149,7 @@ def probability_chart(probabilities: tuple[float, float, float]) -> alt.Chart:
             alt.Tooltip("Pravdepodobnosť:Q", format=".1%"),
         ],
     )
-    labels = base.mark_text(dy=-12, fontSize=14, fontWeight="bold", color="#f8fafc").encode(
+    labels = base.mark_text(dy=-12, fontSize=14, fontWeight="bold", color=label_color).encode(
         text=alt.Text("Pravdepodobnosť:Q", format=".1%")
     )
     return (bars + labels).properties(height=300)
@@ -364,11 +377,12 @@ def compute_all_predictions(home_row: pd.Series, away_row: pd.Series) -> dict[st
 
 
 def main() -> None:
-    st.markdown(
-        """
-        <style>
-            [data-testid='stSidebar'], [data-testid='stSidebarCollapsedControl'] {display: none;}
-            [data-testid='stHeader'] {background: transparent;}
+    if "theme_mode" not in st.session_state:
+        st.session_state["theme_mode"] = "dark"
+    is_dark = st.session_state["theme_mode"] == "dark"
+
+    if is_dark:
+        theme_css = """
             [data-testid='stAppViewContainer'] {
                 background-color: #0b1120;
                 background-image:
@@ -383,7 +397,50 @@ def main() -> None:
                 border: 1px solid rgba(148, 163, 184, 0.18);
                 border-radius: 14px;
             }
-            .block-container {padding-top: 1.2rem; padding-left: 1rem; padding-right: 1rem;}
+        """
+    else:
+        theme_css = """
+            [data-testid='stAppViewContainer'], .stApp {
+                background: #ffffff !important;
+                color: #0f172a !important;
+            }
+            [data-testid='stAppViewContainer'] h1,
+            [data-testid='stAppViewContainer'] h2,
+            [data-testid='stAppViewContainer'] h3,
+            [data-testid='stAppViewContainer'] h4,
+            [data-testid='stAppViewContainer'] p,
+            [data-testid='stAppViewContainer'] label,
+            [data-testid='stAppViewContainer'] span {
+                color: #0f172a;
+            }
+            [data-testid='stVerticalBlockBorderWrapper'] {
+                background: #f8fafc;
+                border: 1px solid #e2e8f0;
+                border-radius: 14px;
+            }
+            [data-baseweb='select'] > div,
+            [data-testid='stSegmentedControl'] {
+                background-color: #f1f5f9 !important;
+                color: #0f172a !important;
+            }
+            .stButton > button {
+                background-color: #f1f5f9 !important;
+                color: #0f172a !important;
+                border-color: #cbd5e1 !important;
+            }
+            .stButton > button[kind='primary'] {
+                background-color: #1d3557 !important;
+                color: #ffffff !important;
+            }
+        """
+
+    st.markdown(
+        f"""
+        <style>
+            [data-testid='stSidebar'], [data-testid='stSidebarCollapsedControl'] {{display: none;}}
+            [data-testid='stHeader'] {{background: transparent;}}
+            .block-container {{padding-top: 1.2rem; padding-left: 1rem; padding-right: 1rem;}}
+            {theme_css}
         </style>
         """,
         unsafe_allow_html=True,
@@ -416,7 +473,15 @@ def main() -> None:
     if current_section not in sections:
         current_section = sections[0]
 
-    st.title(section_titles[current_section])
+    hdr_left, hdr_right = st.columns([5, 1.3], vertical_alignment="center")
+    hdr_left.title(section_titles[current_section])
+    if hdr_right.button(
+        "☀️ Light" if is_dark else "🌙 Dark",
+        key="theme_toggle_btn",
+        use_container_width=True,
+    ):
+        st.session_state["theme_mode"] = "light" if is_dark else "dark"
+        st.rerun()
 
     active_section = (
         st.segmented_control(
@@ -502,27 +567,33 @@ def main() -> None:
             f"**{away}** ({int(away_row['matches_played'])} zápasov k {away_row['as_of_date']:%d. %m. %Y})."
         )
 
+        c_card_bg = "rgba(21,31,50,0.9)" if is_dark else "#f8fafc"
+        c_card_bd = "rgba(148,163,184,0.18)" if is_dark else "#e2e8f0"
+        c_lbl = "#94a3b8" if is_dark else "#475569"
+        c_draw = "#fbbf24" if is_dark else "#b45309"
+        c_home = "#2dd4bf" if is_dark else "#0f766e"
+        c_away = "#38bdf8" if is_dark else "#1d4ed8"
         st.markdown(
             f"""
             <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:8px 0 12px 0;">
-              <div style="background:rgba(21,31,50,0.9);border:1px solid rgba(148,163,184,0.18);border-radius:12px;padding:10px 6px;text-align:center;">
-                <div style="font-size:12px;color:#94a3b8;">Výhra domácich</div>
-                <div style="font-size:22px;font-weight:700;color:#2dd4bf;">{probs[0]:.1%}</div>
+              <div style="background:{c_card_bg};border:1px solid {c_card_bd};border-radius:12px;padding:10px 6px;text-align:center;">
+                <div style="font-size:12px;color:{c_lbl};">Výhra domácich</div>
+                <div style="font-size:22px;font-weight:700;color:{c_home};">{probs[0]:.1%}</div>
               </div>
-              <div style="background:rgba(21,31,50,0.9);border:1px solid rgba(148,163,184,0.18);border-radius:12px;padding:10px 6px;text-align:center;">
-                <div style="font-size:12px;color:#94a3b8;">Remíza</div>
-                <div style="font-size:22px;font-weight:700;color:#fbbf24;">{probs[1]:.1%}</div>
+              <div style="background:{c_card_bg};border:1px solid {c_card_bd};border-radius:12px;padding:10px 6px;text-align:center;">
+                <div style="font-size:12px;color:{c_lbl};">Remíza</div>
+                <div style="font-size:22px;font-weight:700;color:{c_draw};">{probs[1]:.1%}</div>
               </div>
-              <div style="background:rgba(21,31,50,0.9);border:1px solid rgba(148,163,184,0.18);border-radius:12px;padding:10px 6px;text-align:center;">
-                <div style="font-size:12px;color:#94a3b8;">Výhra hostí</div>
-                <div style="font-size:22px;font-weight:700;color:#38bdf8;">{probs[2]:.1%}</div>
+              <div style="background:{c_card_bg};border:1px solid {c_card_bd};border-radius:12px;padding:10px 6px;text-align:center;">
+                <div style="font-size:12px;color:{c_lbl};">Výhra hostí</div>
+                <div style="font-size:22px;font-weight:700;color:{c_away};">{probs[2]:.1%}</div>
               </div>
             </div>
             """,
             unsafe_allow_html=True,
         )
 
-        st.altair_chart(probability_chart(probs), use_container_width=True)
+        st.altair_chart(probability_chart(probs, is_dark=is_dark), use_container_width=True)
 
         best_idx = max(range(3), key=lambda i: probs[i])
         st.success(
@@ -545,18 +616,24 @@ def main() -> None:
             )
 
         st.markdown("#### Čo tipujú jednotlivé systémy?")
+        tbl_bg = "rgba(21,31,50,0.85)" if is_dark else "#ffffff"
+        tbl_hdr = "rgba(30,41,59,0.95)" if is_dark else "#f1f5f9"
+        tbl_hdr_txt = "#94a3b8" if is_dark else "#475569"
+        tbl_txt = "#f1f5f9" if is_dark else "#0f172a"
+        tbl_sub = "#e2e8f0" if is_dark else "#334155"
+        tbl_bd = "rgba(148,163,184,0.14)" if is_dark else "#e2e8f0"
         rows_html = "".join(
-            f"<tr style='border-bottom:1px solid rgba(148,163,184,0.14);'>"
-            f"<td style='padding:8px 6px;font-weight:600;color:#f1f5f9;'>{SYSTEM_NAMES[k].split(' ')[0]}</td>"
-            f"<td style='padding:8px 6px;text-align:center;color:#e2e8f0;'>{p_tuple[0]:.1%}</td>"
-            f"<td style='padding:8px 6px;text-align:center;color:#e2e8f0;'>{p_tuple[1]:.1%}</td>"
-            f"<td style='padding:8px 6px;text-align:center;color:#e2e8f0;'>{p_tuple[2]:.1%}</td>"
+            f"<tr style='border-bottom:1px solid {tbl_bd};'>"
+            f"<td style='padding:8px 6px;font-weight:600;color:{tbl_txt};'>{SYSTEM_NAMES[k].split(' ')[0]}</td>"
+            f"<td style='padding:8px 6px;text-align:center;color:{tbl_sub};'>{p_tuple[0]:.1%}</td>"
+            f"<td style='padding:8px 6px;text-align:center;color:{tbl_sub};'>{p_tuple[1]:.1%}</td>"
+            f"<td style='padding:8px 6px;text-align:center;color:{tbl_sub};'>{p_tuple[2]:.1%}</td>"
             f"</tr>"
             for k, p_tuple in all_preds.items()
         )
         st.markdown(
-            f"<table style='width:100%;border-collapse:collapse;font-size:14px;background:rgba(21,31,50,0.85);border-radius:10px;overflow:hidden;'>"
-            f"<thead><tr style='background:rgba(30,41,59,0.95);text-align:center;color:#94a3b8;'>"
+            f"<table style='width:100%;border-collapse:collapse;font-size:14px;background:{tbl_bg};border:1px solid {tbl_bd};border-radius:10px;overflow:hidden;'>"
+            f"<thead><tr style='background:{tbl_hdr};text-align:center;color:{tbl_hdr_txt};'>"
             f"<th style='padding:8px 6px;text-align:left;'>Systém</th>"
             f"<th style='padding:8px 6px;'>Domáci</th>"
             f"<th style='padding:8px 6px;'>Remíza</th>"
@@ -607,17 +684,41 @@ def main() -> None:
         cards_html = []
         for idx, row in enumerate(ranked.itertuples(index=False), start=1):
             if idx == 1:
-                accent, bg, badge = "#facc15", "rgba(250, 204, 21, 0.08)", "🥇 1."
+                accent, bg, badge = (
+                    ("#facc15", "rgba(250, 204, 21, 0.08)", "🥇 1.")
+                    if is_dark
+                    else ("#d4af37", "#fffdf4", "🥇 1.")
+                )
             elif idx == 2:
-                accent, bg, badge = "#cbd5e1", "rgba(148, 163, 184, 0.08)", "🥈 2."
+                accent, bg, badge = (
+                    ("#cbd5e1", "rgba(148, 163, 184, 0.08)", "🥈 2.")
+                    if is_dark
+                    else ("#9aa0a6", "#fafafa", "🥈 2.")
+                )
             elif idx == 3:
-                accent, bg, badge = "#fb923c", "rgba(251, 146, 60, 0.08)", "🥉 3."
+                accent, bg, badge = (
+                    ("#fb923c", "rgba(251, 146, 60, 0.08)", "🥉 3.")
+                    if is_dark
+                    else ("#cd7f32", "#fdfaf6", "🥉 3.")
+                )
             elif idx == 4:
-                accent, bg, badge = "#2dd4bf", "rgba(21, 31, 50, 0.90)", "4."
+                accent, bg, badge = (
+                    ("#2dd4bf", "rgba(21, 31, 50, 0.90)", "4.")
+                    if is_dark
+                    else ("#2a9d8f", "#ffffff", "4.")
+                )
             elif idx > n_teams - 3:
-                accent, bg, badge = "#fb7185", "rgba(251, 113, 133, 0.08)", f"{idx}."
+                accent, bg, badge = (
+                    ("#fb7185", "rgba(251, 113, 133, 0.08)", f"{idx}.")
+                    if is_dark
+                    else ("#e76f51", "#fff9f8", f"{idx}.")
+                )
             else:
-                accent, bg, badge = "#475569", "rgba(21, 31, 50, 0.85)", f"{idx}."
+                accent, bg, badge = (
+                    ("#475569", "rgba(21, 31, 50, 0.85)", f"{idx}.")
+                    if is_dark
+                    else ("#cbd5e1", "#ffffff", f"{idx}.")
+                )
 
             active_val = float(getattr(row, sort_col))
             pct = max(6.0, min(100.0, ((active_val - r_min) / r_span) * 94.0 + 6.0))
@@ -638,9 +739,18 @@ def main() -> None:
                 else ""
             )
 
+            c_title = "#f8fafc" if is_dark else "#1d3557"
+            c_pill_bg = "rgba(30,41,59,0.9)" if is_dark else "#eef1f5"
+            c_pill_txt = "#cbd5e1" if is_dark else "#475569"
+            c_box_bg = "rgba(15,23,42,0.65)" if is_dark else "#f1f5f9"
+            c_muted = "#94a3b8" if is_dark else "#64748b"
+            c_val = "#e2e8f0" if is_dark else "#0f172a"
+            c_active = "#38bdf8" if is_dark else "#1d4ed8"
+            c_bd = "rgba(148,163,184,0.18)" if is_dark else "#e2e8f0"
+
             def _cell(label: str, val: float, is_active: bool) -> str:
-                style = "color:#38bdf8;font-size:15px;" if is_active else "color:#e2e8f0;"
-                return f"<div><span style='font-size:11px;color:#94a3b8;'>{label}</span><br><b style='{style}'>{val:.1f}</b></div>"
+                style = f"color:{c_active};font-size:15px;" if is_active else f"color:{c_val};"
+                return f"<div><span style='font-size:11px;color:{c_muted};'>{label}</span><br><b style='{style}'>{val:.1f}</b></div>"
 
             rating_cells = (
                 _cell("Kombi", row.combined_rating, rank_by == "Kombinácia")
@@ -650,23 +760,23 @@ def main() -> None:
             )
 
             cards_html.append(
-                f"<div style='border:1px solid rgba(148,163,184,0.18);border-left:5px solid {accent};"
+                f"<div style='border:1px solid {c_bd};border-left:5px solid {accent};"
                 f"border-radius:12px;padding:11px 12px;margin-bottom:9px;background:{bg};'>"
                 f"<div style='display:flex;justify-content:space-between;align-items:center;gap:6px;'>"
-                f"<span style='display:flex;align-items:center;gap:7px;font-size:16px;font-weight:700;color:#f8fafc;'>{badge} {logo_img} {row.team}</span>"
+                f"<span style='display:flex;align-items:center;gap:7px;font-size:16px;font-weight:700;color:{c_title};'>{badge} {logo_img} {row.team}</span>"
                 f"<span style='display:flex;align-items:center;gap:6px;'>{mini_form}"
-                f"<span style='font-size:11px;color:#cbd5e1;background:rgba(30,41,59,0.9);padding:2px 7px;border-radius:10px;font-weight:600;'>{int(row.matches_played)} záp.</span>"
+                f"<span style='font-size:11px;color:{c_pill_txt};background:{c_pill_bg};padding:2px 7px;border-radius:10px;font-weight:600;'>{int(row.matches_played)} záp.</span>"
                 f"</span></div>"
                 f"<div style='background:rgba(148,163,184,0.18);height:6px;border-radius:4px;margin:8px 0 9px 0;overflow:hidden;'>"
                 f"<div style='width:{pct:.1f}%;height:100%;background:{bar_color};border-radius:4px;'></div>"
                 f"</div>"
                 f"<div style='display:grid;grid-template-columns:repeat(4,1fr);gap:4px;font-size:13px;"
-                f"background:rgba(15,23,42,0.65);border-radius:8px;padding:6px 6px;text-align:center;'>"
+                f"background:{c_box_bg};border-radius:8px;padding:6px 6px;text-align:center;'>"
                 f"{rating_cells}"
                 f"</div>"
-                f"<div style='margin-top:6px;font-size:11px;color:#94a3b8;display:flex;justify-content:space-between;'>"
-                f"<span>Neistota (RD): <b style='color:#cbd5e1;'>±{row.glicko2_rd:.1f}</b></span>"
-                f"<span>Volatilita (σ): <b style='color:#cbd5e1;'>{row.glicko2_vol:.4f}</b></span>"
+                f"<div style='margin-top:6px;font-size:11px;color:{c_muted};display:flex;justify-content:space-between;'>"
+                f"<span>Neistota (RD): <b style='color:{c_pill_txt};'>±{row.glicko2_rd:.1f}</b></span>"
+                f"<span>Volatilita (σ): <b style='color:{c_pill_txt};'>{row.glicko2_vol:.4f}</b></span>"
                 f"</div>"
                 f"</div>"
             )
@@ -751,33 +861,42 @@ def main() -> None:
                     "#818cf8", "#4ade80", "#fb923c", "#22d3ee", "#e879f9",
                     "#a3e635", "#c084fc", "#f97316", "#14b8a6", "#cbd5e1",
                 ]
+                leg_bg = "rgba(21,31,50,0.85)" if is_dark else "#f8fafc"
+                leg_bd = "rgba(148,163,184,0.18)" if is_dark else "#e2e8f0"
+                leg_txt = "#e2e8f0" if is_dark else "#0f172a"
                 legend_items = "".join(
-                    f"<span style='display:inline-flex;align-items:center;gap:6px;font-size:12px;color:#e2e8f0;'>"
+                    f"<span style='display:inline-flex;align-items:center;gap:6px;font-size:12px;color:{leg_txt};'>"
                     f"<span style='display:inline-block;width:14px;height:3px;border-radius:2px;background:{palette[i % len(palette)]};'></span>"
                     f"{t}</span>"
                     for i, t in enumerate(selected_teams)
                 )
                 st.markdown(
-                    f"<div style='border:1px solid rgba(148,163,184,0.18);border-radius:10px;"
-                    f"padding:10px 12px;background:rgba(21,31,50,0.85);display:flex;flex-wrap:wrap;gap:6px 14px;'>"
+                    f"<div style='border:1px solid {leg_bd};border-radius:10px;"
+                    f"padding:10px 12px;background:{leg_bg};display:flex;flex-wrap:wrap;gap:6px 14px;'>"
                     f"{legend_items}</div>",
                     unsafe_allow_html=True,
                 )
 
         st.divider()
         st.subheader(f"Presnosť na sezóne {metadata['test_season']}")
+        c_bg = "rgba(21,31,50,0.85)" if is_dark else "#ffffff"
+        c_hdr = "rgba(30,41,59,0.95)" if is_dark else "#f1f5f9"
+        c_hdr_txt = "#94a3b8" if is_dark else "#475569"
+        c_txt = "#f1f5f9" if is_dark else "#0f172a"
+        c_sub = "#e2e8f0" if is_dark else "#334155"
+        c_bd = "rgba(148,163,184,0.14)" if is_dark else "#e2e8f0"
         comp_rows_html = "".join(
-            f"<tr style='border-bottom:1px solid rgba(148,163,184,0.14);'>"
-            f"<td style='padding:8px 6px;font-weight:600;color:#f1f5f9;'>{r['model']}</td>"
-            f"<td style='padding:8px 6px;text-align:center;color:#e2e8f0;'>{r['accuracy']:.1%}</td>"
-            f"<td style='padding:8px 6px;text-align:center;color:#e2e8f0;'>{r['log_loss']:.3f}</td>"
-            f"<td style='padding:8px 6px;text-align:center;color:#e2e8f0;'>{r['brier']:.3f}</td>"
+            f"<tr style='border-bottom:1px solid {c_bd};'>"
+            f"<td style='padding:8px 6px;font-weight:600;color:{c_txt};'>{r['model']}</td>"
+            f"<td style='padding:8px 6px;text-align:center;color:{c_sub};'>{r['accuracy']:.1%}</td>"
+            f"<td style='padding:8px 6px;text-align:center;color:{c_sub};'>{r['log_loss']:.3f}</td>"
+            f"<td style='padding:8px 6px;text-align:center;color:{c_sub};'>{r['brier']:.3f}</td>"
             f"</tr>"
             for r in metadata["comparison"]
         )
         st.markdown(
-            f"<table style='width:100%;border-collapse:collapse;font-size:14px;background:rgba(21,31,50,0.85);border-radius:10px;overflow:hidden;'>"
-            f"<thead><tr style='background:rgba(30,41,59,0.95);text-align:center;color:#94a3b8;'>"
+            f"<table style='width:100%;border-collapse:collapse;font-size:14px;background:{c_bg};border:1px solid {c_bd};border-radius:10px;overflow:hidden;'>"
+            f"<thead><tr style='background:{c_hdr};text-align:center;color:{c_hdr_txt};'>"
             f"<th style='padding:8px 6px;text-align:left;'>Model</th>"
             f"<th style='padding:8px 6px;'>Presnosť</th>"
             f"<th style='padding:8px 6px;'>Log loss</th>"
@@ -875,25 +994,33 @@ def main() -> None:
                             f"font-weight:700;font-size:18px;flex-shrink:0;'>{initials}</div>"
                         )
 
+                    inj_bg = "rgba(21,31,50,0.92)" if is_dark else "#ffffff"
+                    inj_bd = "rgba(148,163,184,0.18)" if is_dark else "#e2e8f0"
+                    inj_title = "#f8fafc" if is_dark else "#1d3557"
+                    inj_txt = "#cbd5e1" if is_dark else "#334155"
+                    inj_bold = "#f1f5f9" if is_dark else "#0f172a"
+                    inj_muted = "#94a3b8" if is_dark else "#475569"
+                    inj_pill_bg = "rgba(56,189,248,0.16)" if is_dark else "#e0f2fe"
+                    inj_pill_txt = "#38bdf8" if is_dark else "#0369a1"
                     card_html = (
-                        f"<div style='border:1px solid rgba(148,163,184,0.18);border-radius:12px;padding:12px 14px;"
-                        f"margin-bottom:10px;background:rgba(21,31,50,0.92);'>"
+                        f"<div style='border:1px solid {inj_bd};border-radius:12px;padding:12px 14px;"
+                        f"margin-bottom:10px;background:{inj_bg};'>"
                         f"<div style='display:flex;align-items:center;gap:12px;margin-bottom:10px;'>"
                         f"{avatar_html}"
                         f"<div>"
-                        f"<div style='font-size:17px;font-weight:700;color:#f8fafc;line-height:1.2;'>{row['Hráč']}</div>"
-                        f"<div style='font-size:12px;color:#94a3b8;margin-top:3px;'>"
-                        f"<span style='background:rgba(56,189,248,0.16);color:#38bdf8;padding:2px 7px;border-radius:6px;font-weight:600;'>{row['Pozícia']}</span>"
-                        f" &nbsp;·&nbsp; <b style='color:#e2e8f0;'>{row['Stav']}</b></div>"
+                        f"<div style='font-size:17px;font-weight:700;color:{inj_title};line-height:1.2;'>{row['Hráč']}</div>"
+                        f"<div style='font-size:12px;color:{inj_muted};margin-top:3px;'>"
+                        f"<span style='background:{inj_pill_bg};color:{inj_pill_txt};padding:2px 7px;border-radius:6px;font-weight:600;'>{row['Pozícia']}</span>"
+                        f" &nbsp;·&nbsp; <b style='color:{inj_bold};'>{row['Stav']}</b></div>"
                         f"</div></div>"
-                        f"<div style='font-size:13.5px;line-height:1.5;color:#cbd5e1;'>"
-                        f"<div><b style='color:#f1f5f9;'>Zranenie:</b> {row['Zranenie']}</div>"
+                        f"<div style='font-size:13.5px;line-height:1.5;color:{inj_txt};'>"
+                        f"<div><b style='color:{inj_bold};'>Zranenie:</b> {row['Zranenie']}</div>"
                         f"<div style='display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:4px;'>"
-                        f"<div><b style='color:#f1f5f9;'>Kedy:</b> {row['Kedy sa zranil']}</div>"
-                        f"<div><b style='color:#f1f5f9;'>Na ako dlho:</b> {row['Na ako dlho']}</div>"
+                        f"<div><b style='color:{inj_bold};'>Kedy:</b> {row['Kedy sa zranil']}</div>"
+                        f"<div><b style='color:{inj_bold};'>Na ako dlho:</b> {row['Na ako dlho']}</div>"
                         f"</div>"
-                        f"<div style='margin-top:4px;'><b style='color:#f1f5f9;'>Návrat:</b> {row['Predpokladaný návrat']}</div>"
-                        f"<div style='margin-top:2px;'><b style='color:#f1f5f9;'>Kde sa zranil:</b> {row['Kde sa zranil (zápas / tréning)']}</div>"
+                        f"<div style='margin-top:4px;'><b style='color:{inj_bold};'>Návrat:</b> {row['Predpokladaný návrat']}</div>"
+                        f"<div style='margin-top:2px;'><b style='color:{inj_bold};'>Kde sa zranil:</b> {row['Kde sa zranil (zápas / tréning)']}</div>"
                         f"</div></div>"
                     )
                     col.markdown(card_html, unsafe_allow_html=True)
