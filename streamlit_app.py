@@ -260,6 +260,14 @@ def build_rating_comparison_chart(
     y_domain = [round(y_min - pad, -1), round(y_max + pad, -1)]
     y_scale = alt.Scale(domain=y_domain, zero=False, nice=False)
 
+    palette = [
+        "#38bdf8", "#2dd4bf", "#fbbf24", "#fb7185", "#a78bfa",
+        "#34d399", "#f472b6", "#60a5fa", "#facc15", "#f87171",
+        "#818cf8", "#4ade80", "#fb923c", "#22d3ee", "#e879f9",
+        "#a3e635", "#c084fc", "#f97316", "#14b8a6", "#cbd5e1",
+    ]
+    team_colors = [palette[i % len(palette)] for i in range(len(selected_teams))]
+
     is_single = len(systems) == 1
     show_legend = len(selected_teams) <= 12
     legend_cfg = (
@@ -289,7 +297,11 @@ def build_rating_comparison_chart(
                     scale=y_scale,
                     axis=alt.Axis(tickCount=6, labelPadding=6),
                 ),
-                color=alt.Color("Tím:N", legend=legend_cfg),
+                color=alt.Color(
+                    "Tím:N",
+                    scale=alt.Scale(domain=selected_teams, range=team_colors),
+                    legend=legend_cfg,
+                ),
                 opacity=alt.condition(sel, alt.value(0.95), alt.value(0.18)),
                 strokeWidth=alt.condition(sel, alt.value(2.8), alt.value(1.5)),
                 tooltip=[
@@ -728,6 +740,26 @@ def main() -> None:
             )
             for ch in comp_charts:
                 st.altair_chart(ch, use_container_width=True)
+
+            if len(selected_teams) > 12:
+                palette = [
+                    "#38bdf8", "#2dd4bf", "#fbbf24", "#fb7185", "#a78bfa",
+                    "#34d399", "#f472b6", "#60a5fa", "#facc15", "#f87171",
+                    "#818cf8", "#4ade80", "#fb923c", "#22d3ee", "#e879f9",
+                    "#a3e635", "#c084fc", "#f97316", "#14b8a6", "#cbd5e1",
+                ]
+                legend_items = "".join(
+                    f"<span style='display:inline-flex;align-items:center;gap:6px;font-size:12px;color:#e2e8f0;'>"
+                    f"<span style='display:inline-block;width:14px;height:3px;border-radius:2px;background:{palette[i % len(palette)]};'></span>"
+                    f"{t}</span>"
+                    for i, t in enumerate(selected_teams)
+                )
+                st.markdown(
+                    f"<div style='border:1px solid rgba(148,163,184,0.18);border-radius:10px;"
+                    f"padding:10px 12px;background:rgba(21,31,50,0.85);display:flex;flex-wrap:wrap;gap:6px 14px;'>"
+                    f"{legend_items}</div>",
+                    unsafe_allow_html=True,
+                )
 
         st.divider()
         st.subheader(f"Presnosť na sezóne {metadata['test_season']}")
