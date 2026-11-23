@@ -15,6 +15,8 @@ import pandas as pd
 from src.config import DATA_DIR, TEAM_ALIASES
 
 TIPS_JOURNAL_JSON: Path = DATA_DIR / "tips_journal.json"
+WALLET_JSON: Path = DATA_DIR / "wallet.json"
+INITIAL_BALANCE: float = 100.0
 
 ESPN_LEAGUE_CODES: dict[str, str] = {
     "Premier League": "eng.1",
@@ -162,6 +164,7 @@ def fetch_next_match_per_team(league: str, days_ahead: int = 14) -> list[dict]:
                     "event_id": ev_id,
                     "league": league,
                     "kickoff_utc": dt_utc,
+                    "kickoff_utc_iso": dt_utc.isoformat(),
                     "kickoff_str": dt_local.strftime("%d. %m. %Y · %H:%M"),
                     "match_date": dt_local.strftime("%Y-%m-%d"),
                     "home": normalize_espn_team(home_raw),
@@ -182,6 +185,58 @@ def fetch_next_match_per_team(league: str, days_ahead: int = 14) -> list[dict]:
         next_per_team.append(fx)
 
     return next_per_team
+
+
+def load_balance(path: Path = WALLET_JSON) -> float:
+    """Načíta aktuálny zostatok na účte v EUR (predvolene 100.00 €)."""
+    if not path.exists():
+        return INITIAL_BALANCE
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+        val = float(data.get("balance", INITIAL_BALANCE))
+        return round(max(0.0, val), 2)
+    except (json.JSONDecodeError, OSError, ValueError, TypeError):
+        return INITIAL_BALANCE
+
+
+def save_balance(balance: float, path: Path = WALLET_JSON) -> None:
+    """Zapíše aktuálny zostatok na účte v EUR."""
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(
+        json.dumps({"balance": round(max(0.0, float(balance)), 2)}, ensure_ascii=False, indent=2),
+        encoding="utf-8",
+    )
+
+
+def tip_fair_odds(tip_code: str, probs: tuple[float, float, float]) -> float:
+    """Vypočíta férový kurz z pravdepodobností (H, D, A) pre daný tip."""
+    p_h, p_d, p_a = probs
+    prob_map = {
+        "1": p_h,
+        "1X": p_h + p_d,
+        "X": p_d,
+        "X2": p_d + p_a,
+        "2": p_a,
+    }
+    p = max(0.01, min(0.99, float(prob_map.get(tip_code, 0.33))))
+    return round(1.0 / p, 2)
+
+
+def can_cancel_tip(tip: dict, now_utc: datetime | None = None) -> bool:
+    """Tip je možné stornovať iba ak ešte nebol vyhodnotený a zápas ešte nezačal."""
+    if tip.get("actual_ftr") is not None:
+        return False
+    iso = tip.get("kickoff_utc_iso")
+    if not iso:
+        return True
+    try:
+        kickoff = datetime.fromisoformat(str(iso))
+        if kickoff.tzinfo is None:
+            kickoff = kickoff.replace(tzinfo=timezone.utc)
+        ref_now = now_utc or datetime.now(timezone.utc)
+        return ref_now < kickoff
+    except ValueError:
+        return True
 
 
 def load_journal_tips(path: Path = TIPS_JOURNAL_JSON) -> list[dict]:
@@ -210,13 +265,22 @@ def save_fixture_tip(
     kickoff_str: str,
     match_date: str,
     tip_code: str,
+    stake: float = 10.0,
+    odds: float = 2.0,
+    kickoff_utc_iso: str = "",
     path: Path = TIPS_JOURNAL_JSON,
-) -> dict:
-    """Uloží alebo aktualizuje tip pre konkrétny budúci zápas."""
+    wallet_path: Path = WALLET_JSON,
+) -> tuple[bool, str, dict | None]:
+    """Uloží alebo aktualizuje tip pre budúci zápas a odráta vklad zo zostatku."""
     if tip_code not in TIP_LABELS:
-        raise ValueError(f"Neplatný tip: {tip_code}")
+        return False, f"Neplatný tip: {tip_code}", None
+
+    stake_val = round(float(stake), 2)
+    if stake_val < 1.0 or stake_val > 100.0:
+        return False, "Vklad musí byť od 1.00 € do 100.00 €.", None
 
     tips = load_journal_tips(path)
+    balance = load_balance(wallet_path)
     now_str = datetime.now().strftime("%d. %m. %Y %H:%M")
 
     for tip in tips:
@@ -227,11 +291,26 @@ def save_fixture_tip(
             and tip.get("away") == away
             and tip.get("match_date") == match_date
         ):
+            if not can_cancel_tip(tip):
+                return False, "Zápas už začal, tip sa už nedá zmeniť.", None
+            old_stake = round(float(tip.get("stake", 0.0)), 2)
+            available = round(balance + old_stake, 2)
+            if stake_val > available:
+                return False, f"Nedostatok prostriedkov (k dispozícii {available:.2f} €).", None
+            new_balance = round(available - stake_val, 2)
             tip["tip_code"] = tip_code
+            tip["stake"] = stake_val
+            tip["odds"] = round(float(odds), 2)
+            tip["potential_win"] = round(stake_val * float(odds), 2)
             tip["updated_at"] = now_str
             save_journal_tips(tips, path)
-            return tip
+            save_balance(new_balance, wallet_path)
+            return True, "Tip aktualizovaný.", tip
 
+    if stake_val > balance:
+        return False, f"Nedostatok prostriedkov na účte (zostatok {balance:.2f} €).", None
+
+    new_balance = round(balance - stake_val, 2)
     entry = {
         "id": uuid.uuid4().hex[:10],
         "created_at": now_str,
@@ -240,24 +319,55 @@ def save_fixture_tip(
         "home": home,
         "away": away,
         "kickoff_str": kickoff_str,
+        "kickoff_utc_iso": kickoff_utc_iso,
         "match_date": match_date,
         "tip_code": tip_code,
+        "stake": stake_val,
+        "odds": round(float(odds), 2),
+        "potential_win": round(stake_val * float(odds), 2),
+        "payout": None,
         "actual_ftr": None,
         "actual_score": None,
     }
     tips.insert(0, entry)
     save_journal_tips(tips, path)
-    return entry
+    save_balance(new_balance, wallet_path)
+    return True, "Tip uložený.", entry
+
+
+def cancel_journal_tip(
+    tip_id: str,
+    path: Path = TIPS_JOURNAL_JSON,
+    wallet_path: Path = WALLET_JSON,
+    now_utc: datetime | None = None,
+) -> tuple[bool, str]:
+    """Stornuje tip pred začiatkom zápasu a vráti vklad na účet."""
+    tips = load_journal_tips(path)
+    target = next((t for t in tips if t.get("id") == tip_id), None)
+    if target is None:
+        return False, "Tip sa nenašiel."
+    if not can_cancel_tip(target, now_utc=now_utc):
+        return False, "Zápas už začal alebo bol vyhodnotený – tip už nie je možné stornovať."
+
+    refund = round(float(target.get("stake", 0.0)), 2)
+    balance = load_balance(wallet_path)
+    save_balance(round(balance + refund, 2), wallet_path)
+    save_journal_tips([t for t in tips if t.get("id") != tip_id], path)
+    return True, f"Tip stornovaný, vrátených {refund:.2f} €."
 
 
 def delete_journal_tip(tip_id: str, path: Path = TIPS_JOURNAL_JSON) -> None:
-    """Odstráni tip z denníka."""
+    """Odstráni už vyhodnotený tip z histórie denníka (bez zmeny zostatku)."""
     tips = [t for t in load_journal_tips(path) if t.get("id") != tip_id]
     save_journal_tips(tips, path)
 
 
-def clear_journal_tips(path: Path = TIPS_JOURNAL_JSON) -> None:
-    """Vymaže všetky tipy z denníka."""
+def reset_wallet_and_tips(
+    path: Path = TIPS_JOURNAL_JSON,
+    wallet_path: Path = WALLET_JSON,
+) -> None:
+    """Obnoví zostatok na 100.00 € a vymaže všetky tipy."""
+    save_balance(INITIAL_BALANCE, wallet_path)
     save_journal_tips([], path)
 
 
@@ -279,9 +389,13 @@ def is_tip_hit(tip_code: str, actual_ftr: str) -> bool:
 def resolve_journal_tips(
     tips: list[dict],
     matches_by_league: dict[str, pd.DataFrame],
+    wallet_path: Path = WALLET_JSON,
 ) -> tuple[list[dict], bool]:
-    """Automaticky vyhodnotí tipy podľa odohraných zápasov v `matches`."""
+    """Automaticky vyhodnotí tipy podľa odohraných zápasov v `matches` a pripíše výhru."""
     changed = False
+    balance = load_balance(wallet_path)
+    balance_changed = False
+
     for tip in tips:
         if tip.get("actual_ftr") is not None:
             continue
@@ -301,8 +415,20 @@ def resolve_journal_tips(
 
         if not cand.empty:
             row = cand.sort_values("date").iloc[0]
-            tip["actual_ftr"] = str(row["ftr"])
+            ftr = str(row["ftr"])
+            tip["actual_ftr"] = ftr
             tip["actual_score"] = f"{int(row['fthg'])}:{int(row['ftag'])}"
+            stake_val = float(tip.get("stake", 0.0))
+            odds_val = float(tip.get("odds", 1.0))
+            if stake_val > 0 and is_tip_hit(tip.get("tip_code", ""), ftr):
+                payout = round(stake_val * odds_val, 2)
+                tip["payout"] = payout
+                balance = round(balance + payout, 2)
+                balance_changed = True
+            else:
+                tip["payout"] = 0.0
             changed = True
 
+    if balance_changed:
+        save_balance(balance, wallet_path)
     return tips, changed

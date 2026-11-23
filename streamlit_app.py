@@ -34,17 +34,22 @@ get_team_logo_data_uri = _injuries_mod.get_team_logo_data_uri
 get_player_photo_data_uri = _injuries_mod.get_player_photo_data_uri
 load_injuries_by_league = _injuries_mod.load_injuries_by_league
 update_live_season_pipeline = _updater_mod.update_live_season_pipeline
+INITIAL_BALANCE = _dennik_mod.INITIAL_BALANCE
 TIP_LABELS = _dennik_mod.TIP_LABELS
 TIP_OPTIONS = _dennik_mod.TIP_OPTIONS
-clear_journal_tips = _dennik_mod.clear_journal_tips
+can_cancel_tip = _dennik_mod.can_cancel_tip
+cancel_journal_tip = _dennik_mod.cancel_journal_tip
 delete_journal_tip = _dennik_mod.delete_journal_tip
 fetch_next_match_per_team = _dennik_mod.fetch_next_match_per_team
 format_tip_text = _dennik_mod.format_tip_text
 is_tip_hit = _dennik_mod.is_tip_hit
+load_balance = _dennik_mod.load_balance
 load_journal_tips = _dennik_mod.load_journal_tips
+reset_wallet_and_tips = _dennik_mod.reset_wallet_and_tips
 resolve_journal_tips = _dennik_mod.resolve_journal_tips
 save_fixture_tip = _dennik_mod.save_fixture_tip
 save_journal_tips = _dennik_mod.save_journal_tips
+tip_fair_odds = _dennik_mod.tip_fair_odds
 
 from src.ratings import (
     EloSystem,
@@ -574,6 +579,18 @@ def main() -> None:
             [data-baseweb='tag'] {
                 background-color: #e0f2fe !important;
                 color: #0369a1 !important;
+            }
+            [data-testid='stNumberInput'] > div {
+                background-color: #ffffff !important;
+                border-color: #cbd5e1 !important;
+            }
+            [data-testid='stNumberInput'] input {
+                background-color: #ffffff !important;
+                color: #0f172a !important;
+            }
+            [data-testid='stNumberInput'] button {
+                background-color: #f1f5f9 !important;
+                color: #0f172a !important;
             }
             button[data-testid='stBaseButton-secondary'],
             button[kind='secondary'],
@@ -1345,7 +1362,7 @@ def main() -> None:
         st.subheader(f"Najbližšie neodohrané zápasy – {active_league}")
         st.caption(
             "Pre každý tím ligy je zobrazený 1 najbližší neodohraný zápas. "
-            "Vyber si tip pre domáci alebo hosťujúci tím (opätovným klikom alebo tlačidlom ✕ tip zrušíš)."
+            "Zadaj vklad (1–100 €) a vyber tip. Pred začiatkom zápasu môžeš tip stornovať a vklad sa ti vráti."
         )
 
         tips = load_journal_tips()
@@ -1357,6 +1374,44 @@ def main() -> None:
             tips, changed = resolve_journal_tips(tips, matches_by_lg)
             if changed:
                 save_journal_tips(tips)
+
+        balance = load_balance()
+        in_play = round(sum(float(t.get("stake", 0.0)) for t in tips if t.get("actual_ftr") is None), 2)
+        resolved_tips = [t for t in tips if t.get("actual_ftr") in ("H", "D", "A")]
+        hits = sum(1 for t in resolved_tips if is_tip_hit(t.get("tip_code", ""), t.get("actual_ftr", "")))
+        acc = (hits / len(resolved_tips)) if resolved_tips else 0.0
+
+        w_bg = "rgba(21,31,50,0.92)" if is_dark else "#f8fafc"
+        w_bd = "rgba(148,163,184,0.18)" if is_dark else "#e2e8f0"
+        w_lbl = "#94a3b8" if is_dark else "#475569"
+        w_bal = "#2dd4bf" if is_dark else "#0f766e"
+        w_play = "#38bdf8" if is_dark else "#1d4ed8"
+        w_txt = "#f8fafc" if is_dark else "#0f172a"
+
+        w_c1, w_c2 = st.columns([5.2, 1.3], vertical_alignment="center")
+        w_c1.markdown(
+            f"""
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:6px;">
+              <div style="background:{w_bg};border:1px solid {w_bd};border-radius:12px;padding:10px 8px;text-align:center;">
+                <div style="font-size:12px;color:{w_lbl};">💶 Zostatok na účte</div>
+                <div style="font-size:21px;font-weight:700;color:{w_bal};">{balance:.2f} €</div>
+              </div>
+              <div style="background:{w_bg};border:1px solid {w_bd};border-radius:12px;padding:10px 8px;text-align:center;">
+                <div style="font-size:12px;color:{w_lbl};">🎟️ V hre (aktívne tipy)</div>
+                <div style="font-size:21px;font-weight:700;color:{w_play};">{in_play:.2f} €</div>
+              </div>
+              <div style="background:{w_bg};border:1px solid {w_bd};border-radius:12px;padding:10px 8px;text-align:center;">
+                <div style="font-size:12px;color:{w_lbl};">📊 Úspešnosť</div>
+                <div style="font-size:21px;font-weight:700;color:{w_txt};">{f"{hits}/{len(resolved_tips)} ({acc:.0%})" if resolved_tips else "–"}</div>
+              </div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+        if w_c2.button("🔄 Reset (100 €)", key="reset_wallet_btn", help="Obnoviť zostatok na 100.00 € a vymazať tipy", use_container_width=True):
+            reset_wallet_and_tips()
+            st.toast("Účet obnovený na 100.00 €", icon="💶")
+            st.rerun()
 
         saved_lookup: dict[tuple[str, str, str, str], dict] = {
             (t.get("league", ""), t.get("home", ""), t.get("away", ""), t.get("match_date", "")): t
@@ -1385,6 +1440,7 @@ def main() -> None:
                 h_img = f"<img src='{h_logo}' style='width:22px;height:22px;object-fit:contain;vertical-align:middle;' /> " if h_logo else ""
                 a_img = f" <img src='{a_logo}' style='width:22px;height:22px;object-fit:contain;vertical-align:middle;' />" if a_logo else ""
 
+                p_comb: tuple[float, float, float] = (0.34, 0.33, 0.33)
                 prob_line = ""
                 if f_home in ratings_by_team and f_away in ratings_by_team:
                     fx_preds = compute_all_predictions(ratings_by_team[f_home], ratings_by_team[f_away])
@@ -1393,25 +1449,46 @@ def main() -> None:
 
                 existing_tip = saved_lookup.get((active_league, f_home, f_away, fx["match_date"]))
                 active_code = existing_tip.get("tip_code") if existing_tip else None
+                cancellable = can_cancel_tip(existing_tip) if existing_tip else True
                 badge_bg = "rgba(56,189,248,0.16)" if is_dark else "#e0f2fe"
                 badge_fg = "#38bdf8" if is_dark else "#0369a1"
-                tip_badge_html = (
-                    f"<div style='margin-bottom:8px;'>"
-                    f"<span style='display:inline-block;background:{badge_bg};color:{badge_fg};"
-                    f"padding:3px 10px;border-radius:8px;font-size:12.5px;font-weight:700;'>"
-                    f"🎯 Tvoj tip: {format_tip_text(active_code, f_home, f_away)}</span></div>"
-                    if active_code
-                    else ""
-                )
+                if existing_tip and active_code:
+                    e_stake = float(existing_tip.get("stake", 0.0))
+                    e_odds = float(existing_tip.get("odds", 1.0))
+                    e_win = float(existing_tip.get("potential_win", round(e_stake * e_odds, 2)))
+                    lock_lbl = "" if cancellable else " · 🔒 Zápas už začal"
+                    tip_badge_html = (
+                        f"<div style='margin-bottom:6px;'>"
+                        f"<span style='display:inline-block;background:{badge_bg};color:{badge_fg};"
+                        f"padding:3px 10px;border-radius:8px;font-size:12.5px;font-weight:700;'>"
+                        f"🎯 Tvoj tip: {format_tip_text(active_code, f_home, f_away)} · "
+                        f"Vklad {e_stake:.2f} € (kurz {e_odds:.2f} → výhra {e_win:.2f} €){lock_lbl}</span></div>"
+                    )
+                else:
+                    tip_badge_html = ""
 
                 with st.container(border=True):
-                    st.markdown(
-                        f"<div style='display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;margin-bottom:6px;'>"
+                    top_l, top_r = st.columns([4.8, 1.3], vertical_alignment="center")
+                    top_l.markdown(
+                        f"<div style='display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;margin-bottom:4px;'>"
                         f"<span style='font-size:16px;font-weight:700;color:{c_title};'>{h_img}{f_home} – {f_away}{a_img}</span>"
                         f"<span style='font-size:12px;color:{c_muted};'>🕒 {fx['kickoff_str']}{prob_line}</span>"
                         f"</div>{tip_badge_html}",
                         unsafe_allow_html=True,
                     )
+                    default_stake = float(existing_tip.get("stake", 10.0)) if existing_tip else min(10.0, max(1.0, balance))
+                    default_stake = max(1.0, min(100.0, default_stake))
+                    stake_val = top_r.number_input(
+                        "Vklad (€)",
+                        min_value=1.0,
+                        max_value=100.0,
+                        value=default_stake,
+                        step=1.0,
+                        format="%.2f",
+                        key=f"stake_{active_league}_{fx['event_id']}",
+                        disabled=bool(existing_tip and not cancellable),
+                    )
+
                     btn_specs = [
                         ("1", f"1 · {f_home}", f"Výhra {f_home}"),
                         ("1X", f"1X · {f_home}/X", f"Výhra alebo remíza {f_home}"),
@@ -1419,26 +1496,28 @@ def main() -> None:
                         ("X2", f"X2 · {f_away}/X", f"Výhra alebo remíza {f_away}"),
                         ("2", f"2 · {f_away}", f"Výhra {f_away}"),
                     ]
-                    if existing_tip:
-                        b_cols = st.columns([1.15, 1.25, 0.9, 1.25, 1.15, 0.6])
+                    if existing_tip and cancellable:
+                        b_cols = st.columns([1.15, 1.25, 0.9, 1.25, 1.15, 0.75])
                     else:
                         b_cols = st.columns([1.15, 1.25, 0.9, 1.25, 1.15])
 
                     for idx_b, (t_code, t_label, t_help) in enumerate(btn_specs):
                         is_sel = active_code == t_code
-                        btn_text = f"✓ {t_label}" if is_sel else t_label
+                        f_odds = tip_fair_odds(t_code, p_comb)
+                        btn_text = f"✓ {t_label}" if is_sel else f"{t_label} ({f_odds:.2f})"
                         if b_cols[idx_b].button(
                             btn_text,
                             key=f"dennik_{active_league}_{fx['event_id']}_{t_code}",
                             type="primary" if is_sel else "secondary",
-                            help=f"{t_help} (kliknutím zrušíš)" if is_sel else t_help,
+                            help=f"{t_help} · kurz {f_odds:.2f}" + (" (kliknutím stornuješ)" if is_sel and cancellable else ""),
+                            disabled=bool(existing_tip and not cancellable),
                             use_container_width=True,
                         ):
                             if is_sel and existing_tip:
-                                delete_journal_tip(existing_tip["id"])
-                                st.toast(f"Tip zrušený: {f_home} – {f_away}", icon="🗑️")
+                                ok, msg = cancel_journal_tip(existing_tip["id"])
+                                st.toast(msg, icon="💶" if ok else "⚠️")
                             else:
-                                save_fixture_tip(
+                                ok, msg, _ = save_fixture_tip(
                                     league=active_league,
                                     season=season,
                                     home=f_home,
@@ -1446,64 +1525,74 @@ def main() -> None:
                                     kickoff_str=fx["kickoff_str"],
                                     match_date=fx["match_date"],
                                     tip_code=t_code,
+                                    stake=stake_val,
+                                    odds=f_odds,
+                                    kickoff_utc_iso=fx.get("kickoff_utc_iso", ""),
                                 )
-                                st.toast(f"Tip uložený: {format_tip_text(t_code, f_home, f_away)}", icon="📝")
+                                if ok:
+                                    st.toast(
+                                        f"Tip uložený: {format_tip_text(t_code, f_home, f_away)} za {stake_val:.2f} €",
+                                        icon="📝",
+                                    )
+                                else:
+                                    st.toast(msg, icon="⚠️")
                             st.rerun()
 
-                    if existing_tip:
+                    if existing_tip and cancellable:
                         if b_cols[5].button(
-                            "✕",
+                            "✕ Storno",
                             key=f"dennik_cancel_{active_league}_{fx['event_id']}",
-                            help="Zrušiť tip na tento zápas",
+                            help="Stornovať tip pred začiatkom zápasu a vrátiť vklad",
                             use_container_width=True,
                         ):
-                            delete_journal_tip(existing_tip["id"])
-                            st.toast(f"Tip zrušený: {f_home} – {f_away}", icon="🗑️")
+                            ok, msg = cancel_journal_tip(existing_tip["id"])
+                            st.toast(msg, icon="💶" if ok else "⚠️")
                             st.rerun()
 
         st.divider()
         st.subheader("Moje uložené tipy")
         if not tips:
-            st.info("Zatiaľ nemáš uložené žiadne tipy. Klikni na ľubovoľnú možnosť pri zápase vyššie.")
+            st.info("Zatiaľ nemáš uložené žiadne tipy. Zadaj vklad (1–100 €) a klikni na možnosť pri zápase vyššie.")
         else:
-            resolved_tips = [t for t in tips if t.get("actual_ftr") in ("H", "D", "A")]
-            hits = sum(1 for t in resolved_tips if is_tip_hit(t.get("tip_code", ""), t.get("actual_ftr", "")))
-            acc = (hits / len(resolved_tips)) if resolved_tips else 0.0
-
-            m_c1, m_c2, m_c3, m_c4 = st.columns([1, 1, 1, 1.1], vertical_alignment="center")
-            m_c1.metric("Uložené tipy", len(tips))
-            m_c2.metric("Vyhodnotené", len(resolved_tips))
-            m_c3.metric("Úspešnosť", f"{hits}/{len(resolved_tips)} ({acc:.0%})" if resolved_tips else "–")
-            if m_c4.button("Vymazať všetky", key="clear_journal_btn", use_container_width=True):
-                clear_journal_tips()
-                st.rerun()
-
             for tip in tips:
                 tid = tip["id"]
                 t_code = tip.get("tip_code", "")
-                t_lbl = TIP_LABELS.get(t_code, t_code)
+                t_stake = float(tip.get("stake", 0.0))
+                t_odds = float(tip.get("odds", 1.0))
+                t_pot = float(tip.get("potential_win", round(t_stake * t_odds, 2)))
                 actual = tip.get("actual_ftr")
                 if actual in ("H", "D", "A"):
-                    badge = "✅ Vyšlo" if is_tip_hit(t_code, actual) else "❌ Nevyšlo"
+                    hit = is_tip_hit(t_code, actual)
+                    badge = f"✅ Výhra {tip.get('payout', t_pot):.2f} €" if hit else "❌ Prehra (0.00 €)"
                     res_info = f"Skóre {tip.get('actual_score', '')} · {badge}"
                 else:
-                    res_info = "⏳ Čaká sa na odohranie"
+                    res_info = f"⏳ Čaká sa · Možná výhra {t_pot:.2f} €"
 
+                cancellable_row = can_cancel_tip(tip)
                 with st.container(border=True):
-                    c_info, c_pick, c_del = st.columns([5, 3, 1.2], vertical_alignment="center")
+                    c_info, c_pick, c_del = st.columns([4.6, 3.6, 1.4], vertical_alignment="center")
                     c_info.markdown(
                         f"**{tip['home']} – {tip['away']}**  \n"
                         f"<span style='font-size:12px;color:#94a3b8;'>{tip['league']} · {tip.get('kickoff_str', '')}</span>",
                         unsafe_allow_html=True,
                     )
                     c_pick.markdown(
-                        f"Tip: **{format_tip_text(t_code, tip['home'], tip['away'])}**  \n"
+                        f"Tip: **{format_tip_text(t_code, tip['home'], tip['away'])}** · **{t_stake:.2f} €** (kurz {t_odds:.2f})  \n"
                         f"<span style='font-size:12px;color:#94a3b8;'>{res_info}</span>",
                         unsafe_allow_html=True,
                     )
-                    if c_del.button("🗑️", key=f"del_journal_{tid}", help="Odstrániť tip", use_container_width=True):
-                        delete_journal_tip(tid)
-                        st.rerun()
+                    if actual is None:
+                        if cancellable_row:
+                            if c_del.button("✕ Stornovať", key=f"cancel_journal_{tid}", help="Vráti vklad na účet", use_container_width=True):
+                                ok, msg = cancel_journal_tip(tid)
+                                st.toast(msg, icon="💶" if ok else "⚠️")
+                                st.rerun()
+                        else:
+                            c_del.caption("🔒 Prebieha")
+                    else:
+                        if c_del.button("🗑️ Zmazať", key=f"del_journal_{tid}", help="Odstrániť z histórie", use_container_width=True):
+                            delete_journal_tip(tid)
+                            st.rerun()
 
 
 main()
