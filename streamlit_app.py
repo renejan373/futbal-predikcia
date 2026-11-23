@@ -152,7 +152,13 @@ def probability_chart(probabilities: tuple[float, float, float], is_dark: bool =
     labels = base.mark_text(dy=-12, fontSize=14, fontWeight="bold", color=label_color).encode(
         text=alt.Text("Pravdepodobnosť:Q", format=".1%")
     )
-    return (bars + labels).properties(height=300)
+    chart_bg = "transparent" if is_dark else "#ffffff"
+    return (
+        (bars + labels)
+        .properties(height=300)
+        .configure(background=chart_bg)
+        .configure_view(strokeWidth=0, fill=chart_bg)
+    )
 
 
 def build_rating_comparison_chart(
@@ -161,7 +167,8 @@ def build_rating_comparison_chart(
     selected_teams: list[str],
     seasons_in_range: list[str],
     selected_system: str = "Všetky",
-) -> alt.Chart:
+    is_dark: bool = True,
+) -> list[alt.Chart]:
     """Vytvorí porovnávací čiarový graf (Elo, Glicko, Glicko-2 alebo jeden zvolený systém)."""
     all_systems = [
         ("Elo", "elo"),
@@ -292,6 +299,29 @@ def build_rating_comparison_chart(
 
     charts: list[alt.Chart] = []
     use_canvas = len(selected_teams) > 12
+    axis_color = "#cbd5e1" if is_dark else "#334155"
+    grid_color = "rgba(148,163,184,0.18)" if is_dark else "#e2e8f0"
+    chart_bg = "transparent" if is_dark else "#ffffff"
+    title_color = "#f8fafc" if is_dark else "#0f172a"
+
+    if show_legend:
+        legend_cfg = alt.Legend(
+            orient="bottom",
+            columns=2,
+            symbolLimit=0,
+            title=None,
+            labelLimit=130,
+            labelColor=axis_color,
+        )
+
+    x_enc = x_enc.axis(
+        **(
+            {"tickMinStep": 5, "labelColor": axis_color, "titleColor": axis_color, "gridColor": grid_color}
+            if len(seasons_in_range) == 1
+            else {"values": x_ticks, "labelAngle": 0, "labelPadding": 6, "labelColor": axis_color, "gridColor": grid_color}
+        )
+    )
+
     for sys_label, _ in systems:
         sub_df = df_long[df_long["Systém"] == sys_label].copy()
 
@@ -301,7 +331,12 @@ def build_rating_comparison_chart(
                 "Rating:Q",
                 title=None,
                 scale=y_scale,
-                axis=alt.Axis(tickCount=6, labelPadding=6),
+                axis=alt.Axis(
+                    tickCount=6,
+                    labelPadding=6,
+                    labelColor=axis_color,
+                    gridColor=grid_color,
+                ),
             ),
             color=alt.Color(
                 "Tím:N",
@@ -337,11 +372,16 @@ def build_rating_comparison_chart(
             .encode(y=alt.Y(datum=1500.0, scale=y_scale))
         )
 
-        layered = alt.layer(baseline, lines).properties(
-            width="container",
-            height=chart_height,
-            title=sys_label,
-            padding={"left": 8, "right": 8, "top": 8, "bottom": 4},
+        layered = (
+            alt.layer(baseline, lines)
+            .properties(
+                width="container",
+                height=chart_height,
+                title=alt.TitleParams(sys_label, color=title_color),
+                padding={"left": 8, "right": 8, "top": 8, "bottom": 4},
+            )
+            .configure(background=chart_bg)
+            .configure_view(strokeWidth=0, fill=chart_bg)
         )
         if use_canvas:
             layered = layered.properties(usermeta={"embedOptions": {"renderer": "canvas"}})
@@ -410,18 +450,49 @@ def main() -> None:
             [data-testid='stAppViewContainer'] h4,
             [data-testid='stAppViewContainer'] p,
             [data-testid='stAppViewContainer'] label,
-            [data-testid='stAppViewContainer'] span {
-                color: #0f172a;
+            [data-testid='stAppViewContainer'] [data-testid='stCaptionContainer'],
+            [data-testid='stAppViewContainer'] [data-testid='stMarkdownContainer'] {
+                color: #0f172a !important;
             }
             [data-testid='stVerticalBlockBorderWrapper'] {
-                background: #f8fafc;
-                border: 1px solid #e2e8f0;
+                background: #f8fafc !important;
+                border: 1px solid #e2e8f0 !important;
                 border-radius: 14px;
             }
-            [data-baseweb='select'] > div,
+            /* Segmented control buttons (light surface, dark text; active navy/white) */
             [data-testid='stSegmentedControl'] {
                 background-color: #f1f5f9 !important;
+                border: 1px solid #cbd5e1 !important;
+                border-radius: 10px !important;
+            }
+            [data-testid='stSegmentedControl'] button {
+                background-color: #f1f5f9 !important;
                 color: #0f172a !important;
+            }
+            [data-testid='stSegmentedControl'] button * {
+                color: #0f172a !important;
+            }
+            [data-testid='stSegmentedControl'] button[aria-pressed='true'],
+            [data-testid='stSegmentedControl'] button[data-active='true'] {
+                background-color: #1d3557 !important;
+                color: #ffffff !important;
+            }
+            [data-testid='stSegmentedControl'] button[aria-pressed='true'] *,
+            [data-testid='stSegmentedControl'] button[data-active='true'] * {
+                color: #ffffff !important;
+            }
+            /* Selectbox & Multiselect */
+            [data-baseweb='select'] > div {
+                background-color: #ffffff !important;
+                border-color: #cbd5e1 !important;
+                color: #0f172a !important;
+            }
+            [data-baseweb='select'] * {
+                color: #0f172a !important;
+            }
+            [data-baseweb='tag'] {
+                background-color: #e0f2fe !important;
+                color: #0369a1 !important;
             }
             .stButton > button {
                 background-color: #f1f5f9 !important;
@@ -431,6 +502,17 @@ def main() -> None:
             .stButton > button[kind='primary'] {
                 background-color: #1d3557 !important;
                 color: #ffffff !important;
+            }
+            .stButton > button[kind='primary'] * {
+                color: #ffffff !important;
+            }
+            [data-testid='stAlert'] {
+                background-color: #ecfdf5 !important;
+                color: #065f46 !important;
+                border: 1px solid #a7f3d0 !important;
+            }
+            [data-testid='stAlert'] * {
+                color: #065f46 !important;
             }
         """
 
@@ -593,7 +675,7 @@ def main() -> None:
             unsafe_allow_html=True,
         )
 
-        st.altair_chart(probability_chart(probs, is_dark=is_dark), use_container_width=True)
+        st.altair_chart(probability_chart(probs, is_dark=is_dark), use_container_width=True, theme=None)
 
         best_idx = max(range(3), key=lambda i: probs[i])
         st.success(
@@ -849,10 +931,10 @@ def main() -> None:
             )
             st.caption(mode_note)
             comp_charts = build_rating_comparison_chart(
-                ratings, history, selected_teams, seasons_in_range, selected_system=chart_system
+                ratings, history, selected_teams, seasons_in_range, selected_system=chart_system, is_dark=is_dark
             )
             for ch in comp_charts:
-                st.altair_chart(ch, use_container_width=True)
+                st.altair_chart(ch, use_container_width=True, theme=None)
 
             if len(selected_teams) > 12:
                 palette = [
