@@ -30,6 +30,7 @@ LEAGUES = _config_mod.LEAGUES
 get_league_paths = _config_mod.get_league_paths
 CLUB_LOGOS = _injuries_mod.CLUB_LOGOS
 get_team_logo_data_uri = _injuries_mod.get_team_logo_data_uri
+get_player_photo_data_uri = _injuries_mod.get_player_photo_data_uri
 load_injuries_by_league = _injuries_mod.load_injuries_by_league
 update_live_season_pipeline = _updater_mod.update_live_season_pipeline
 
@@ -803,14 +804,42 @@ def main() -> None:
                 card_cols = st.columns(2)
                 for idx, (_, row) in enumerate(club_df.iterrows()):
                     col = card_cols[idx % 2]
-                    with col.container(border=True):
-                        st.markdown(f"#### {row['Hráč']}  \n`{row['Pozícia']}` · **{row['Stav']}**")
-                        st.markdown(f"**Zranenie:** {row['Zranenie']}")
-                        d1, d2 = st.columns(2)
-                        d1.markdown(f"**Kedy:** {row['Kedy sa zranil']}")
-                        d2.markdown(f"**Na ako dlho:** {row['Na ako dlho']}")
-                        st.markdown(f"**Návrat:** {row['Predpokladaný návrat']}")
-                        st.markdown(f"**Kde sa zranil:** {row['Kde sa zranil (zápas / tréning)']}")
+                    photo_uri = get_player_photo_data_uri(row["Hráč"])
+                    if photo_uri:
+                        avatar_html = (
+                            f"<img src='{photo_uri}' style='width:58px;height:58px;border-radius:50%;"
+                            f"object-fit:cover;object-position:top center;border:2px solid #dfe3ea;flex-shrink:0;' />"
+                        )
+                    else:
+                        initials = "".join(part[0] for part in row["Hráč"].split()[:2]).upper()
+                        avatar_html = (
+                            f"<div style='width:58px;height:58px;border-radius:50%;background:#1d3557;"
+                            f"color:#fff;display:flex;align-items:center;justify-content:center;"
+                            f"font-weight:700;font-size:18px;flex-shrink:0;'>{initials}</div>"
+                        )
+
+                    card_html = (
+                        f"<div style='border:1px solid #e2e5ea;border-radius:12px;padding:12px 14px;"
+                        f"margin-bottom:10px;background:#ffffff;box-shadow:0 1px 2px rgba(0,0,0,0.03);'>"
+                        f"<div style='display:flex;align-items:center;gap:12px;margin-bottom:10px;'>"
+                        f"{avatar_html}"
+                        f"<div>"
+                        f"<div style='font-size:17px;font-weight:700;color:#1d3557;line-height:1.2;'>{row['Hráč']}</div>"
+                        f"<div style='font-size:12px;color:#555;margin-top:3px;'>"
+                        f"<span style='background:#f1f3f6;padding:2px 7px;border-radius:6px;font-weight:600;'>{row['Pozícia']}</span>"
+                        f" &nbsp;·&nbsp; <b>{row['Stav']}</b></div>"
+                        f"</div></div>"
+                        f"<div style='font-size:13.5px;line-height:1.5;color:#222;'>"
+                        f"<div><b>Zranenie:</b> {row['Zranenie']}</div>"
+                        f"<div style='display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:4px;'>"
+                        f"<div><b>Kedy:</b> {row['Kedy sa zranil']}</div>"
+                        f"<div><b>Na ako dlho:</b> {row['Na ako dlho']}</div>"
+                        f"</div>"
+                        f"<div style='margin-top:4px;'><b>Návrat:</b> {row['Predpokladaný návrat']}</div>"
+                        f"<div style='margin-top:2px;'><b>Kde sa zranil:</b> {row['Kde sa zranil (zápas / tréning)']}</div>"
+                        f"</div></div>"
+                    )
+                    col.markdown(card_html, unsafe_allow_html=True)
 
         if updated_at:
             st.caption(f"Údaje aktualizované k {updated_at} (zdroj: `data/injuries.json`).")

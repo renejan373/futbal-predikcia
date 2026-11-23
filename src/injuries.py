@@ -4,6 +4,8 @@ from __future__ import annotations
 
 import base64
 import json
+import re
+import unicodedata
 from functools import lru_cache
 from pathlib import Path
 
@@ -13,6 +15,7 @@ from src.config import DATA_DIR, PROJECT_DIR
 
 INJURIES_JSON: Path = DATA_DIR / "injuries.json"
 LOGOS_DIR: Path = PROJECT_DIR / "assets" / "logos"
+PLAYERS_DIR: Path = PROJECT_DIR / "assets" / "players"
 
 CLUB_LOGOS: dict[str, Path] = {
     # Premier League
@@ -82,6 +85,28 @@ def get_team_logo_data_uri(team_name: str) -> str:
         return ""
     encoded = base64.b64encode(path.read_bytes()).decode("ascii")
     return f"data:image/png;base64,{encoded}"
+
+
+def _player_slug(player_name: str) -> str:
+    ascii_name = (
+        unicodedata.normalize("NFKD", player_name)
+        .encode("ascii", "ignore")
+        .decode("ascii")
+        .lower()
+    )
+    return re.sub(r"[^a-z0-9]+", "_", ascii_name).strip("_")
+
+
+@lru_cache(maxsize=128)
+def get_player_photo_data_uri(player_name: str) -> str:
+    """Vráti base64 data URI fotky hráča z assets/players/ (alebo prázdny reťazec)."""
+    slug = _player_slug(player_name)
+    for ext, mime in ((".jpg", "image/jpeg"), (".jpeg", "image/jpeg"), (".png", "image/png")):
+        path = PLAYERS_DIR / f"{slug}{ext}"
+        if path.exists():
+            encoded = base64.b64encode(path.read_bytes()).decode("ascii")
+            return f"data:{mime};base64,{encoded}"
+    return ""
 
 COLUMN_RENAME = {
     "player": "Hráč",
