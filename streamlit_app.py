@@ -261,13 +261,22 @@ def build_rating_comparison_chart(
     y_scale = alt.Scale(domain=y_domain, zero=False, nice=False)
 
     is_single = len(systems) == 1
-    legend_cfg = alt.Legend(orient="bottom", columns=2, symbolLimit=0, title=None, labelLimit=130)
-    chart_height = 360 if is_single else 300
+    show_legend = len(selected_teams) <= 12
+    legend_cfg = (
+        alt.Legend(orient="bottom", columns=2, symbolLimit=0, title=None, labelLimit=130)
+        if show_legend
+        else None
+    )
+    chart_height = 380 if is_single else 320
 
     charts: list[alt.Chart] = []
     for sys_label, _ in systems:
         sub_df = df_long[df_long["Systém"] == sys_label].copy()
-        sel = alt.selection_point(fields=["Tím"], bind="legend", on="click")
+        sel = (
+            alt.selection_point(fields=["Tím"], bind="legend", on="click")
+            if show_legend
+            else alt.selection_point(fields=["Tím"], on="click")
+        )
 
         lines = (
             alt.Chart(sub_df)
