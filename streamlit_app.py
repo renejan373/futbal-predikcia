@@ -392,9 +392,6 @@ def main() -> None:
         current_section = sections[0]
 
     st.title(section_titles[current_section])
-    st.caption(
-        "SOČ · odbor 11 – Informatika · Elo, Glicko a Glicko-2"
-    )
 
     active_section = (
         st.segmented_control(
