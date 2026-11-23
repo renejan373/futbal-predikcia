@@ -575,15 +575,38 @@ def main() -> None:
                 background-color: #e0f2fe !important;
                 color: #0369a1 !important;
             }
+            button[data-testid='stBaseButton-secondary'],
+            button[kind='secondary'],
+            [data-testid='stButton'] button,
             .stButton > button {
                 background-color: #f1f5f9 !important;
                 color: #0f172a !important;
-                border-color: #cbd5e1 !important;
+                border: 1px solid #cbd5e1 !important;
             }
+            button[data-testid='stBaseButton-secondary'] *,
+            button[kind='secondary'] *,
+            [data-testid='stButton'] button *,
+            .stButton > button * {
+                color: #0f172a !important;
+            }
+            button[data-testid='stBaseButton-secondary']:hover,
+            button[kind='secondary']:hover,
+            [data-testid='stButton'] button:hover,
+            .stButton > button:hover {
+                background-color: #e2e8f0 !important;
+                color: #0f172a !important;
+            }
+            button[data-testid='stBaseButton-primary'],
+            button[kind='primary'],
+            [data-testid='stButton'] button[kind='primary'],
             .stButton > button[kind='primary'] {
                 background-color: #1d3557 !important;
                 color: #ffffff !important;
+                border-color: #1d3557 !important;
             }
+            button[data-testid='stBaseButton-primary'] *,
+            button[kind='primary'] *,
+            [data-testid='stButton'] button[kind='primary'] *,
             .stButton > button[kind='primary'] * {
                 color: #ffffff !important;
             }
