@@ -278,41 +278,45 @@ def build_rating_comparison_chart(
     chart_height = 380 if is_single else 320
 
     charts: list[alt.Chart] = []
+    use_canvas = len(selected_teams) > 12
     for sys_label, _ in systems:
         sub_df = df_long[df_long["Systém"] == sys_label].copy()
-        sel = (
-            alt.selection_point(fields=["Tím"], bind="legend", on="click")
-            if show_legend
-            else alt.selection_point(fields=["Tím"], on="click")
+
+        enc_kwargs: dict = dict(
+            x=x_enc,
+            y=alt.Y(
+                "Rating:Q",
+                title=None,
+                scale=y_scale,
+                axis=alt.Axis(tickCount=6, labelPadding=6),
+            ),
+            color=alt.Color(
+                "Tím:N",
+                scale=alt.Scale(domain=selected_teams, range=team_colors),
+                legend=legend_cfg,
+            ),
+            tooltip=[
+                alt.Tooltip("Tím:N"),
+                alt.Tooltip("Systém:N"),
+                tooltip_x,
+                alt.Tooltip("Rating:Q", format=".1f"),
+            ],
         )
 
-        lines = (
-            alt.Chart(sub_df)
-            .mark_line(point=len(seasons_in_range) == 1 and len(selected_teams) <= 8)
-            .encode(
-                x=x_enc,
-                y=alt.Y(
-                    "Rating:Q",
-                    title=None,
-                    scale=y_scale,
-                    axis=alt.Axis(tickCount=6, labelPadding=6),
-                ),
-                color=alt.Color(
-                    "Tím:N",
-                    scale=alt.Scale(domain=selected_teams, range=team_colors),
-                    legend=legend_cfg,
-                ),
-                opacity=alt.condition(sel, alt.value(0.95), alt.value(0.18)),
-                strokeWidth=alt.condition(sel, alt.value(2.8), alt.value(1.5)),
-                tooltip=[
-                    alt.Tooltip("Tím:N"),
-                    alt.Tooltip("Systém:N"),
-                    tooltip_x,
-                    alt.Tooltip("Rating:Q", format=".1f"),
-                ],
+        if show_legend:
+            sel = alt.selection_point(fields=["Tím"], bind="legend", on="click")
+            enc_kwargs["opacity"] = alt.condition(sel, alt.value(0.95), alt.value(0.18))
+            enc_kwargs["strokeWidth"] = alt.condition(sel, alt.value(2.8), alt.value(1.5))
+            lines = (
+                alt.Chart(sub_df)
+                .mark_line(point=len(seasons_in_range) == 1 and len(selected_teams) <= 8)
+                .encode(**enc_kwargs)
+                .add_params(sel)
             )
-            .add_params(sel)
-        )
+        else:
+            enc_kwargs["opacity"] = alt.value(0.78)
+            enc_kwargs["strokeWidth"] = alt.value(1.5)
+            lines = alt.Chart(sub_df).mark_line().encode(**enc_kwargs)
 
         baseline = (
             alt.Chart(sub_df)
@@ -320,14 +324,15 @@ def build_rating_comparison_chart(
             .encode(y=alt.Y(datum=1500.0, scale=y_scale))
         )
 
-        charts.append(
-            alt.layer(baseline, lines).properties(
-                width="container",
-                height=chart_height,
-                title=sys_label,
-                padding={"left": 8, "right": 8, "top": 8, "bottom": 4},
-            )
+        layered = alt.layer(baseline, lines).properties(
+            width="container",
+            height=chart_height,
+            title=sys_label,
+            padding={"left": 8, "right": 8, "top": 8, "bottom": 4},
         )
+        if use_canvas:
+            layered = layered.properties(usermeta={"embedOptions": {"renderer": "canvas"}})
+        charts.append(layered)
 
     return charts
 
@@ -374,10 +379,9 @@ def main() -> None:
                 background-attachment: fixed;
             }
             [data-testid='stVerticalBlockBorderWrapper'] {
-                background: rgba(21, 31, 50, 0.85);
+                background: rgba(21, 31, 50, 0.92);
                 border: 1px solid rgba(148, 163, 184, 0.18);
                 border-radius: 14px;
-                backdrop-filter: blur(8px);
             }
             .block-container {padding-top: 1.2rem; padding-left: 1rem; padding-right: 1rem;}
         </style>
@@ -647,8 +651,7 @@ def main() -> None:
 
             cards_html.append(
                 f"<div style='border:1px solid rgba(148,163,184,0.18);border-left:5px solid {accent};"
-                f"border-radius:12px;padding:11px 12px;margin-bottom:9px;background:{bg};"
-                f"backdrop-filter:blur(6px);'>"
+                f"border-radius:12px;padding:11px 12px;margin-bottom:9px;background:{bg};'>"
                 f"<div style='display:flex;justify-content:space-between;align-items:center;gap:6px;'>"
                 f"<span style='display:flex;align-items:center;gap:7px;font-size:16px;font-weight:700;color:#f8fafc;'>{badge} {logo_img} {row.team}</span>"
                 f"<span style='display:flex;align-items:center;gap:6px;'>{mini_form}"
@@ -874,7 +877,7 @@ def main() -> None:
 
                     card_html = (
                         f"<div style='border:1px solid rgba(148,163,184,0.18);border-radius:12px;padding:12px 14px;"
-                        f"margin-bottom:10px;background:rgba(21,31,50,0.88);backdrop-filter:blur(6px);'>"
+                        f"margin-bottom:10px;background:rgba(21,31,50,0.92);'>"
                         f"<div style='display:flex;align-items:center;gap:12px;margin-bottom:10px;'>"
                         f"{avatar_html}"
                         f"<div>"
