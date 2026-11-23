@@ -440,6 +440,11 @@ def main() -> None:
         """
     else:
         theme_css = """
+            :root, .stApp {
+                --text-color: #0f172a;
+                --background-color: #ffffff;
+                --secondary-background-color: #f1f5f9;
+            }
             [data-testid='stAppViewContainer'], .stApp {
                 background: #ffffff !important;
                 color: #0f172a !important;
@@ -459,29 +464,49 @@ def main() -> None:
                 border: 1px solid #e2e8f0 !important;
                 border-radius: 14px;
             }
-            /* Segmented control buttons (light surface, dark text; active navy/white) */
-            [data-testid='stSegmentedControl'] {
+            /* Segmented control / button group (Streamlit 1.67+ selectors) */
+            [data-testid='stButtonGroup'],
+            [data-baseweb='button-group'] {
                 background-color: #f1f5f9 !important;
-                border: 1px solid #cbd5e1 !important;
                 border-radius: 10px !important;
             }
-            [data-testid='stSegmentedControl'] button {
+            button[data-testid='stBaseButton-segmented_control'],
+            button[kind='segmented_control'],
+            [data-testid='stButtonGroup'] button,
+            [data-baseweb='button-group'] button {
                 background-color: #f1f5f9 !important;
                 color: #0f172a !important;
+                border-color: #cbd5e1 !important;
             }
-            [data-testid='stSegmentedControl'] button * {
+            button[data-testid='stBaseButton-segmented_control'] *,
+            button[kind='segmented_control'] *,
+            [data-testid='stButtonGroup'] button *,
+            [data-baseweb='button-group'] button * {
                 color: #0f172a !important;
             }
-            [data-testid='stSegmentedControl'] button[aria-pressed='true'],
-            [data-testid='stSegmentedControl'] button[data-active='true'] {
+            button[data-testid='stBaseButton-segmented_control']:hover,
+            button[kind='segmented_control']:hover,
+            [data-testid='stButtonGroup'] button:hover {
+                background-color: #e2e8f0 !important;
+                color: #0f172a !important;
+            }
+            button[data-testid='stBaseButton-segmented_controlActive'],
+            button[kind='segmented_controlActive'],
+            [data-testid='stButtonGroup'] button[aria-pressed='true'],
+            [data-testid='stButtonGroup'] button[data-active='true'],
+            [data-baseweb='button-group'] button[aria-pressed='true'] {
                 background-color: #1d3557 !important;
                 color: #ffffff !important;
+                border-color: #1d3557 !important;
             }
-            [data-testid='stSegmentedControl'] button[aria-pressed='true'] *,
-            [data-testid='stSegmentedControl'] button[data-active='true'] * {
+            button[data-testid='stBaseButton-segmented_controlActive'] *,
+            button[kind='segmented_controlActive'] *,
+            [data-testid='stButtonGroup'] button[aria-pressed='true'] *,
+            [data-testid='stButtonGroup'] button[data-active='true'] *,
+            [data-baseweb='button-group'] button[aria-pressed='true'] * {
                 color: #ffffff !important;
             }
-            /* Selectbox & Multiselect */
+            /* Selectbox, Multiselect & Dropdown Popovers */
             [data-baseweb='select'] > div {
                 background-color: #ffffff !important;
                 border-color: #cbd5e1 !important;
@@ -489,6 +514,20 @@ def main() -> None:
             }
             [data-baseweb='select'] * {
                 color: #0f172a !important;
+            }
+            [data-baseweb='popover'],
+            [data-baseweb='popover'] ul,
+            [data-baseweb='menu'] {
+                background-color: #ffffff !important;
+                color: #0f172a !important;
+                border: 1px solid #cbd5e1 !important;
+            }
+            [data-baseweb='menu'] li,
+            [data-baseweb='menu'] li * {
+                color: #0f172a !important;
+            }
+            [data-baseweb='menu'] li:hover {
+                background-color: #f1f5f9 !important;
             }
             [data-baseweb='tag'] {
                 background-color: #e0f2fe !important;
