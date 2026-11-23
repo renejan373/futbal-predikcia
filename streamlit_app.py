@@ -338,11 +338,38 @@ def compute_all_predictions(home_row: pd.Series, away_row: pd.Series) -> dict[st
 
 
 def main() -> None:
+    pitch_svg = (
+        "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 1200' preserveAspectRatio='xMidYMid slice'%3E"
+        "%3Cg fill='none' stroke='%232a9d8f' stroke-opacity='0.09' stroke-width='3'%3E"
+        "%3Crect x='40' y='40' width='720' height='1120' rx='8'/%3E"
+        "%3Cline x1='40' y1='600' x2='760' y2='600'/%3E"
+        "%3Ccircle cx='400' cy='600' r='110'/%3E"
+        "%3Ccircle cx='400' cy='600' r='5' fill='%232a9d8f' fill-opacity='0.12'/%3E"
+        "%3Crect x='200' y='40' width='400' height='170'/%3E"
+        "%3Crect x='290' y='40' width='220' height='65'/%3E"
+        "%3Crect x='200' y='990' width='400' height='170'/%3E"
+        "%3Crect x='290' y='1095' width='220' height='65'/%3E"
+        "%3C/g%3E%3C/svg%3E"
+    )
     st.markdown(
-        """
+        f"""
         <style>
-            [data-testid='stSidebar'], [data-testid='stSidebarCollapsedControl'] {display: none;}
-            .block-container {padding-top: 1.2rem; padding-left: 1rem; padding-right: 1rem;}
+            [data-testid='stSidebar'], [data-testid='stSidebarCollapsedControl'] {{display: none;}}
+            [data-testid='stHeader'] {{background: transparent;}}
+            [data-testid='stAppViewContainer'] {{
+                background-color: #eef6f2;
+                background-image:
+                    url("{pitch_svg}"),
+                    linear-gradient(160deg, #e7f4ee 0%, #f4f7fb 50%, #e4f1ea 100%);
+                background-size: cover, cover;
+                background-position: center center, center center;
+                background-attachment: fixed, fixed;
+            }}
+            [data-testid='stVerticalBlockBorderWrapper'] {{
+                background: rgba(255, 255, 255, 0.92);
+                border-radius: 12px;
+            }}
+            .block-container {{padding-top: 1.2rem; padding-left: 1rem; padding-right: 1rem;}}
         </style>
         """,
         unsafe_allow_html=True,
