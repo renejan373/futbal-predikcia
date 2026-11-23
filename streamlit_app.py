@@ -50,7 +50,7 @@ st.set_page_config(
 )
 
 OUTCOME_LABELS = ["Výhra domácich", "Remíza", "Výhra hostí"]
-OUTCOME_COLORS = ["#2a9d8f", "#e9c46a", "#264653"]
+OUTCOME_COLORS = ["#2dd4bf", "#fbbf24", "#38bdf8"]
 FORM_STYLE = {
     "V": ("#2a9d8f", "white"),
     "R": ("#e9c46a", "#1d1d1d"),
@@ -136,7 +136,7 @@ def probability_chart(probabilities: tuple[float, float, float]) -> alt.Chart:
             alt.Tooltip("Pravdepodobnosť:Q", format=".1%"),
         ],
     )
-    labels = base.mark_text(dy=-12, fontSize=14, fontWeight="bold").encode(
+    labels = base.mark_text(dy=-12, fontSize=14, fontWeight="bold", color="#f8fafc").encode(
         text=alt.Text("Pravdepodobnosť:Q", format=".1%")
     )
     return (bars + labels).properties(height=300)
