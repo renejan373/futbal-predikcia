@@ -12,6 +12,11 @@ import altair as alt
 import pandas as pd
 import streamlit as st
 
+try:
+    from streamlit_local_storage import LocalStorage
+except ImportError:
+    LocalStorage = None
+
 alt.data_transformers.disable_max_rows()
 
 import importlib
@@ -47,6 +52,7 @@ load_balance = _dennik_mod.load_balance
 load_journal_tips = _dennik_mod.load_journal_tips
 reset_wallet_and_tips = _dennik_mod.reset_wallet_and_tips
 resolve_journal_tips = _dennik_mod.resolve_journal_tips
+save_balance = _dennik_mod.save_balance
 save_fixture_tip = _dennik_mod.save_fixture_tip
 save_journal_tips = _dennik_mod.save_journal_tips
 tip_fair_odds = _dennik_mod.tip_fair_odds
@@ -659,6 +665,23 @@ def main() -> None:
                     any_ok = True
             if any_ok:
                 st.cache_data.clear()
+
+    local_storage = None
+    if LocalStorage is not None:
+        try:
+            local_storage = LocalStorage(key="dennik_ls")
+            if not st.session_state.get("dennik_ls_hydrated"):
+                raw_ls = local_storage.getItem("futbal_dennik_state")
+                if raw_ls is not None:
+                    parsed_ls = json.loads(raw_ls) if isinstance(raw_ls, str) else raw_ls
+                    if isinstance(parsed_ls, dict):
+                        if "balance" in parsed_ls:
+                            save_balance(float(parsed_ls["balance"]))
+                        if isinstance(parsed_ls.get("tips"), list):
+                            save_journal_tips(parsed_ls["tips"])
+                st.session_state["dennik_ls_hydrated"] = True
+        except Exception:
+            local_storage = None
 
     sections = [
         "⚽ Predikcia",
@@ -1374,6 +1397,7 @@ def main() -> None:
             tips, changed = resolve_journal_tips(tips, matches_by_lg)
             if changed:
                 save_journal_tips(tips)
+                st.session_state["dennik_ls_dirty"] = True
 
         balance = load_balance()
         in_play = round(sum(float(t.get("stake", 0.0)) for t in tips if t.get("actual_ftr") is None), 2)
@@ -1410,6 +1434,7 @@ def main() -> None:
         )
         if w_c2.button("🔄 Reset (100 €)", key="reset_wallet_btn", help="Obnoviť zostatok na 100.00 € a vymazať tipy", use_container_width=True):
             reset_wallet_and_tips()
+            st.session_state["dennik_ls_dirty"] = True
             st.toast("Účet obnovený na 100.00 €", icon="💶")
             st.rerun()
 
@@ -1515,6 +1540,8 @@ def main() -> None:
                         ):
                             if is_sel and existing_tip:
                                 ok, msg = cancel_journal_tip(existing_tip["id"])
+                                if ok:
+                                    st.session_state["dennik_ls_dirty"] = True
                                 st.toast(msg, icon="💶" if ok else "⚠️")
                             else:
                                 ok, msg, _ = save_fixture_tip(
@@ -1530,6 +1557,7 @@ def main() -> None:
                                     kickoff_utc_iso=fx.get("kickoff_utc_iso", ""),
                                 )
                                 if ok:
+                                    st.session_state["dennik_ls_dirty"] = True
                                     st.toast(
                                         f"Tip uložený: {format_tip_text(t_code, f_home, f_away)} za {stake_val:.2f} €",
                                         icon="📝",
@@ -1546,6 +1574,8 @@ def main() -> None:
                             use_container_width=True,
                         ):
                             ok, msg = cancel_journal_tip(existing_tip["id"])
+                            if ok:
+                                st.session_state["dennik_ls_dirty"] = True
                             st.toast(msg, icon="💶" if ok else "⚠️")
                             st.rerun()
 
@@ -1585,6 +1615,8 @@ def main() -> None:
                         if cancellable_row:
                             if c_del.button("✕ Stornovať", key=f"cancel_journal_{tid}", help="Vráti vklad na účet", use_container_width=True):
                                 ok, msg = cancel_journal_tip(tid)
+                                if ok:
+                                    st.session_state["dennik_ls_dirty"] = True
                                 st.toast(msg, icon="💶" if ok else "⚠️")
                                 st.rerun()
                         else:
@@ -1592,7 +1624,17 @@ def main() -> None:
                     else:
                         if c_del.button("🗑️ Zmazať", key=f"del_journal_{tid}", help="Odstrániť z histórie", use_container_width=True):
                             delete_journal_tip(tid)
+                            st.session_state["dennik_ls_dirty"] = True
                             st.rerun()
+
+    if local_storage is not None and st.session_state.pop("dennik_ls_dirty", False):
+        seq = st.session_state.get("dennik_ls_seq", 0) + 1
+        st.session_state["dennik_ls_seq"] = seq
+        payload = json.dumps(
+            {"balance": load_balance(), "tips": load_journal_tips()},
+            ensure_ascii=False,
+        )
+        local_storage.setItem("futbal_dennik_state", payload, key=f"ls_save_{seq}")
 
 
 main()
