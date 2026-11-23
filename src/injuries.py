@@ -2,7 +2,9 @@
 
 from __future__ import annotations
 
+import base64
 import json
+from functools import lru_cache
 from pathlib import Path
 
 import pandas as pd
@@ -15,12 +17,48 @@ LOGOS_DIR: Path = PROJECT_DIR / "assets" / "logos"
 CLUB_LOGOS: dict[str, Path] = {
     # Premier League
     "Arsenal": LOGOS_DIR / "arsenal.png",
+    "Aston Villa": LOGOS_DIR / "aston_villa.png",
+    "Bournemouth": LOGOS_DIR / "bournemouth.png",
+    "Brentford": LOGOS_DIR / "brentford.png",
+    "Brighton": LOGOS_DIR / "brighton.png",
+    "Chelsea": LOGOS_DIR / "chelsea.png",
+    "Coventry": LOGOS_DIR / "coventry.png",
+    "Crystal Palace": LOGOS_DIR / "crystal_palace.png",
+    "Everton": LOGOS_DIR / "everton.png",
+    "Fulham": LOGOS_DIR / "fulham.png",
+    "Hull": LOGOS_DIR / "hull.png",
+    "Ipswich": LOGOS_DIR / "ipswich.png",
+    "Leeds": LOGOS_DIR / "leeds.png",
     "Liverpool": LOGOS_DIR / "liverpool.png",
     "Man City": LOGOS_DIR / "man_city.png",
+    "Man United": LOGOS_DIR / "man_united.png",
+    "Newcastle": LOGOS_DIR / "newcastle.png",
+    "Nott'm Forest": LOGOS_DIR / "nottm_forest.png",
+    "Sunderland": LOGOS_DIR / "sunderland.png",
+    "Tottenham": LOGOS_DIR / "tottenham.png",
     # La Liga
-    "Real Madrid": LOGOS_DIR / "real_madrid.png",
-    "FC Barcelona": LOGOS_DIR / "fc_barcelona.png",
+    "Alaves": LOGOS_DIR / "alaves.png",
+    "Ath Bilbao": LOGOS_DIR / "ath_bilbao.png",
+    "Ath Madrid": LOGOS_DIR / "atletico_madrid.png",
     "Atlético Madrid": LOGOS_DIR / "atletico_madrid.png",
+    "Barcelona": LOGOS_DIR / "fc_barcelona.png",
+    "FC Barcelona": LOGOS_DIR / "fc_barcelona.png",
+    "Betis": LOGOS_DIR / "betis.png",
+    "Celta": LOGOS_DIR / "celta.png",
+    "Elche": LOGOS_DIR / "elche.png",
+    "Espanol": LOGOS_DIR / "espanol.png",
+    "Getafe": LOGOS_DIR / "getafe.png",
+    "La Coruna": LOGOS_DIR / "la_coruna.png",
+    "Levante": LOGOS_DIR / "levante.png",
+    "Malaga": LOGOS_DIR / "malaga.png",
+    "Osasuna": LOGOS_DIR / "osasuna.png",
+    "Real Madrid": LOGOS_DIR / "real_madrid.png",
+    "Santander": LOGOS_DIR / "santander.png",
+    "Sevilla": LOGOS_DIR / "sevilla.png",
+    "Sociedad": LOGOS_DIR / "sociedad.png",
+    "Valencia": LOGOS_DIR / "valencia.png",
+    "Vallecano": LOGOS_DIR / "vallecano.png",
+    "Villarreal": LOGOS_DIR / "villarreal.png",
     # Serie A
     "Inter Miláno": LOGOS_DIR / "inter_milano.png",
     "AC Miláno": LOGOS_DIR / "ac_milano.png",
@@ -34,6 +72,16 @@ CLUB_LOGOS: dict[str, Path] = {
     "Olympique Marseille": LOGOS_DIR / "marseille.png",
     "AS Monaco": LOGOS_DIR / "monaco.png",
 }
+
+
+@lru_cache(maxsize=64)
+def get_team_logo_data_uri(team_name: str) -> str:
+    """Vráti base64 data URI loga tímu pre vloženie do HTML karty."""
+    path = CLUB_LOGOS.get(team_name)
+    if not path or not path.exists():
+        return ""
+    encoded = base64.b64encode(path.read_bytes()).decode("ascii")
+    return f"data:image/png;base64,{encoded}"
 
 COLUMN_RENAME = {
     "player": "Hráč",

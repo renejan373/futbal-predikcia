@@ -29,6 +29,7 @@ CURRENT_SEASON = _config_mod.CURRENT_SEASON
 LEAGUES = _config_mod.LEAGUES
 get_league_paths = _config_mod.get_league_paths
 CLUB_LOGOS = _injuries_mod.CLUB_LOGOS
+get_team_logo_data_uri = _injuries_mod.get_team_logo_data_uri
 load_injuries_by_league = _injuries_mod.load_injuries_by_league
 update_live_season_pipeline = _updater_mod.update_live_season_pipeline
 
@@ -562,12 +563,19 @@ def main() -> None:
                 for r in form
             )
 
+            logo_uri = get_team_logo_data_uri(row.team)
+            logo_img = (
+                f"<img src='{logo_uri}' style='width:24px;height:24px;object-fit:contain;vertical-align:middle;' />"
+                if logo_uri
+                else ""
+            )
+
             cards_html.append(
                 f"<div style='border:1px solid #e4e7ec;border-left:5px solid {accent};"
                 f"border-radius:12px;padding:11px 12px;margin-bottom:9px;background:{bg};"
                 f"box-shadow:0 1px 2px rgba(0,0,0,0.03);'>"
                 f"<div style='display:flex;justify-content:space-between;align-items:center;gap:6px;'>"
-                f"<span style='font-size:16px;font-weight:700;color:#1d3557;'>{badge} {row.team}</span>"
+                f"<span style='display:flex;align-items:center;gap:7px;font-size:16px;font-weight:700;color:#1d3557;'>{badge} {logo_img} {row.team}</span>"
                 f"<span style='display:flex;align-items:center;gap:6px;'>{mini_form}"
                 f"<span style='font-size:11px;color:#555;background:#eef1f5;padding:2px 7px;border-radius:10px;font-weight:600;'>{int(row.matches_played)} záp.</span>"
                 f"</span></div>"
