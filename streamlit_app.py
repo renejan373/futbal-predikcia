@@ -342,12 +342,6 @@ def build_rating_comparison_chart(
     team_colors = [palette[i % len(palette)] for i in range(len(selected_teams))]
 
     is_single = len(systems) == 1
-    show_legend = len(selected_teams) <= 12
-    legend_cfg = (
-        alt.Legend(orient="bottom", columns=2, symbolLimit=0, title=None, labelLimit=130)
-        if show_legend
-        else None
-    )
     chart_height = 380 if is_single else 320
 
     charts: list[alt.Chart] = []
@@ -357,15 +351,15 @@ def build_rating_comparison_chart(
     chart_bg = "transparent" if is_dark else "#ffffff"
     title_color = "#f8fafc" if is_dark else "#0f172a"
 
-    if show_legend:
-        legend_cfg = alt.Legend(
-            orient="bottom",
-            columns=2,
-            symbolLimit=0,
-            title=None,
-            labelLimit=130,
-            labelColor=axis_color,
-        )
+    legend_cols = 5 if len(selected_teams) > 12 else 2
+    legend_cfg = alt.Legend(
+        orient="bottom",
+        columns=legend_cols,
+        symbolLimit=0,
+        title=None,
+        labelLimit=130,
+        labelColor=axis_color,
+    )
 
     x_enc = x_enc.axis(
         **(
@@ -404,20 +398,19 @@ def build_rating_comparison_chart(
             ],
         )
 
-        if show_legend:
-            sel = alt.selection_point(fields=["Tím"], bind="legend", on="click")
-            enc_kwargs["opacity"] = alt.condition(sel, alt.value(0.95), alt.value(0.18))
-            enc_kwargs["strokeWidth"] = alt.condition(sel, alt.value(2.8), alt.value(1.5))
-            lines = (
-                alt.Chart(sub_df)
-                .mark_line(point=len(seasons_in_range) == 1 and len(selected_teams) <= 8)
-                .encode(**enc_kwargs)
-                .add_params(sel)
-            )
-        else:
-            enc_kwargs["opacity"] = alt.value(0.78)
-            enc_kwargs["strokeWidth"] = alt.value(1.5)
-            lines = alt.Chart(sub_df).mark_line().encode(**enc_kwargs)
+        sel = alt.selection_point(fields=["Tím"], bind="legend", on="click", clear="dblclick")
+        enc_kwargs["opacity"] = alt.condition(
+            sel,
+            alt.value(0.95),
+            alt.value(0.10 if use_canvas else 0.18),
+        )
+        enc_kwargs["strokeWidth"] = alt.condition(sel, alt.value(2.8), alt.value(1.3 if use_canvas else 1.5))
+        lines = (
+            alt.Chart(sub_df)
+            .mark_line(point=len(seasons_in_range) == 1 and len(selected_teams) <= 8)
+            .encode(**enc_kwargs)
+            .add_params(sel)
+        )
 
         baseline = (
             alt.Chart(sub_df)
@@ -1206,29 +1199,6 @@ def main() -> None:
             )
             for ch in comp_charts:
                 st.altair_chart(ch, use_container_width=True, theme=None)
-
-            if len(selected_teams) > 12:
-                palette = [
-                    "#38bdf8", "#2dd4bf", "#fbbf24", "#fb7185", "#a78bfa",
-                    "#34d399", "#f472b6", "#60a5fa", "#facc15", "#f87171",
-                    "#818cf8", "#4ade80", "#fb923c", "#22d3ee", "#e879f9",
-                    "#a3e635", "#c084fc", "#f97316", "#14b8a6", "#cbd5e1",
-                ]
-                leg_bg = "rgba(21,31,50,0.85)" if is_dark else "#f8fafc"
-                leg_bd = "rgba(148,163,184,0.18)" if is_dark else "#e2e8f0"
-                leg_txt = "#e2e8f0" if is_dark else "#0f172a"
-                legend_items = "".join(
-                    f"<span style='display:inline-flex;align-items:center;gap:6px;font-size:12px;color:{leg_txt};'>"
-                    f"<span style='display:inline-block;width:14px;height:3px;border-radius:2px;background:{palette[i % len(palette)]};'></span>"
-                    f"{t}</span>"
-                    for i, t in enumerate(selected_teams)
-                )
-                st.markdown(
-                    f"<div style='border:1px solid {leg_bd};border-radius:10px;"
-                    f"padding:10px 12px;background:{leg_bg};display:flex;flex-wrap:wrap;gap:6px 14px;'>"
-                    f"{legend_items}</div>",
-                    unsafe_allow_html=True,
-                )
 
         st.divider()
         st.subheader(f"Presnosť na sezóne {metadata['test_season']}")
