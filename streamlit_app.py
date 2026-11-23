@@ -20,9 +20,10 @@ import src.config as _config_mod
 import src.prepare as _prepare_mod
 import src.evaluate_ratings as _eval_mod
 import src.injuries as _injuries_mod
+import src.tips as _tips_mod
 import src.updater as _updater_mod
 
-for _mod in (_config_mod, _prepare_mod, _eval_mod, _injuries_mod, _updater_mod):
+for _mod in (_config_mod, _prepare_mod, _eval_mod, _injuries_mod, _tips_mod, _updater_mod):
     importlib.reload(_mod)
 
 CURRENT_SEASON = _config_mod.CURRENT_SEASON
@@ -33,6 +34,16 @@ get_team_logo_data_uri = _injuries_mod.get_team_logo_data_uri
 get_player_photo_data_uri = _injuries_mod.get_player_photo_data_uri
 load_injuries_by_league = _injuries_mod.load_injuries_by_league
 update_live_season_pipeline = _updater_mod.update_live_season_pipeline
+PICK_CODES = _tips_mod.PICK_CODES
+PICK_SHORT = _tips_mod.PICK_SHORT
+add_tip = _tips_mod.add_tip
+clear_tips = _tips_mod.clear_tips
+compute_score_summary = _tips_mod.compute_score_summary
+delete_tip = _tips_mod.delete_tip
+load_tips = _tips_mod.load_tips
+resolve_tips_from_matches = _tips_mod.resolve_tips_from_matches
+save_tips = _tips_mod.save_tips
+set_manual_result = _tips_mod.set_manual_result
 
 from src.ratings import (
     EloSystem,
@@ -608,12 +619,14 @@ def main() -> None:
         "📊 Rebríček",
         "📈 Grafy",
         "🏥 Zranenia",
+        "🎯 Moje tipy",
     ]
     section_titles = {
         "⚽ Predikcia": "⚽ Predikcia futbalových zápasov",
         "📊 Rebríček": "📊 Rebríček sily tímov",
         "📈 Grafy": "📈 Vývoj sily a porovnanie",
         "🏥 Zranenia": "🏥 Zranenia hráčov",
+        "🎯 Moje tipy": "🎯 Súboj Ty vs. Model",
     }
     current_section = st.session_state.get("active_section_nav") or sections[0]
     if current_section not in sections:
@@ -641,7 +654,7 @@ def main() -> None:
     )
 
     league_names = list(LEAGUES)
-    if active_section != "🏥 Zranenia":
+    if active_section not in ("🏥 Zranenia", "🎯 Moje tipy"):
         active_league = (
             st.segmented_control(
                 "Liga",
@@ -789,6 +802,56 @@ def main() -> None:
             f"Systém **{SYSTEM_NAMES[selected_system].split(' ')[0]}** tipuje "
             f"**{OUTCOME_LABELS[best_idx].lower()}** s pravdepodobnosťou **{probs[best_idx]:.1%}**."
         )
+
+        model_pick_code = PICK_CODES[best_idx]
+        ref_dt = max(pd.Timestamp(home_row["as_of_date"]), pd.Timestamp(away_row["as_of_date"])).strftime("%Y-%m-%d")
+        existing_tips = load_tips()
+        current_tip = next(
+            (
+                t
+                for t in existing_tips
+                if t.get("actual_ftr") is None
+                and t.get("league") == active_league
+                and t.get("season") == season
+                and t.get("home") == home
+                and t.get("away") == away
+            ),
+            None,
+        )
+        with st.container(border=True):
+            st.markdown("#### 🎯 Tvoj tip (Súboj Ty vs. Model)")
+            if current_tip:
+                saved_lbl = {"H": f"1 – {home}", "D": "X – Remíza", "A": f"2 – {away}"}[current_tip["user_pick"]]
+                st.caption(f"Aktuálne uložený tvoj tip: **{saved_lbl}** · Model: **{PICK_SHORT[model_pick_code]}** ({probs[best_idx]:.1%})")
+            else:
+                st.caption("Klikni na svoj tip a porovnaj si úspešnosť proti modelu v záložke **🎯 Moje tipy**.")
+            t_cols = st.columns(3)
+            pick_buttons = [
+                ("H", f"1 · Výhra {home}"),
+                ("D", "X · Remíza"),
+                ("A", f"2 · Výhra {away}"),
+            ]
+            for idx_p, (p_code, p_label) in enumerate(pick_buttons):
+                is_picked = current_tip is not None and current_tip.get("user_pick") == p_code
+                if t_cols[idx_p].button(
+                    f"✓ {p_label}" if is_picked else p_label,
+                    key=f"save_tip_{active_league}_{home}_{away}_{p_code}",
+                    type="primary" if is_picked else "secondary",
+                    use_container_width=True,
+                ):
+                    add_tip(
+                        league=active_league,
+                        season=season,
+                        home=home,
+                        away=away,
+                        user_pick=p_code,
+                        model_system=SYSTEM_NAMES[selected_system].split(" ")[0],
+                        model_pick=model_pick_code,
+                        probs=probs,
+                        ref_date=ref_dt,
+                    )
+                    st.toast(f"Tip uložený: {p_label}", icon="🎯")
+                    st.rerun()
 
         st.divider()
         st.subheader("Porovnanie oboch tímov")
@@ -1298,6 +1361,121 @@ def main() -> None:
 
         if updated_at:
             st.caption(f"Údaje aktualizované k {updated_at} (zdroj: `data/injuries.json`).")
+
+    elif active_section == "🎯 Moje tipy":
+        st.subheader("Tipérsky denník – Súboj Ty vs. Model")
+        tips = load_tips()
+        if tips:
+            matches_by_lg: dict[str, pd.DataFrame] = {}
+            for lg in {t.get("league") for t in tips if t.get("league") in LEAGUES and t.get("actual_ftr") is None}:
+                _, _, lg_matches, _ = load_data(lg)
+                matches_by_lg[lg] = lg_matches
+            tips, changed = resolve_tips_from_matches(tips, matches_by_lg)
+            if changed:
+                save_tips(tips)
+
+        summary = compute_score_summary(tips)
+        if summary["total_resolved"] == 0:
+            leader_text = "Zatiaľ nerozhodnuté"
+        elif summary["user_hits"] > summary["model_hits"]:
+            leader_text = "🏆 Vedieš ty!"
+        elif summary["model_hits"] > summary["user_hits"]:
+            leader_text = "🤖 Vedie Model"
+        else:
+            leader_text = "🤝 Remíza"
+
+        c_card_bg = "rgba(21,31,50,0.9)" if is_dark else "#f8fafc"
+        c_card_bd = "rgba(148,163,184,0.18)" if is_dark else "#e2e8f0"
+        c_lbl = "#94a3b8" if is_dark else "#475569"
+        c_txt = "#f8fafc" if is_dark else "#0f172a"
+        c_user = "#2dd4bf" if is_dark else "#0f766e"
+        c_model = "#38bdf8" if is_dark else "#1d4ed8"
+        c_lead = "#fbbf24" if is_dark else "#b45309"
+
+        st.markdown(
+            f"""
+            <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:8px 0 14px 0;">
+              <div style="background:{c_card_bg};border:1px solid {c_card_bd};border-radius:12px;padding:10px 8px;text-align:center;">
+                <div style="font-size:12px;color:{c_lbl};">Vyhodnotené / Všetky</div>
+                <div style="font-size:20px;font-weight:700;color:{c_txt};">{summary['total_resolved']} / {summary['total_all']}</div>
+              </div>
+              <div style="background:{c_card_bg};border:1px solid {c_card_bd};border-radius:12px;padding:10px 8px;text-align:center;">
+                <div style="font-size:12px;color:{c_lbl};">Tvoje skóre</div>
+                <div style="font-size:20px;font-weight:700;color:{c_user};">{summary['user_hits']} ({summary['user_acc']:.0%})</div>
+              </div>
+              <div style="background:{c_card_bg};border:1px solid {c_card_bd};border-radius:12px;padding:10px 8px;text-align:center;">
+                <div style="font-size:12px;color:{c_lbl};">Skóre modelu</div>
+                <div style="font-size:20px;font-weight:700;color:{c_model};">{summary['model_hits']} ({summary['model_acc']:.0%})</div>
+              </div>
+              <div style="background:{c_card_bg};border:1px solid {c_card_bd};border-radius:12px;padding:10px 8px;text-align:center;">
+                <div style="font-size:12px;color:{c_lbl};">Aktuálny líder</div>
+                <div style="font-size:18px;font-weight:700;color:{c_lead};">{leader_text}</div>
+              </div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
+        if not tips:
+            st.info(
+                "Zatiaľ nemáš uložené žiadne tipy. Prejdi do záložky **⚽ Predikcia** a klikni na svoj tip (`1`, `X` alebo `2`)!"
+            )
+        else:
+            hdr_c1, hdr_c2 = st.columns([5, 1.3], vertical_alignment="center")
+            hdr_c1.caption("Tipy sa po odohraní zápasu vyhodnotia automaticky, alebo im môžeš výsledok nastaviť ručne.")
+            if hdr_c2.button("Vymazať všetky", key="clear_all_tips_btn", use_container_width=True):
+                clear_tips()
+                st.rerun()
+
+            for tip in tips:
+                tid = tip["id"]
+                actual = tip.get("actual_ftr")
+                user_pick = tip.get("user_pick", "H")
+                model_pick = tip.get("model_pick", "H")
+                probs_list = tip.get("probs", [0.0, 0.0, 0.0])
+                model_prob = probs_list[PICK_CODES.index(model_pick)] if model_pick in PICK_CODES else 0.0
+
+                if actual in PICK_CODES:
+                    u_ok = "✅" if user_pick == actual else "❌"
+                    m_ok = "✅" if model_pick == actual else "❌"
+                    status_txt = f"Výsledok **{tip.get('actual_score', '')}** ({PICK_SHORT[actual]})"
+                else:
+                    u_ok = "⏳"
+                    m_ok = "⏳"
+                    status_txt = "Čaká sa na odohranie"
+
+                with st.container(border=True):
+                    r1, r2, r3 = st.columns([4.5, 3.2, 2.3], vertical_alignment="center")
+                    r1.markdown(
+                        f"**{tip['home']} – {tip['away']}**  \n"
+                        f"<span style='font-size:12px;color:{c_lbl};'>{tip['league']} · {tip['created_at']}</span>",
+                        unsafe_allow_html=True,
+                    )
+                    r2.markdown(
+                        f"Ty: **{PICK_SHORT[user_pick]}** {u_ok} &nbsp;|&nbsp; "
+                        f"Model ({tip.get('model_system', '')}): **{PICK_SHORT[model_pick]}** ({model_prob:.0%}) {m_ok}  \n"
+                        f"<span style='font-size:12px;color:{c_lbl};'>{status_txt}</span>",
+                        unsafe_allow_html=True,
+                    )
+                    with r3:
+                        if actual is None:
+                            b1, b2, b3, b_del = st.columns(4)
+                            if b1.button("1", key=f"res_H_{tid}", help="Označiť výhru domácich", use_container_width=True):
+                                set_manual_result(tid, "H")
+                                st.rerun()
+                            if b2.button("X", key=f"res_D_{tid}", help="Označiť remízu", use_container_width=True):
+                                set_manual_result(tid, "D")
+                                st.rerun()
+                            if b3.button("2", key=f"res_A_{tid}", help="Označiť výhru hostí", use_container_width=True):
+                                set_manual_result(tid, "A")
+                                st.rerun()
+                            if b_del.button("🗑️", key=f"del_tip_{tid}", help="Odstrániť tip", use_container_width=True):
+                                delete_tip(tid)
+                                st.rerun()
+                        else:
+                            if st.button("🗑️ Odstrániť", key=f"del_tip_{tid}", use_container_width=True):
+                                delete_tip(tid)
+                                st.rerun()
 
 
 main()
