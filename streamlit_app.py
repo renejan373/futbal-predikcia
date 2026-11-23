@@ -20,9 +20,10 @@ import src.config as _config_mod
 import src.prepare as _prepare_mod
 import src.evaluate_ratings as _eval_mod
 import src.injuries as _injuries_mod
+import src.dennik as _dennik_mod
 import src.updater as _updater_mod
 
-for _mod in (_config_mod, _prepare_mod, _eval_mod, _injuries_mod, _updater_mod):
+for _mod in (_config_mod, _prepare_mod, _eval_mod, _injuries_mod, _dennik_mod, _updater_mod):
     importlib.reload(_mod)
 
 CURRENT_SEASON = _config_mod.CURRENT_SEASON
@@ -33,6 +34,16 @@ get_team_logo_data_uri = _injuries_mod.get_team_logo_data_uri
 get_player_photo_data_uri = _injuries_mod.get_player_photo_data_uri
 load_injuries_by_league = _injuries_mod.load_injuries_by_league
 update_live_season_pipeline = _updater_mod.update_live_season_pipeline
+TIP_LABELS = _dennik_mod.TIP_LABELS
+TIP_OPTIONS = _dennik_mod.TIP_OPTIONS
+clear_journal_tips = _dennik_mod.clear_journal_tips
+delete_journal_tip = _dennik_mod.delete_journal_tip
+fetch_next_match_per_team = _dennik_mod.fetch_next_match_per_team
+is_tip_hit = _dennik_mod.is_tip_hit
+load_journal_tips = _dennik_mod.load_journal_tips
+resolve_journal_tips = _dennik_mod.resolve_journal_tips
+save_fixture_tip = _dennik_mod.save_fixture_tip
+save_journal_tips = _dennik_mod.save_journal_tips
 
 from src.ratings import (
     EloSystem,
@@ -62,6 +73,11 @@ SYSTEM_NAMES = {
     "glicko": "Glicko (sila + neistota)",
     "elo": "Elo (klasický rating)",
 }
+
+
+@st.cache_data(ttl=900)
+def load_upcoming_fixtures(league: str) -> list[dict]:
+    return fetch_next_match_per_team(league)
 
 
 @st.cache_data(ttl=600)
@@ -608,12 +624,14 @@ def main() -> None:
         "📊 Rebríček",
         "📈 Grafy",
         "🏥 Zranenia",
+        "📝 Tipérsky denník",
     ]
     section_titles = {
         "⚽ Predikcia": "⚽ Predikcia futbalových zápasov",
         "📊 Rebríček": "📊 Rebríček sily tímov",
         "📈 Grafy": "📈 Vývoj sily a porovnanie",
         "🏥 Zranenia": "🏥 Zranenia hráčov",
+        "📝 Tipérsky denník": "📝 Tipérsky denník",
     }
     current_section = st.session_state.get("active_section_nav") or sections[0]
     if current_section not in sections:
@@ -1298,6 +1316,134 @@ def main() -> None:
 
         if updated_at:
             st.caption(f"Údaje aktualizované k {updated_at} (zdroj: `data/injuries.json`).")
+
+    elif active_section == "📝 Tipérsky denník":
+        st.subheader(f"Najbližšie neodohrané zápasy – {active_league}")
+        st.caption(
+            "Pre každý tím ligy je zobrazený 1 najbližší neodohraný zápas. "
+            "Vyber si svoj tip: **Výhra (1)**, **Výhra / Remíza (1X)**, **Remíza (X)** alebo **Prehra / Remíza (X2)**."
+        )
+
+        tips = load_journal_tips()
+        if tips:
+            matches_by_lg: dict[str, pd.DataFrame] = {}
+            for lg in {t.get("league") for t in tips if t.get("league") in LEAGUES and t.get("actual_ftr") is None}:
+                _, _, lg_matches, _ = load_data(lg)
+                matches_by_lg[lg] = lg_matches
+            tips, changed = resolve_journal_tips(tips, matches_by_lg)
+            if changed:
+                save_journal_tips(tips)
+
+        saved_lookup: dict[tuple[str, str, str, str], dict] = {
+            (t.get("league", ""), t.get("home", ""), t.get("away", ""), t.get("match_date", "")): t
+            for t in tips
+            if t.get("actual_ftr") is None
+        }
+
+        with st.spinner(f"Načítavam najbližšie zápasy pre {active_league}..."):
+            fixtures = load_upcoming_fixtures(active_league)
+
+        if not fixtures:
+            st.info(f"Pre ligu {active_league} sa momentálne nenašli žiadne naplánované zápasy v najbližších 14 dňoch.")
+        else:
+            ratings_by_team = {
+                row["team"]: row
+                for _, row in season_ratings.iterrows()
+            }
+            c_muted = "#94a3b8" if is_dark else "#475569"
+            c_title = "#f8fafc" if is_dark else "#0f172a"
+
+            for fx in fixtures:
+                f_home = fx["home"]
+                f_away = fx["away"]
+                h_logo = get_team_logo_data_uri(f_home)
+                a_logo = get_team_logo_data_uri(f_away)
+                h_img = f"<img src='{h_logo}' style='width:22px;height:22px;object-fit:contain;vertical-align:middle;' /> " if h_logo else ""
+                a_img = f" <img src='{a_logo}' style='width:22px;height:22px;object-fit:contain;vertical-align:middle;' />" if a_logo else ""
+
+                prob_line = ""
+                if f_home in ratings_by_team and f_away in ratings_by_team:
+                    fx_preds = compute_all_predictions(ratings_by_team[f_home], ratings_by_team[f_away])
+                    p_comb = fx_preds["combined"]
+                    prob_line = f" &nbsp;·&nbsp; Model: 1 ({p_comb[0]:.0%}) · X ({p_comb[1]:.0%}) · 2 ({p_comb[2]:.0%})"
+
+                existing_tip = saved_lookup.get((active_league, f_home, f_away, fx["match_date"]))
+                active_code = existing_tip.get("tip_code") if existing_tip else None
+
+                with st.container(border=True):
+                    st.markdown(
+                        f"<div style='display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;margin-bottom:8px;'>"
+                        f"<span style='font-size:16px;font-weight:700;color:{c_title};'>{h_img}{f_home} – {f_away}{a_img}</span>"
+                        f"<span style='font-size:12px;color:{c_muted};'>🕒 {fx['kickoff_str']}{prob_line}</span>"
+                        f"</div>",
+                        unsafe_allow_html=True,
+                    )
+                    b_cols = st.columns(4)
+                    for idx_b, (t_code, t_label, t_help) in enumerate(TIP_OPTIONS):
+                        is_sel = active_code == t_code
+                        btn_text = f"✓ {t_label}" if is_sel else t_label
+                        if b_cols[idx_b].button(
+                            btn_text,
+                            key=f"dennik_{active_league}_{fx['event_id']}_{t_code}",
+                            type="primary" if is_sel else "secondary",
+                            help=t_help,
+                            use_container_width=True,
+                        ):
+                            save_fixture_tip(
+                                league=active_league,
+                                season=season,
+                                home=f_home,
+                                away=f_away,
+                                kickoff_str=fx["kickoff_str"],
+                                match_date=fx["match_date"],
+                                tip_code=t_code,
+                            )
+                            st.toast(f"Tip uložený: {f_home} – {f_away} ({t_label})", icon="📝")
+                            st.rerun()
+
+        st.divider()
+        st.subheader("Moje uložené tipy")
+        if not tips:
+            st.info("Zatiaľ nemáš uložené žiadne tipy. Klikni na ľubovoľnú možnosť pri zápase vyššie.")
+        else:
+            resolved_tips = [t for t in tips if t.get("actual_ftr") in ("H", "D", "A")]
+            hits = sum(1 for t in resolved_tips if is_tip_hit(t.get("tip_code", ""), t.get("actual_ftr", "")))
+            acc = (hits / len(resolved_tips)) if resolved_tips else 0.0
+
+            m_c1, m_c2, m_c3, m_c4 = st.columns([1, 1, 1, 1.1], vertical_alignment="center")
+            m_c1.metric("Uložené tipy", len(tips))
+            m_c2.metric("Vyhodnotené", len(resolved_tips))
+            m_c3.metric("Úspešnosť", f"{hits}/{len(resolved_tips)} ({acc:.0%})" if resolved_tips else "–")
+            if m_c4.button("Vymazať všetky", key="clear_journal_btn", use_container_width=True):
+                clear_journal_tips()
+                st.rerun()
+
+            for tip in tips:
+                tid = tip["id"]
+                t_code = tip.get("tip_code", "")
+                t_lbl = TIP_LABELS.get(t_code, t_code)
+                actual = tip.get("actual_ftr")
+                if actual in ("H", "D", "A"):
+                    badge = "✅ Vyšlo" if is_tip_hit(t_code, actual) else "❌ Nevyšlo"
+                    res_info = f"Skóre {tip.get('actual_score', '')} · {badge}"
+                else:
+                    res_info = "⏳ Čaká sa na odohranie"
+
+                with st.container(border=True):
+                    c_info, c_pick, c_del = st.columns([5, 3, 1.2], vertical_alignment="center")
+                    c_info.markdown(
+                        f"**{tip['home']} – {tip['away']}**  \n"
+                        f"<span style='font-size:12px;color:#94a3b8;'>{tip['league']} · {tip.get('kickoff_str', '')}</span>",
+                        unsafe_allow_html=True,
+                    )
+                    c_pick.markdown(
+                        f"Tip: **{t_lbl} ({t_code})**  \n"
+                        f"<span style='font-size:12px;color:#94a3b8;'>{res_info}</span>",
+                        unsafe_allow_html=True,
+                    )
+                    if c_del.button("🗑️", key=f"del_journal_{tid}", help="Odstrániť tip", use_container_width=True):
+                        delete_journal_tip(tid)
+                        st.rerun()
 
 
 main()
