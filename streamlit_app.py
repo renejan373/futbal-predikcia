@@ -528,13 +528,41 @@ def main() -> None:
 
     elif active_section == "📊 Rebríček":
         st.subheader(f"Rebríček sily tímov – {active_league} ({season})")
-        st.caption(
-            "Tímy zoradené podľa Glicko-2 ratingu · 🥇–🥉 Top 3 · 🟦 4. miesto · 🟥 Zostupová zóna"
+        rank_by = (
+            st.segmented_control(
+                "Zoradiť podľa",
+                options=["Kombinácia", "Glicko-2", "Glicko", "Elo"],
+                default="Kombinácia",
+                key="ranking_sort_toggle",
+            )
+            or "Kombinácia"
         )
-        ranked = season_ratings.sort_values("glicko2_rating", ascending=False).reset_index(drop=True)
+        sort_col_map = {
+            "Kombinácia": "combined_rating",
+            "Glicko-2": "glicko2_rating",
+            "Glicko": "glicko_rating",
+            "Elo": "elo_rating",
+        }
+        sort_col = sort_col_map[rank_by]
+
+        ranked = season_ratings.copy()
+        ranked["combined_rating"] = (
+            ranked["elo_rating"] + ranked["glicko_rating"] + ranked["glicko2_rating"]
+        ) / 3.0
+        ranked = ranked.sort_values(sort_col, ascending=False).reset_index(drop=True)
+
+        sort_desc = (
+            "priemeru všetkých 3 systémov (Elo + Glicko + Glicko-2)"
+            if rank_by == "Kombinácia"
+            else f"systému {rank_by}"
+        )
+        st.caption(
+            f"Zoradené podľa {sort_desc} · 🥇–🥉 Top 3 · 🟦 4. miesto · 🟥 Zostupová zóna"
+        )
+
         n_teams = len(ranked)
-        r_min = float(ranked["glicko2_rating"].min()) if n_teams else 1400.0
-        r_max = float(ranked["glicko2_rating"].max()) if n_teams else 1800.0
+        r_min = float(ranked[sort_col].min()) if n_teams else 1400.0
+        r_max = float(ranked[sort_col].max()) if n_teams else 1800.0
         r_span = max(1.0, r_max - r_min)
 
         cards_html = []
@@ -552,7 +580,8 @@ def main() -> None:
             else:
                 accent, bg, badge = "#cfd6e0", "#ffffff", f"{idx}."
 
-            pct = max(6.0, min(100.0, ((float(row.glicko2_rating) - r_min) / r_span) * 94.0 + 6.0))
+            active_val = float(getattr(row, sort_col))
+            pct = max(6.0, min(100.0, ((active_val - r_min) / r_span) * 94.0 + 6.0))
             bar_color = "#2a9d8f" if idx <= 4 else ("#e76f51" if idx > n_teams - 3 else "#457b9d")
 
             form = recent_results(matches, season, row.team, limit=5)
@@ -570,6 +599,17 @@ def main() -> None:
                 else ""
             )
 
+            def _cell(label: str, val: float, is_active: bool) -> str:
+                style = "color:#1d3557;font-size:15px;" if is_active else ""
+                return f"<div><span style='font-size:11px;color:#666;'>{label}</span><br><b style='{style}'>{val:.1f}</b></div>"
+
+            rating_cells = (
+                _cell("Kombi", row.combined_rating, rank_by == "Kombinácia")
+                + _cell("Glicko-2", row.glicko2_rating, rank_by == "Glicko-2")
+                + _cell("Glicko", row.glicko_rating, rank_by == "Glicko")
+                + _cell("Elo", row.elo_rating, rank_by == "Elo")
+            )
+
             cards_html.append(
                 f"<div style='border:1px solid #e4e7ec;border-left:5px solid {accent};"
                 f"border-radius:12px;padding:11px 12px;margin-bottom:9px;background:{bg};"
@@ -582,11 +622,9 @@ def main() -> None:
                 f"<div style='background:#eef1f5;height:6px;border-radius:4px;margin:8px 0 9px 0;overflow:hidden;'>"
                 f"<div style='width:{pct:.1f}%;height:100%;background:{bar_color};border-radius:4px;'></div>"
                 f"</div>"
-                f"<div style='display:grid;grid-template-columns:repeat(3,1fr);gap:6px;font-size:13px;"
-                f"background:#f7f8fa;border-radius:8px;padding:6px 8px;text-align:center;'>"
-                f"<div><span style='font-size:11px;color:#666;'>Glicko-2</span><br><b style='color:#1d3557;font-size:15px;'>{row.glicko2_rating:.1f}</b></div>"
-                f"<div><span style='font-size:11px;color:#666;'>Glicko</span><br><b>{row.glicko_rating:.1f}</b></div>"
-                f"<div><span style='font-size:11px;color:#666;'>Elo</span><br><b>{row.elo_rating:.1f}</b></div>"
+                f"<div style='display:grid;grid-template-columns:repeat(4,1fr);gap:4px;font-size:13px;"
+                f"background:#f7f8fa;border-radius:8px;padding:6px 6px;text-align:center;'>"
+                f"{rating_cells}"
                 f"</div>"
                 f"<div style='margin-top:6px;font-size:11px;color:#666;display:flex;justify-content:space-between;'>"
                 f"<span>Neistota (RD): <b>±{row.glicko2_rd:.1f}</b></span>"
