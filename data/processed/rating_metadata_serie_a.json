@@ -1,0 +1,50 @@
+{
+  "league": "Serie A",
+  "test_season": "2025/26",
+  "total_matches": 11845,
+  "n_seasons": 34,
+  "first_season": "1993/94",
+  "last_season": "2026/27",
+  "comparison": [
+    {
+      "model": "Vždy výhra domácich",
+      "typ": "baseline",
+      "accuracy": 0.3895,
+      "f1_macro": 0.1869,
+      "log_loss": 4.2181,
+      "brier": 1.2174
+    },
+    {
+      "model": "Elo",
+      "typ": "rating",
+      "accuracy": 0.5211,
+      "f1_macro": 0.3951,
+      "log_loss": 1.0149,
+      "brier": 0.6075
+    },
+    {
+      "model": "Glicko",
+      "typ": "rating",
+      "accuracy": 0.5158,
+      "f1_macro": 0.3921,
+      "log_loss": 1.009,
+      "brier": 0.6038
+    },
+    {
+      "model": "Glicko-2",
+      "typ": "rating",
+      "accuracy": 0.5158,
+      "f1_macro": 0.3934,
+      "log_loss": 1.0089,
+      "brier": 0.6037
+    },
+    {
+      "model": "Kurzy Bet365",
+      "typ": "trh",
+      "accuracy": 0.5395,
+      "f1_macro": 0.4178,
+      "log_loss": 0.9821,
+      "brier": 0.5844
+    }
+  ]
+}

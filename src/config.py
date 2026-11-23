@@ -62,6 +62,9 @@ BASE_URL = "https://www.football-data.co.uk/mmz4281/{code}/{div}.csv"
 LEAGUES: dict[str, dict[str, str]] = {
     "Premier League": {"div": "E0", "slug": "premier_league"},
     "La Liga": {"div": "SP1", "slug": "la_liga"},
+    "Serie A": {"div": "I1", "slug": "serie_a"},
+    "Bundesliga": {"div": "D1", "slug": "bundesliga"},
+    "Ligue 1": {"div": "F1", "slug": "ligue_1"},
 }
 
 

@@ -64,16 +64,24 @@ CLUB_LOGOS: dict[str, Path] = {
     "Villarreal": LOGOS_DIR / "villarreal.png",
     # Serie A
     "Inter Miláno": LOGOS_DIR / "inter_milano.png",
+    "Inter": LOGOS_DIR / "inter_milano.png",
     "AC Miláno": LOGOS_DIR / "ac_milano.png",
+    "Milan": LOGOS_DIR / "ac_milano.png",
     "Juventus": LOGOS_DIR / "juventus.png",
     # Bundesliga
     "Bayern Mníchov": LOGOS_DIR / "bayern_mnichov.png",
+    "Bayern Munich": LOGOS_DIR / "bayern_mnichov.png",
     "Borussia Dortmund": LOGOS_DIR / "borussia_dortmund.png",
+    "Dortmund": LOGOS_DIR / "borussia_dortmund.png",
     "Bayer Leverkusen": LOGOS_DIR / "bayer_leverkusen.png",
+    "Leverkusen": LOGOS_DIR / "bayer_leverkusen.png",
     # Ligue 1
     "Paris Saint-Germain": LOGOS_DIR / "psg.png",
+    "Paris SG": LOGOS_DIR / "psg.png",
     "Olympique Marseille": LOGOS_DIR / "marseille.png",
+    "Marseille": LOGOS_DIR / "marseille.png",
     "AS Monaco": LOGOS_DIR / "monaco.png",
+    "Monaco": LOGOS_DIR / "monaco.png",
 }
 
 

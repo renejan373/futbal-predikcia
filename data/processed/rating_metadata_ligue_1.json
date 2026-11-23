@@ -1,0 +1,50 @@
+{
+  "league": "Ligue 1",
+  "test_season": "2025/26",
+  "total_matches": 11946,
+  "n_seasons": 34,
+  "first_season": "1993/94",
+  "last_season": "2026/27",
+  "comparison": [
+    {
+      "model": "Vždy výhra domácich",
+      "typ": "baseline",
+      "accuracy": 0.4608,
+      "f1_macro": 0.2103,
+      "log_loss": 3.7257,
+      "brier": 1.0752
+    },
+    {
+      "model": "Elo",
+      "typ": "rating",
+      "accuracy": 0.5294,
+      "f1_macro": 0.3842,
+      "log_loss": 1.0045,
+      "brier": 0.6002
+    },
+    {
+      "model": "Glicko",
+      "typ": "rating",
+      "accuracy": 0.5163,
+      "f1_macro": 0.3762,
+      "log_loss": 1.0053,
+      "brier": 0.601
+    },
+    {
+      "model": "Glicko-2",
+      "typ": "rating",
+      "accuracy": 0.5196,
+      "f1_macro": 0.3812,
+      "log_loss": 1.0051,
+      "brier": 0.601
+    },
+    {
+      "model": "Kurzy Bet365",
+      "typ": "trh",
+      "accuracy": 0.5425,
+      "f1_macro": 0.4037,
+      "log_loss": 0.9729,
+      "brier": 0.58
+    }
+  ]
+}

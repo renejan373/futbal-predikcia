@@ -1,0 +1,50 @@
+{
+  "league": "Bundesliga",
+  "test_season": "2025/26",
+  "total_matches": 10188,
+  "n_seasons": 34,
+  "first_season": "1993/94",
+  "last_season": "2026/27",
+  "comparison": [
+    {
+      "model": "Vždy výhra domácich",
+      "typ": "baseline",
+      "accuracy": 0.4379,
+      "f1_macro": 0.203,
+      "log_loss": 3.8837,
+      "brier": 1.1208
+    },
+    {
+      "model": "Elo",
+      "typ": "rating",
+      "accuracy": 0.5523,
+      "f1_macro": 0.4031,
+      "log_loss": 0.9894,
+      "brier": 0.5887
+    },
+    {
+      "model": "Glicko",
+      "typ": "rating",
+      "accuracy": 0.5425,
+      "f1_macro": 0.3988,
+      "log_loss": 0.985,
+      "brier": 0.5858
+    },
+    {
+      "model": "Glicko-2",
+      "typ": "rating",
+      "accuracy": 0.5425,
+      "f1_macro": 0.3981,
+      "log_loss": 0.9828,
+      "brier": 0.5844
+    },
+    {
+      "model": "Kurzy Bet365",
+      "typ": "trh",
+      "accuracy": 0.549,
+      "f1_macro": 0.4042,
+      "log_loss": 0.9514,
+      "brier": 0.5621
+    }
+  ]
+}

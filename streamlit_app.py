@@ -640,8 +640,14 @@ def main() -> None:
     season_ratings = ratings[ratings["season"] == season].copy()
     teams = sorted(season_ratings["team"].unique())
 
-    preferred_home = "Real Madrid" if active_league == "La Liga" else "Arsenal"
-    preferred_away = "Barcelona" if active_league == "La Liga" else "Chelsea"
+    preferred_matchups = {
+        "Premier League": ("Arsenal", "Chelsea"),
+        "La Liga": ("Real Madrid", "Barcelona"),
+        "Serie A": ("Inter", "Juventus"),
+        "Bundesliga": ("Bayern Munich", "Dortmund"),
+        "Ligue 1": ("Paris SG", "Marseille"),
+    }
+    preferred_home, preferred_away = preferred_matchups.get(active_league, (teams[0], teams[min(1, len(teams) - 1)]))
     default_home = preferred_home if preferred_home in teams else teams[0]
     if "pred_home" not in st.session_state or st.session_state["pred_home"] not in teams:
         st.session_state["pred_home"] = default_home
@@ -919,10 +925,30 @@ def main() -> None:
         teams_in_range = sorted(
             ratings[ratings["season"].isin(seasons_in_range)]["team"].unique()
         )
-        preset_candidates = (
-            ["Real Madrid", "Barcelona", "Ath Madrid", "Ath Bilbao", "Valencia", "Sevilla", "Sociedad"]
-            if active_league == "La Liga"
-            else ["Man United", "Arsenal", "Liverpool", "Chelsea", "Man City", "Tottenham", "Everton"]
+        preset_map = {
+            "Premier League": (
+                "Big 6 + Everton",
+                ["Man United", "Arsenal", "Liverpool", "Chelsea", "Man City", "Tottenham", "Everton"],
+            ),
+            "La Liga": (
+                "Top kluby La Ligy",
+                ["Real Madrid", "Barcelona", "Ath Madrid", "Ath Bilbao", "Valencia", "Sevilla", "Sociedad"],
+            ),
+            "Serie A": (
+                "Top kluby Serie A",
+                ["Inter", "Milan", "Juventus", "Napoli", "Roma", "Atalanta", "Lazio"],
+            ),
+            "Bundesliga": (
+                "Top kluby Bundesligy",
+                ["Bayern Munich", "Dortmund", "Leverkusen", "RB Leipzig", "Stuttgart", "Ein Frankfurt"],
+            ),
+            "Ligue 1": (
+                "Top kluby Ligue 1",
+                ["Paris SG", "Marseille", "Monaco", "Lyon", "Lille", "Nice", "Lens"],
+            ),
+        }
+        preset_label, preset_candidates = preset_map.get(
+            active_league, ("Top kluby", teams_in_range[:6])
         )
         big_clubs = [t for t in preset_candidates if t in teams_in_range]
         default_teams = big_clubs if big_clubs else teams_in_range[:3]
@@ -934,7 +960,6 @@ def main() -> None:
             st.session_state["comp_teams_widget"] = default_teams
             st.session_state["comp_teams_league"] = active_league
 
-        preset_label = "Top kluby La Ligy" if active_league == "La Liga" else "Big 6 + Everton"
         preset_cols = st.columns([1, 1, 4])
         if preset_cols[0].button(preset_label, use_container_width=True):
             st.session_state["comp_teams_widget"] = default_teams
