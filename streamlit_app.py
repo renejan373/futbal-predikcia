@@ -338,38 +338,27 @@ def compute_all_predictions(home_row: pd.Series, away_row: pd.Series) -> dict[st
 
 
 def main() -> None:
-    pitch_svg = (
-        "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 1200' preserveAspectRatio='xMidYMid slice'%3E"
-        "%3Cg fill='none' stroke='%232a9d8f' stroke-opacity='0.09' stroke-width='3'%3E"
-        "%3Crect x='40' y='40' width='720' height='1120' rx='8'/%3E"
-        "%3Cline x1='40' y1='600' x2='760' y2='600'/%3E"
-        "%3Ccircle cx='400' cy='600' r='110'/%3E"
-        "%3Ccircle cx='400' cy='600' r='5' fill='%232a9d8f' fill-opacity='0.12'/%3E"
-        "%3Crect x='200' y='40' width='400' height='170'/%3E"
-        "%3Crect x='290' y='40' width='220' height='65'/%3E"
-        "%3Crect x='200' y='990' width='400' height='170'/%3E"
-        "%3Crect x='290' y='1095' width='220' height='65'/%3E"
-        "%3C/g%3E%3C/svg%3E"
-    )
     st.markdown(
-        f"""
+        """
         <style>
-            [data-testid='stSidebar'], [data-testid='stSidebarCollapsedControl'] {{display: none;}}
-            [data-testid='stHeader'] {{background: transparent;}}
-            [data-testid='stAppViewContainer'] {{
-                background-color: #eef6f2;
+            [data-testid='stSidebar'], [data-testid='stSidebarCollapsedControl'] {display: none;}
+            [data-testid='stHeader'] {background: transparent;}
+            [data-testid='stAppViewContainer'] {
+                background-color: #0b1120;
                 background-image:
-                    url("{pitch_svg}"),
-                    linear-gradient(160deg, #e7f4ee 0%, #f4f7fb 50%, #e4f1ea 100%);
-                background-size: cover, cover;
-                background-position: center center, center center;
-                background-attachment: fixed, fixed;
-            }}
-            [data-testid='stVerticalBlockBorderWrapper'] {{
-                background: rgba(255, 255, 255, 0.92);
-                border-radius: 12px;
-            }}
-            .block-container {{padding-top: 1.2rem; padding-left: 1rem; padding-right: 1rem;}}
+                    radial-gradient(at 15% 10%, rgba(56, 189, 248, 0.14) 0px, transparent 45%),
+                    radial-gradient(at 85% 20%, rgba(45, 212, 191, 0.11) 0px, transparent 45%),
+                    radial-gradient(at 50% 90%, rgba(99, 102, 241, 0.10) 0px, transparent 50%),
+                    linear-gradient(155deg, #090d16 0%, #0f172a 52%, #0c192c 100%);
+                background-attachment: fixed;
+            }
+            [data-testid='stVerticalBlockBorderWrapper'] {
+                background: rgba(21, 31, 50, 0.85);
+                border: 1px solid rgba(148, 163, 184, 0.18);
+                border-radius: 14px;
+                backdrop-filter: blur(8px);
+            }
+            .block-container {padding-top: 1.2rem; padding-left: 1rem; padding-right: 1rem;}
         </style>
         """,
         unsafe_allow_html=True,
@@ -494,17 +483,17 @@ def main() -> None:
         st.markdown(
             f"""
             <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:8px 0 12px 0;">
-              <div style="background:#f1f3f6;border-radius:10px;padding:10px 6px;text-align:center;">
-                <div style="font-size:12px;color:#555;">Výhra domácich</div>
-                <div style="font-size:22px;font-weight:700;color:#2a9d8f;">{probs[0]:.1%}</div>
+              <div style="background:rgba(21,31,50,0.9);border:1px solid rgba(148,163,184,0.18);border-radius:12px;padding:10px 6px;text-align:center;">
+                <div style="font-size:12px;color:#94a3b8;">Výhra domácich</div>
+                <div style="font-size:22px;font-weight:700;color:#2dd4bf;">{probs[0]:.1%}</div>
               </div>
-              <div style="background:#f1f3f6;border-radius:10px;padding:10px 6px;text-align:center;">
-                <div style="font-size:12px;color:#555;">Remíza</div>
-                <div style="font-size:22px;font-weight:700;color:#b8860b;">{probs[1]:.1%}</div>
+              <div style="background:rgba(21,31,50,0.9);border:1px solid rgba(148,163,184,0.18);border-radius:12px;padding:10px 6px;text-align:center;">
+                <div style="font-size:12px;color:#94a3b8;">Remíza</div>
+                <div style="font-size:22px;font-weight:700;color:#fbbf24;">{probs[1]:.1%}</div>
               </div>
-              <div style="background:#f1f3f6;border-radius:10px;padding:10px 6px;text-align:center;">
-                <div style="font-size:12px;color:#555;">Výhra hostí</div>
-                <div style="font-size:22px;font-weight:700;color:#264653;">{probs[2]:.1%}</div>
+              <div style="background:rgba(21,31,50,0.9);border:1px solid rgba(148,163,184,0.18);border-radius:12px;padding:10px 6px;text-align:center;">
+                <div style="font-size:12px;color:#94a3b8;">Výhra hostí</div>
+                <div style="font-size:22px;font-weight:700;color:#38bdf8;">{probs[2]:.1%}</div>
               </div>
             </div>
             """,
@@ -535,17 +524,17 @@ def main() -> None:
 
         st.markdown("#### Čo tipujú jednotlivé systémy?")
         rows_html = "".join(
-            f"<tr style='border-bottom:1px solid #e6e8ec;'>"
-            f"<td style='padding:8px 6px;font-weight:600;'>{SYSTEM_NAMES[k].split(' ')[0]}</td>"
-            f"<td style='padding:8px 6px;text-align:center;'>{p_tuple[0]:.1%}</td>"
-            f"<td style='padding:8px 6px;text-align:center;'>{p_tuple[1]:.1%}</td>"
-            f"<td style='padding:8px 6px;text-align:center;'>{p_tuple[2]:.1%}</td>"
+            f"<tr style='border-bottom:1px solid rgba(148,163,184,0.14);'>"
+            f"<td style='padding:8px 6px;font-weight:600;color:#f1f5f9;'>{SYSTEM_NAMES[k].split(' ')[0]}</td>"
+            f"<td style='padding:8px 6px;text-align:center;color:#e2e8f0;'>{p_tuple[0]:.1%}</td>"
+            f"<td style='padding:8px 6px;text-align:center;color:#e2e8f0;'>{p_tuple[1]:.1%}</td>"
+            f"<td style='padding:8px 6px;text-align:center;color:#e2e8f0;'>{p_tuple[2]:.1%}</td>"
             f"</tr>"
             for k, p_tuple in all_preds.items()
         )
         st.markdown(
-            f"<table style='width:100%;border-collapse:collapse;font-size:14px;'>"
-            f"<thead><tr style='background:#f1f3f6;text-align:center;'>"
+            f"<table style='width:100%;border-collapse:collapse;font-size:14px;background:rgba(21,31,50,0.85);border-radius:10px;overflow:hidden;'>"
+            f"<thead><tr style='background:rgba(30,41,59,0.95);text-align:center;color:#94a3b8;'>"
             f"<th style='padding:8px 6px;text-align:left;'>Systém</th>"
             f"<th style='padding:8px 6px;'>Domáci</th>"
             f"<th style='padding:8px 6px;'>Remíza</th>"
@@ -596,21 +585,21 @@ def main() -> None:
         cards_html = []
         for idx, row in enumerate(ranked.itertuples(index=False), start=1):
             if idx == 1:
-                accent, bg, badge = "#d4af37", "#fffdf4", "🥇 1."
+                accent, bg, badge = "#facc15", "rgba(250, 204, 21, 0.08)", "🥇 1."
             elif idx == 2:
-                accent, bg, badge = "#9aa0a6", "#fafafa", "🥈 2."
+                accent, bg, badge = "#cbd5e1", "rgba(148, 163, 184, 0.08)", "🥈 2."
             elif idx == 3:
-                accent, bg, badge = "#cd7f32", "#fdfaf6", "🥉 3."
+                accent, bg, badge = "#fb923c", "rgba(251, 146, 60, 0.08)", "🥉 3."
             elif idx == 4:
-                accent, bg, badge = "#2a9d8f", "#ffffff", "4."
+                accent, bg, badge = "#2dd4bf", "rgba(21, 31, 50, 0.90)", "4."
             elif idx > n_teams - 3:
-                accent, bg, badge = "#e76f51", "#fff9f8", f"{idx}."
+                accent, bg, badge = "#fb7185", "rgba(251, 113, 133, 0.08)", f"{idx}."
             else:
-                accent, bg, badge = "#cfd6e0", "#ffffff", f"{idx}."
+                accent, bg, badge = "#475569", "rgba(21, 31, 50, 0.85)", f"{idx}."
 
             active_val = float(getattr(row, sort_col))
             pct = max(6.0, min(100.0, ((active_val - r_min) / r_span) * 94.0 + 6.0))
-            bar_color = "#2a9d8f" if idx <= 4 else ("#e76f51" if idx > n_teams - 3 else "#457b9d")
+            bar_color = "#2dd4bf" if idx <= 4 else ("#fb7185" if idx > n_teams - 3 else "#38bdf8")
 
             form = recent_results(matches, season, row.team, limit=5)
             mini_form = "".join(
@@ -628,8 +617,8 @@ def main() -> None:
             )
 
             def _cell(label: str, val: float, is_active: bool) -> str:
-                style = "color:#1d3557;font-size:15px;" if is_active else ""
-                return f"<div><span style='font-size:11px;color:#666;'>{label}</span><br><b style='{style}'>{val:.1f}</b></div>"
+                style = "color:#38bdf8;font-size:15px;" if is_active else "color:#e2e8f0;"
+                return f"<div><span style='font-size:11px;color:#94a3b8;'>{label}</span><br><b style='{style}'>{val:.1f}</b></div>"
 
             rating_cells = (
                 _cell("Kombi", row.combined_rating, rank_by == "Kombinácia")
@@ -639,24 +628,24 @@ def main() -> None:
             )
 
             cards_html.append(
-                f"<div style='border:1px solid #e4e7ec;border-left:5px solid {accent};"
+                f"<div style='border:1px solid rgba(148,163,184,0.18);border-left:5px solid {accent};"
                 f"border-radius:12px;padding:11px 12px;margin-bottom:9px;background:{bg};"
-                f"box-shadow:0 1px 2px rgba(0,0,0,0.03);'>"
+                f"backdrop-filter:blur(6px);'>"
                 f"<div style='display:flex;justify-content:space-between;align-items:center;gap:6px;'>"
-                f"<span style='display:flex;align-items:center;gap:7px;font-size:16px;font-weight:700;color:#1d3557;'>{badge} {logo_img} {row.team}</span>"
+                f"<span style='display:flex;align-items:center;gap:7px;font-size:16px;font-weight:700;color:#f8fafc;'>{badge} {logo_img} {row.team}</span>"
                 f"<span style='display:flex;align-items:center;gap:6px;'>{mini_form}"
-                f"<span style='font-size:11px;color:#555;background:#eef1f5;padding:2px 7px;border-radius:10px;font-weight:600;'>{int(row.matches_played)} záp.</span>"
+                f"<span style='font-size:11px;color:#cbd5e1;background:rgba(30,41,59,0.9);padding:2px 7px;border-radius:10px;font-weight:600;'>{int(row.matches_played)} záp.</span>"
                 f"</span></div>"
-                f"<div style='background:#eef1f5;height:6px;border-radius:4px;margin:8px 0 9px 0;overflow:hidden;'>"
+                f"<div style='background:rgba(148,163,184,0.18);height:6px;border-radius:4px;margin:8px 0 9px 0;overflow:hidden;'>"
                 f"<div style='width:{pct:.1f}%;height:100%;background:{bar_color};border-radius:4px;'></div>"
                 f"</div>"
                 f"<div style='display:grid;grid-template-columns:repeat(4,1fr);gap:4px;font-size:13px;"
-                f"background:#f7f8fa;border-radius:8px;padding:6px 6px;text-align:center;'>"
+                f"background:rgba(15,23,42,0.65);border-radius:8px;padding:6px 6px;text-align:center;'>"
                 f"{rating_cells}"
                 f"</div>"
-                f"<div style='margin-top:6px;font-size:11px;color:#666;display:flex;justify-content:space-between;'>"
-                f"<span>Neistota (RD): <b>±{row.glicko2_rd:.1f}</b></span>"
-                f"<span>Volatilita (σ): <b>{row.glicko2_vol:.4f}</b></span>"
+                f"<div style='margin-top:6px;font-size:11px;color:#94a3b8;display:flex;justify-content:space-between;'>"
+                f"<span>Neistota (RD): <b style='color:#cbd5e1;'>±{row.glicko2_rd:.1f}</b></span>"
+                f"<span>Volatilita (σ): <b style='color:#cbd5e1;'>{row.glicko2_vol:.4f}</b></span>"
                 f"</div>"
                 f"</div>"
             )
@@ -737,17 +726,17 @@ def main() -> None:
         st.divider()
         st.subheader(f"Presnosť na sezóne {metadata['test_season']}")
         comp_rows_html = "".join(
-            f"<tr style='border-bottom:1px solid #e6e8ec;'>"
-            f"<td style='padding:8px 6px;font-weight:600;'>{r['model']}</td>"
-            f"<td style='padding:8px 6px;text-align:center;'>{r['accuracy']:.1%}</td>"
-            f"<td style='padding:8px 6px;text-align:center;'>{r['log_loss']:.3f}</td>"
-            f"<td style='padding:8px 6px;text-align:center;'>{r['brier']:.3f}</td>"
+            f"<tr style='border-bottom:1px solid rgba(148,163,184,0.14);'>"
+            f"<td style='padding:8px 6px;font-weight:600;color:#f1f5f9;'>{r['model']}</td>"
+            f"<td style='padding:8px 6px;text-align:center;color:#e2e8f0;'>{r['accuracy']:.1%}</td>"
+            f"<td style='padding:8px 6px;text-align:center;color:#e2e8f0;'>{r['log_loss']:.3f}</td>"
+            f"<td style='padding:8px 6px;text-align:center;color:#e2e8f0;'>{r['brier']:.3f}</td>"
             f"</tr>"
             for r in metadata["comparison"]
         )
         st.markdown(
-            f"<table style='width:100%;border-collapse:collapse;font-size:14px;'>"
-            f"<thead><tr style='background:#f1f3f6;text-align:center;'>"
+            f"<table style='width:100%;border-collapse:collapse;font-size:14px;background:rgba(21,31,50,0.85);border-radius:10px;overflow:hidden;'>"
+            f"<thead><tr style='background:rgba(30,41,59,0.95);text-align:center;color:#94a3b8;'>"
             f"<th style='padding:8px 6px;text-align:left;'>Model</th>"
             f"<th style='padding:8px 6px;'>Presnosť</th>"
             f"<th style='padding:8px 6px;'>Log loss</th>"
@@ -846,24 +835,24 @@ def main() -> None:
                         )
 
                     card_html = (
-                        f"<div style='border:1px solid #e2e5ea;border-radius:12px;padding:12px 14px;"
-                        f"margin-bottom:10px;background:#ffffff;box-shadow:0 1px 2px rgba(0,0,0,0.03);'>"
+                        f"<div style='border:1px solid rgba(148,163,184,0.18);border-radius:12px;padding:12px 14px;"
+                        f"margin-bottom:10px;background:rgba(21,31,50,0.88);backdrop-filter:blur(6px);'>"
                         f"<div style='display:flex;align-items:center;gap:12px;margin-bottom:10px;'>"
                         f"{avatar_html}"
                         f"<div>"
-                        f"<div style='font-size:17px;font-weight:700;color:#1d3557;line-height:1.2;'>{row['Hráč']}</div>"
-                        f"<div style='font-size:12px;color:#555;margin-top:3px;'>"
-                        f"<span style='background:#f1f3f6;padding:2px 7px;border-radius:6px;font-weight:600;'>{row['Pozícia']}</span>"
-                        f" &nbsp;·&nbsp; <b>{row['Stav']}</b></div>"
+                        f"<div style='font-size:17px;font-weight:700;color:#f8fafc;line-height:1.2;'>{row['Hráč']}</div>"
+                        f"<div style='font-size:12px;color:#94a3b8;margin-top:3px;'>"
+                        f"<span style='background:rgba(56,189,248,0.16);color:#38bdf8;padding:2px 7px;border-radius:6px;font-weight:600;'>{row['Pozícia']}</span>"
+                        f" &nbsp;·&nbsp; <b style='color:#e2e8f0;'>{row['Stav']}</b></div>"
                         f"</div></div>"
-                        f"<div style='font-size:13.5px;line-height:1.5;color:#222;'>"
-                        f"<div><b>Zranenie:</b> {row['Zranenie']}</div>"
+                        f"<div style='font-size:13.5px;line-height:1.5;color:#cbd5e1;'>"
+                        f"<div><b style='color:#f1f5f9;'>Zranenie:</b> {row['Zranenie']}</div>"
                         f"<div style='display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:4px;'>"
-                        f"<div><b>Kedy:</b> {row['Kedy sa zranil']}</div>"
-                        f"<div><b>Na ako dlho:</b> {row['Na ako dlho']}</div>"
+                        f"<div><b style='color:#f1f5f9;'>Kedy:</b> {row['Kedy sa zranil']}</div>"
+                        f"<div><b style='color:#f1f5f9;'>Na ako dlho:</b> {row['Na ako dlho']}</div>"
                         f"</div>"
-                        f"<div style='margin-top:4px;'><b>Návrat:</b> {row['Predpokladaný návrat']}</div>"
-                        f"<div style='margin-top:2px;'><b>Kde sa zranil:</b> {row['Kde sa zranil (zápas / tréning)']}</div>"
+                        f"<div style='margin-top:4px;'><b style='color:#f1f5f9;'>Návrat:</b> {row['Predpokladaný návrat']}</div>"
+                        f"<div style='margin-top:2px;'><b style='color:#f1f5f9;'>Kde sa zranil:</b> {row['Kde sa zranil (zápas / tréning)']}</div>"
                         f"</div></div>"
                     )
                     col.markdown(card_html, unsafe_allow_html=True)
