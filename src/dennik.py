@@ -71,13 +71,29 @@ ESPN_TEAM_ALIASES: dict[str, str] = {
 }
 
 TIP_OPTIONS: list[tuple[str, str, str]] = [
-    ("1", "Výhra", "Výhra domácich"),
-    ("1X", "Výhra / Remíza", "Výhra domácich alebo remíza"),
+    ("1", "Výhra domácich", "Výhra domáceho tímu"),
+    ("1X", "Domáci neprehrajú", "Výhra domácich alebo remíza"),
     ("X", "Remíza", "Remíza"),
-    ("X2", "Prehra / Remíza", "Remíza alebo výhra hostí"),
+    ("X2", "Hostia neprehrajú", "Remíza alebo výhra hosťujúceho tímu"),
+    ("2", "Výhra hostí", "Výhra hosťujúceho tímu"),
 ]
 
 TIP_LABELS: dict[str, str] = {code: label for code, label, _ in TIP_OPTIONS}
+
+
+def format_tip_text(tip_code: str, home: str, away: str) -> str:
+    """Vráti čitateľný popis tipu s konkrétnym menom tímu."""
+    if tip_code == "1":
+        return f"{home} – výhra (1)"
+    if tip_code == "1X":
+        return f"{home} – výhra / remíza (1X)"
+    if tip_code == "X":
+        return "Remíza (X)"
+    if tip_code == "X2":
+        return f"{away} – výhra / remíza (X2)"
+    if tip_code == "2":
+        return f"{away} – výhra (2)"
+    return tip_code
 
 
 def normalize_espn_team(name: str) -> str:
@@ -246,7 +262,7 @@ def clear_journal_tips(path: Path = TIPS_JOURNAL_JSON) -> None:
 
 
 def is_tip_hit(tip_code: str, actual_ftr: str) -> bool:
-    """Overí, či tip (1, 1X, X, X2) vyšiel pri skutočnom výsledku (H, D, A)."""
+    """Overí, či tip (1, 1X, X, X2, 2) vyšiel pri skutočnom výsledku (H, D, A)."""
     if tip_code == "1":
         return actual_ftr == "H"
     if tip_code == "1X":
@@ -255,6 +271,8 @@ def is_tip_hit(tip_code: str, actual_ftr: str) -> bool:
         return actual_ftr == "D"
     if tip_code == "X2":
         return actual_ftr in ("D", "A")
+    if tip_code == "2":
+        return actual_ftr == "A"
     return False
 
 

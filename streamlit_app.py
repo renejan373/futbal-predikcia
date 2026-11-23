@@ -39,6 +39,7 @@ TIP_OPTIONS = _dennik_mod.TIP_OPTIONS
 clear_journal_tips = _dennik_mod.clear_journal_tips
 delete_journal_tip = _dennik_mod.delete_journal_tip
 fetch_next_match_per_team = _dennik_mod.fetch_next_match_per_team
+format_tip_text = _dennik_mod.format_tip_text
 is_tip_hit = _dennik_mod.is_tip_hit
 load_journal_tips = _dennik_mod.load_journal_tips
 resolve_journal_tips = _dennik_mod.resolve_journal_tips
@@ -1321,7 +1322,7 @@ def main() -> None:
         st.subheader(f"Najbližšie neodohrané zápasy – {active_league}")
         st.caption(
             "Pre každý tím ligy je zobrazený 1 najbližší neodohraný zápas. "
-            "Vyber si svoj tip: **Výhra (1)**, **Výhra / Remíza (1X)**, **Remíza (X)** alebo **Prehra / Remíza (X2)**."
+            "Vyber si tip pre domáci alebo hosťujúci tím (opätovným klikom alebo tlačidlom ✕ tip zrušíš)."
         )
 
         tips = load_journal_tips()
@@ -1369,36 +1370,72 @@ def main() -> None:
 
                 existing_tip = saved_lookup.get((active_league, f_home, f_away, fx["match_date"]))
                 active_code = existing_tip.get("tip_code") if existing_tip else None
+                badge_bg = "rgba(56,189,248,0.16)" if is_dark else "#e0f2fe"
+                badge_fg = "#38bdf8" if is_dark else "#0369a1"
+                tip_badge_html = (
+                    f"<div style='margin-bottom:8px;'>"
+                    f"<span style='display:inline-block;background:{badge_bg};color:{badge_fg};"
+                    f"padding:3px 10px;border-radius:8px;font-size:12.5px;font-weight:700;'>"
+                    f"🎯 Tvoj tip: {format_tip_text(active_code, f_home, f_away)}</span></div>"
+                    if active_code
+                    else ""
+                )
 
                 with st.container(border=True):
                     st.markdown(
-                        f"<div style='display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;margin-bottom:8px;'>"
+                        f"<div style='display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;margin-bottom:6px;'>"
                         f"<span style='font-size:16px;font-weight:700;color:{c_title};'>{h_img}{f_home} – {f_away}{a_img}</span>"
                         f"<span style='font-size:12px;color:{c_muted};'>🕒 {fx['kickoff_str']}{prob_line}</span>"
-                        f"</div>",
+                        f"</div>{tip_badge_html}",
                         unsafe_allow_html=True,
                     )
-                    b_cols = st.columns(4)
-                    for idx_b, (t_code, t_label, t_help) in enumerate(TIP_OPTIONS):
+                    btn_specs = [
+                        ("1", f"1 · {f_home}", f"Výhra {f_home}"),
+                        ("1X", f"1X · {f_home}/X", f"Výhra alebo remíza {f_home}"),
+                        ("X", "X · Remíza", "Remíza"),
+                        ("X2", f"X2 · {f_away}/X", f"Výhra alebo remíza {f_away}"),
+                        ("2", f"2 · {f_away}", f"Výhra {f_away}"),
+                    ]
+                    if existing_tip:
+                        b_cols = st.columns([1.15, 1.25, 0.9, 1.25, 1.15, 0.6])
+                    else:
+                        b_cols = st.columns([1.15, 1.25, 0.9, 1.25, 1.15])
+
+                    for idx_b, (t_code, t_label, t_help) in enumerate(btn_specs):
                         is_sel = active_code == t_code
                         btn_text = f"✓ {t_label}" if is_sel else t_label
                         if b_cols[idx_b].button(
                             btn_text,
                             key=f"dennik_{active_league}_{fx['event_id']}_{t_code}",
                             type="primary" if is_sel else "secondary",
-                            help=t_help,
+                            help=f"{t_help} (kliknutím zrušíš)" if is_sel else t_help,
                             use_container_width=True,
                         ):
-                            save_fixture_tip(
-                                league=active_league,
-                                season=season,
-                                home=f_home,
-                                away=f_away,
-                                kickoff_str=fx["kickoff_str"],
-                                match_date=fx["match_date"],
-                                tip_code=t_code,
-                            )
-                            st.toast(f"Tip uložený: {f_home} – {f_away} ({t_label})", icon="📝")
+                            if is_sel and existing_tip:
+                                delete_journal_tip(existing_tip["id"])
+                                st.toast(f"Tip zrušený: {f_home} – {f_away}", icon="🗑️")
+                            else:
+                                save_fixture_tip(
+                                    league=active_league,
+                                    season=season,
+                                    home=f_home,
+                                    away=f_away,
+                                    kickoff_str=fx["kickoff_str"],
+                                    match_date=fx["match_date"],
+                                    tip_code=t_code,
+                                )
+                                st.toast(f"Tip uložený: {format_tip_text(t_code, f_home, f_away)}", icon="📝")
+                            st.rerun()
+
+                    if existing_tip:
+                        if b_cols[5].button(
+                            "✕",
+                            key=f"dennik_cancel_{active_league}_{fx['event_id']}",
+                            help="Zrušiť tip na tento zápas",
+                            use_container_width=True,
+                        ):
+                            delete_journal_tip(existing_tip["id"])
+                            st.toast(f"Tip zrušený: {f_home} – {f_away}", icon="🗑️")
                             st.rerun()
 
         st.divider()
@@ -1437,7 +1474,7 @@ def main() -> None:
                         unsafe_allow_html=True,
                     )
                     c_pick.markdown(
-                        f"Tip: **{t_lbl} ({t_code})**  \n"
+                        f"Tip: **{format_tip_text(t_code, tip['home'], tip['away'])}**  \n"
                         f"<span style='font-size:12px;color:#94a3b8;'>{res_info}</span>",
                         unsafe_allow_html=True,
                     )
