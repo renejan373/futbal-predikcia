@@ -527,23 +527,62 @@ def main() -> None:
 
     elif active_section == "📊 Rebríček":
         st.subheader(f"Rebríček sily tímov – {active_league} ({season})")
-        st.caption("Tímy zoradené podľa najnovšieho Glicko-2 ratingu. Všetky údaje sú viditeľné bez posúvania.")
+        st.caption(
+            "Tímy zoradené podľa Glicko-2 ratingu · 🥇–🥉 Top 3 · 🟦 4. miesto · 🟥 Zostupová zóna"
+        )
         ranked = season_ratings.sort_values("glicko2_rating", ascending=False).reset_index(drop=True)
+        n_teams = len(ranked)
+        r_min = float(ranked["glicko2_rating"].min()) if n_teams else 1400.0
+        r_max = float(ranked["glicko2_rating"].max()) if n_teams else 1800.0
+        r_span = max(1.0, r_max - r_min)
+
         cards_html = []
         for idx, row in enumerate(ranked.itertuples(index=False), start=1):
+            if idx == 1:
+                accent, bg, badge = "#d4af37", "#fffdf4", "🥇 1."
+            elif idx == 2:
+                accent, bg, badge = "#9aa0a6", "#fafafa", "🥈 2."
+            elif idx == 3:
+                accent, bg, badge = "#cd7f32", "#fdfaf6", "🥉 3."
+            elif idx == 4:
+                accent, bg, badge = "#2a9d8f", "#ffffff", "4."
+            elif idx > n_teams - 3:
+                accent, bg, badge = "#e76f51", "#fff9f8", f"{idx}."
+            else:
+                accent, bg, badge = "#cfd6e0", "#ffffff", f"{idx}."
+
+            pct = max(6.0, min(100.0, ((float(row.glicko2_rating) - r_min) / r_span) * 94.0 + 6.0))
+            bar_color = "#2a9d8f" if idx <= 4 else ("#e76f51" if idx > n_teams - 3 else "#457b9d")
+
+            form = recent_results(matches, season, row.team, limit=5)
+            mini_form = "".join(
+                f"<span style='display:inline-block;width:18px;height:18px;line-height:18px;"
+                f"text-align:center;border-radius:4px;background:{FORM_STYLE[r][0]};"
+                f"color:{FORM_STYLE[r][1]};font-size:10px;font-weight:700;margin-left:2px;'>{r}</span>"
+                for r in form
+            )
+
             cards_html.append(
-                f"<div style='border:1px solid #e2e5ea;border-radius:10px;padding:10px 12px;margin-bottom:8px;background:#ffffff;'>"
-                f"<div style='display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;'>"
-                f"<span style='font-size:16px;font-weight:700;color:#1d3557;'>{idx}. {row.team}</span>"
-                f"<span style='font-size:12px;color:#666;background:#f1f3f6;padding:2px 8px;border-radius:12px;'>{int(row.matches_played)} záp.</span>"
+                f"<div style='border:1px solid #e4e7ec;border-left:5px solid {accent};"
+                f"border-radius:12px;padding:11px 12px;margin-bottom:9px;background:{bg};"
+                f"box-shadow:0 1px 2px rgba(0,0,0,0.03);'>"
+                f"<div style='display:flex;justify-content:space-between;align-items:center;gap:6px;'>"
+                f"<span style='font-size:16px;font-weight:700;color:#1d3557;'>{badge} {row.team}</span>"
+                f"<span style='display:flex;align-items:center;gap:6px;'>{mini_form}"
+                f"<span style='font-size:11px;color:#555;background:#eef1f5;padding:2px 7px;border-radius:10px;font-weight:600;'>{int(row.matches_played)} záp.</span>"
+                f"</span></div>"
+                f"<div style='background:#eef1f5;height:6px;border-radius:4px;margin:8px 0 9px 0;overflow:hidden;'>"
+                f"<div style='width:{pct:.1f}%;height:100%;background:{bar_color};border-radius:4px;'></div>"
                 f"</div>"
-                f"<div style='display:grid;grid-template-columns:repeat(3,1fr);gap:6px;font-size:13px;'>"
-                f"<div><span style='color:#666;'>Glicko-2</span><br><b>{row.glicko2_rating:.1f}</b></div>"
-                f"<div><span style='color:#666;'>Glicko</span><br><b>{row.glicko_rating:.1f}</b></div>"
-                f"<div><span style='color:#666;'>Elo</span><br><b>{row.elo_rating:.1f}</b></div>"
+                f"<div style='display:grid;grid-template-columns:repeat(3,1fr);gap:6px;font-size:13px;"
+                f"background:#f7f8fa;border-radius:8px;padding:6px 8px;text-align:center;'>"
+                f"<div><span style='font-size:11px;color:#666;'>Glicko-2</span><br><b style='color:#1d3557;font-size:15px;'>{row.glicko2_rating:.1f}</b></div>"
+                f"<div><span style='font-size:11px;color:#666;'>Glicko</span><br><b>{row.glicko_rating:.1f}</b></div>"
+                f"<div><span style='font-size:11px;color:#666;'>Elo</span><br><b>{row.elo_rating:.1f}</b></div>"
                 f"</div>"
-                f"<div style='margin-top:6px;font-size:12px;color:#555;'>"
-                f"Neistota (RD): <b>±{row.glicko2_rd:.1f}</b> &nbsp;·&nbsp; Volatilita (σ): <b>{row.glicko2_vol:.4f}</b>"
+                f"<div style='margin-top:6px;font-size:11px;color:#666;display:flex;justify-content:space-between;'>"
+                f"<span>Neistota (RD): <b>±{row.glicko2_rd:.1f}</b></span>"
+                f"<span>Volatilita (σ): <b>{row.glicko2_vol:.4f}</b></span>"
                 f"</div>"
                 f"</div>"
             )
