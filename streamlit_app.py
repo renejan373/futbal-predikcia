@@ -99,6 +99,31 @@ def recent_results(matches: pd.DataFrame, season: str, team: str, limit: int = 5
     return results
 
 
+def head_to_head_matches(
+    matches: pd.DataFrame, home: str, away: str, limit: int = 5
+) -> tuple[pd.DataFrame, dict[str, int]]:
+    """Vráti posledných `limit` vzájomných zápasov a celkovú bilanciu medzi `home` a `away`."""
+    h2h = matches[
+        ((matches["home_team"] == home) & (matches["away_team"] == away))
+        | ((matches["home_team"] == away) & (matches["away_team"] == home))
+    ].sort_values("date", ascending=False)
+
+    home_wins = int(
+        (((h2h["home_team"] == home) & (h2h["ftr"] == "H")) | ((h2h["away_team"] == home) & (h2h["ftr"] == "A"))).sum()
+    )
+    away_wins = int(
+        (((h2h["home_team"] == away) & (h2h["ftr"] == "H")) | ((h2h["away_team"] == away) & (h2h["ftr"] == "A"))).sum()
+    )
+    draws = int((h2h["ftr"] == "D").sum())
+    summary = {
+        "total": int(len(h2h)),
+        "home_wins": home_wins,
+        "draws": draws,
+        "away_wins": away_wins,
+    }
+    return h2h.head(limit), summary
+
+
 def form_badges(results: list[str]) -> str:
     if not results:
         return "<span style='color:#888'>žiadne zápasy</span>"
@@ -656,14 +681,28 @@ def main() -> None:
     if "pred_system" not in st.session_state or st.session_state["pred_system"] not in system_keys:
         st.session_state["pred_system"] = system_keys[0]
 
+    def _swap_teams() -> None:
+        h_val = st.session_state.get("pred_home")
+        a_val = st.session_state.get("pred_away")
+        if h_val and a_val and h_val != a_val:
+            st.session_state["pred_home"] = a_val
+            st.session_state["pred_away"] = h_val
+
     if active_section == "⚽ Predikcia":
         with st.container(border=True):
-            c_h, c_a, c_s = st.columns(3)
+            c_h, c_swap, c_a, c_s = st.columns([3, 0.7, 3, 3.3], vertical_alignment="bottom")
             home = c_h.selectbox("Domáci tím", teams, key="pred_home")
             away_options = [t for t in teams if t != home]
             default_away = preferred_away if preferred_away in away_options else away_options[0]
             if "pred_away" not in st.session_state or st.session_state["pred_away"] not in away_options:
                 st.session_state["pred_away"] = default_away
+            c_swap.button(
+                "⇄",
+                key="swap_teams_btn",
+                help="Vymeniť domáci a hosťujúci tím",
+                on_click=_swap_teams,
+                use_container_width=True,
+            )
             away = c_a.selectbox("Hosťujúci tím", away_options, key="pred_away")
             selected_system = c_s.selectbox(
                 "Ratingový systém",
@@ -687,7 +726,30 @@ def main() -> None:
     probs = all_preds[selected_system]
 
     if active_section == "⚽ Predikcia":
-        st.subheader(f"{home} – {away}")
+        home_logo_uri = get_team_logo_data_uri(home)
+        away_logo_uri = get_team_logo_data_uri(away)
+        home_logo_html = (
+            f"<img src='{home_logo_uri}' style='width:32px;height:32px;object-fit:contain;vertical-align:middle;' />"
+            if home_logo_uri
+            else ""
+        )
+        away_logo_html = (
+            f"<img src='{away_logo_uri}' style='width:32px;height:32px;object-fit:contain;vertical-align:middle;' />"
+            if away_logo_uri
+            else ""
+        )
+        hdr_title_color = "#f8fafc" if is_dark else "#0f172a"
+        hdr_vs_color = "#94a3b8" if is_dark else "#64748b"
+        st.markdown(
+            f"<div style='display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:6px 0 4px 0;'>"
+            f"{home_logo_html}"
+            f"<span style='font-size:24px;font-weight:700;color:{hdr_title_color};'>{home}</span>"
+            f"<span style='font-size:18px;font-weight:600;color:{hdr_vs_color};'>–</span>"
+            f"{away_logo_html}"
+            f"<span style='font-size:24px;font-weight:700;color:{hdr_title_color};'>{away}</span>"
+            f"</div>",
+            unsafe_allow_html=True,
+        )
         st.caption(
             f"Predikcia na základe aktuálnych ratingov zo sezóny {season}: "
             f"**{home}** ({int(home_row['matches_played'])} zápasov k {home_row['as_of_date']:%d. %m. %Y}) vs. "
@@ -732,7 +794,20 @@ def main() -> None:
         st.subheader("Porovnanie oboch tímov")
         left, right = st.columns(2)
         for col, team_name, row in ((left, home, home_row), (right, away, away_row)):
-            col.markdown(f"### {team_name}")
+            t_logo = get_team_logo_data_uri(team_name)
+            t_logo_html = (
+                f"<img src='{t_logo}' style='width:24px;height:24px;object-fit:contain;vertical-align:middle;' />"
+                if t_logo
+                else ""
+            )
+            t_col_txt = "#f8fafc" if is_dark else "#0f172a"
+            col.markdown(
+                f"<div style='display:flex;align-items:center;gap:8px;margin-bottom:6px;'>"
+                f"{t_logo_html}"
+                f"<span style='font-size:20px;font-weight:700;color:{t_col_txt};'>{team_name}</span>"
+                f"</div>",
+                unsafe_allow_html=True,
+            )
             results = recent_results(matches, season, team_name)
             col.markdown(form_badges(results), unsafe_allow_html=True)
             col.write(
@@ -768,6 +843,56 @@ def main() -> None:
             f"</tr></thead><tbody>{rows_html}</tbody></table>",
             unsafe_allow_html=True,
         )
+
+        st.divider()
+        st.subheader("Vzájomné zápasy (H2H)")
+        h2h_recent, h2h_sum = head_to_head_matches(matches, home, away, limit=5)
+        if h2h_sum["total"] == 0:
+            st.info(f"Tímy {home} a {away} sa v dostupných ligových dátach zatiaľ nestretli.")
+        else:
+            st.caption(
+                f"Celková ligová bilancia ({h2h_sum['total']} zápasov): "
+                f"**{home}** {h2h_sum['home_wins']}× výhra · "
+                f"Remízy: {h2h_sum['draws']}× · "
+                f"**{away}** {h2h_sum['away_wins']}× výhra"
+            )
+            h2h_rows = []
+            for r in h2h_recent.itertuples(index=False):
+                date_str = pd.Timestamp(r.date).strftime("%d. %m. %Y")
+                score_str = f"{int(r.fthg)} : {int(r.ftag)}"
+                if r.ftr == "D":
+                    res_badge = (
+                        f"<span style='background:{FORM_STYLE['R'][0]};color:{FORM_STYLE['R'][1]};"
+                        f"padding:2px 8px;border-radius:6px;font-size:12px;font-weight:700;'>Remíza</span>"
+                    )
+                else:
+                    winner = r.home_team if r.ftr == "H" else r.away_team
+                    badge_bg = "#2a9d8f" if winner == home else "#38bdf8"
+                    badge_fg = "#ffffff" if winner == home else "#0f172a"
+                    res_badge = (
+                        f"<span style='background:{badge_bg};color:{badge_fg};"
+                        f"padding:2px 8px;border-radius:6px;font-size:12px;font-weight:700;'>{winner}</span>"
+                    )
+                h2h_rows.append(
+                    f"<tr style='border-bottom:1px solid {tbl_bd};'>"
+                    f"<td style='padding:8px 6px;color:{tbl_hdr_txt};white-space:nowrap;'>{date_str}</td>"
+                    f"<td style='padding:8px 6px;color:{tbl_hdr_txt};white-space:nowrap;'>{r.season}</td>"
+                    f"<td style='padding:8px 6px;color:{tbl_txt};font-weight:600;'>{r.home_team} – {r.away_team}</td>"
+                    f"<td style='padding:8px 6px;text-align:center;font-weight:700;color:{tbl_txt};white-space:nowrap;'>{score_str}</td>"
+                    f"<td style='padding:8px 6px;text-align:center;'>{res_badge}</td>"
+                    f"</tr>"
+                )
+            st.markdown(
+                f"<table style='width:100%;border-collapse:collapse;font-size:14px;background:{tbl_bg};border:1px solid {tbl_bd};border-radius:10px;overflow:hidden;'>"
+                f"<thead><tr style='background:{tbl_hdr};text-align:left;color:{tbl_hdr_txt};'>"
+                f"<th style='padding:8px 6px;'>Dátum</th>"
+                f"<th style='padding:8px 6px;'>Sezóna</th>"
+                f"<th style='padding:8px 6px;'>Zápas</th>"
+                f"<th style='padding:8px 6px;text-align:center;'>Skóre</th>"
+                f"<th style='padding:8px 6px;text-align:center;'>Víťaz</th>"
+                f"</tr></thead><tbody>{''.join(h2h_rows)}</tbody></table>",
+                unsafe_allow_html=True,
+            )
 
     elif active_section == "📊 Rebríček":
         st.subheader(f"Rebríček sily tímov – {active_league} ({season})")
