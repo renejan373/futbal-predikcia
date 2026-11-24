@@ -8,8 +8,9 @@ import html as html_lib
 import json
 import re
 import unicodedata
+import urllib.parse
 import urllib.request
-from datetime import date
+from datetime import date, datetime
 from functools import lru_cache
 from pathlib import Path
 
@@ -156,15 +157,34 @@ def _player_slug(player_name: str) -> str:
     return re.sub(r"[^a-z0-9]+", "_", ascii_name).strip("_")
 
 
-@lru_cache(maxsize=128)
+@lru_cache(maxsize=512)
 def get_player_photo_data_uri(player_name: str) -> str:
-    """Vráti base64 data URI fotky hráča z assets/players/ (alebo prázdny reťazec)."""
+    """Vráti base64 data URI fotky hráča z assets/players/ alebo z Wikipédie."""
     slug = _player_slug(player_name)
     for ext, mime in ((".jpg", "image/jpeg"), (".jpeg", "image/jpeg"), (".png", "image/png")):
         path = PLAYERS_DIR / f"{slug}{ext}"
         if path.exists():
             encoded = base64.b64encode(path.read_bytes()).decode("ascii")
             return f"data:{mime};base64,{encoded}"
+
+    # Živý fallback cez Wikipédia API pre novo zranených hráčov
+    headers = {"User-Agent": "FutbalPredikciaApp/1.0 (educational project)"}
+    try:
+        q = urllib.parse.quote(f"{player_name} footballer")
+        surl = (
+            f"https://en.wikipedia.org/w/api.php?action=query&generator=search"
+            f"&gsrsearch={q}&gsrlimit=1&prop=pageimages&pithumbsize=240&format=json"
+        )
+        req = urllib.request.Request(surl, headers=headers)
+        data = json.loads(urllib.request.urlopen(req, timeout=4).read().decode("utf-8"))
+        for pg in data.get("query", {}).get("pages", {}).values():
+            thumb = pg.get("thumbnail", {}).get("source")
+            if thumb:
+                img_bytes = urllib.request.urlopen(urllib.request.Request(thumb, headers=headers), timeout=4).read()
+                encoded = base64.b64encode(img_bytes).decode("ascii")
+                return f"data:image/jpeg;base64,{encoded}"
+    except Exception:
+        pass
     return ""
 
 COLUMN_RENAME = {
@@ -248,6 +268,61 @@ _POS_MAP_SK: dict[str, str] = {
     "F": "Útočník",
 }
 
+_INJURY_TRANSLATIONS: list[tuple[str, str]] = [
+    ("cruciate ligament", "Poranenie skríženého väzu (ACL)"),
+    ("acl", "Poranenie predného skríženého väzu (ACL)"),
+    ("hamstring", "Svalové zranenie zadného stehna (hamstring)"),
+    ("muscle", "Svalové zranenie"),
+    ("thigh", "Zranenie stehna"),
+    ("calf", "Zranenie lýtka"),
+    ("knee", "Zranenie kolena"),
+    ("ankle", "Zranenie členka"),
+    ("groin", "Zranenie slabín"),
+    ("achilles", "Poranenie Achillovej šľachy"),
+    ("shoulder", "Zranenie ramena"),
+    ("back", "Problémy s chrbtom"),
+    ("foot", "Zranenie chodidla"),
+    ("hip", "Zranenie bedra"),
+    ("illness", "Choroba / viróza"),
+    ("concussion", "Otras mozgu"),
+    ("red card", "Červená karta (stopka)"),
+    ("yellow card", "Trest za žlté karty"),
+    ("suspended", "Suspendovaný (trest)"),
+    ("knock", "Menší úder / narazenie"),
+]
+
+
+def _translate_injury_sk(info: str, is_susp: bool) -> str:
+    if not info:
+        return "Trest / suspendovaný" if is_susp else "Zranenie (bližšie nešpecifikované)"
+    low = info.lower()
+    for key, sk in _INJURY_TRANSLATIONS:
+        if key in low:
+            return f"{sk} ({info})" if info.lower() not in sk.lower() else sk
+    return info
+
+
+def _format_return_and_duration(ret: str, is_susp: bool) -> tuple[str, str]:
+    if not ret or ret in ("-", "?"):
+        return ("Neurčený", "Neurčená" if not is_susp else "1–3 zápasy")
+    try:
+        dt = datetime.strptime(ret[:10], "%Y-%m-%d").date()
+        ret_sk = dt.strftime("%d. %m. %Y")
+        days = (dt - date.today()).days
+        if days <= 0:
+            dur = "Krátkodobá (čoskoro späť)"
+        elif days <= 7:
+            dur = f"Cca {days} dní"
+        elif days <= 45:
+            weeks = max(1, round(days / 7))
+            dur = f"Cca {weeks} týždňov" if weeks >= 5 else ("1 týždeň" if weeks == 1 else f"Cca {weeks} týždne")
+        else:
+            months = max(1, round(days / 30))
+            dur = f"Cca {months} mesiacov" if months >= 5 else ("1 mesiac" if months == 1 else f"Cca {months} mesiace")
+        return ret_sk, dur
+    except ValueError:
+        return ret, "Neurčená"
+
 
 def _scrape_sportsgambler_league(league: str, slug: str) -> tuple[str, dict[str, list[dict]]]:
     url = f"https://www.sportsgambler.com/injuries/football/{slug}/"
@@ -283,16 +358,23 @@ def _scrape_sportsgambler_league(league: str, slug: str) -> tuple[str, dict[str,
             pos_raw = _grab(r'inj-position[^"]*')
             info = _grab("inj-info")
             ret = _grab(r'inj-return[^"]*')
+            games = _grab(r'inj-game[^"]*')
             is_susp = "redcard" in inj_type or "susp" in inj_type
+            ret_sk, dur_sk = _format_return_and_duration(ret, is_susp)
+            ctx = (
+                f"V zápase ({league} – disciplinárny trest)"
+                if is_susp
+                else (f"V zápase / na tréningu ({games} zápasov v sezóne)" if games and games != "-" else f"V zápase / na tréningu ({league})")
+            )
             players.append(
                 {
                     "player": name,
                     "position": _POS_MAP_SK.get(pos_raw, pos_raw or "Hráč"),
-                    "injury": info or ("Trest / suspendovaný" if is_susp else "Zranenie"),
-                    "injured_on": "",
-                    "duration": "",
-                    "expected_return": ret if ret and ret not in ("-", "?") else "Neurčený",
-                    "context": "Trest / suspendácia" if is_susp else "Zranenie",
+                    "injury": _translate_injury_sk(info, is_susp),
+                    "injured_on": "Sezóna 2026/27 (aktuálne)",
+                    "duration": dur_sk,
+                    "expected_return": ret_sk,
+                    "context": ctx,
                     "status": "Suspendovaný" if is_susp else "Mimo hry",
                 }
             )
