@@ -364,7 +364,7 @@ def _scrape_sportsgambler_league(league: str, slug: str) -> tuple[str, dict[str,
             ctx = (
                 f"V zápase ({league} – disciplinárny trest)"
                 if is_susp
-                else (f"V zápase / na tréningu ({games} zápasov v sezóne)" if games and games != "-" else f"V zápase / na tréningu ({league})")
+                else "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)"
             )
             players.append(
                 {
@@ -396,6 +396,28 @@ def fetch_live_injuries_by_league(save_snapshot: bool = False) -> tuple[str, dic
         raw_leagues = {lg: clubs for lg, clubs in results if clubs}
         if not raw_leagues:
             return load_injuries_by_league()
+
+        curated_path = DATA_DIR / "injuries_curated.json"
+        if curated_path.exists():
+            try:
+                curated_raw = json.loads(curated_path.read_text(encoding="utf-8")).get("leagues", {})
+                curated_by_player = {
+                    _player_slug(rec["player"]): rec
+                    for clubs in curated_raw.values()
+                    for recs in clubs.values()
+                    for rec in recs
+                    if rec.get("player")
+                }
+                for clubs in raw_leagues.values():
+                    for recs in clubs.values():
+                        for rec in recs:
+                            c_rec = curated_by_player.get(_player_slug(rec["player"]))
+                            if c_rec:
+                                for fld in ("injured_on", "duration", "context"):
+                                    if c_rec.get(fld):
+                                        rec[fld] = c_rec[fld]
+            except Exception:
+                pass
 
         if save_snapshot:
             INJURIES_JSON.parent.mkdir(parents=True, exist_ok=True)

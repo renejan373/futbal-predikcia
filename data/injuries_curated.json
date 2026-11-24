@@ -1,0 +1,515 @@
+{
+  "updated_at": "2026-11-22",
+  "leagues": {
+    "Premier League": {
+      "Arsenal": [
+        {
+          "player": "David Raya",
+          "position": "Brankár",
+          "injury": "Podozrenie na poranenie ramena",
+          "injured_on": "November 2026",
+          "duration": "V štádiu vyšetrení (MRI)",
+          "expected_return": "Zatiaľ neurčený",
+          "context": "V zápase (Premier League vs. Newcastle 2:2)",
+          "status": "Vyšetrenia / mimo hry"
+        },
+        {
+          "player": "Bukayo Saka",
+          "position": "Krídelník",
+          "injury": "Svalové zranenie stehna (quadriceps)",
+          "injured_on": "Október 2026",
+          "duration": "Cca 8 týždňov",
+          "expected_return": "Polovica až koniec decembra 2026",
+          "context": "V zápase (Liga majstrov vs. Bayern Mníchov)",
+          "status": "Rehabilitácia (v polovici liečby)"
+        },
+        {
+          "player": "Martín Zubimendi",
+          "position": "Stredopoliar",
+          "injury": "Stredne ťažké zranenie hamstringu",
+          "injured_on": "November 2026",
+          "duration": "Cca 4 týždne",
+          "expected_return": "Polovica decembra 2026",
+          "context": "Reprezentačný zraz (Španielsko)",
+          "status": "Mimo hry"
+        }
+      ],
+      "Liverpool": [
+        {
+          "player": "Hugo Ekitike",
+          "position": "Útočník",
+          "injury": "Roztrhnutá Achillova šľacha",
+          "injured_on": "Apríl 2026",
+          "duration": "Cca 9 mesiacov",
+          "expected_return": "Január 2027",
+          "context": "V zápase / dlhodobá absencia (apríl 2026)",
+          "status": "Dlhodobá rehabilitácia"
+        },
+        {
+          "player": "Cody Gakpo",
+          "position": "Útočník / krídelník",
+          "injury": "Poranenie lýtkového svalu (soleus)",
+          "injured_on": "November 2026",
+          "duration": "2 – 3 týždne",
+          "expected_return": "Začiatok až polovica decembra 2026",
+          "context": "Reprezentačný zraz (Holandsko)",
+          "status": "Day-to-day / posudzuje sa"
+        },
+        {
+          "player": "Ryan Gravenberch",
+          "position": "Stredopoliar",
+          "injury": "Pretrvávajúca bolesť päty",
+          "injured_on": "November 2026",
+          "duration": "Krátkodobá absencia",
+          "expected_return": "Koniec novembra 2026",
+          "context": "Zápasové zaťaženie / tréningový proces",
+          "status": "Day-to-day (otázny štart)"
+        }
+      ],
+      "Man City": [
+        {
+          "player": "Antoine Semenyo",
+          "position": "Krídelník / útočník",
+          "injury": "Poranenie kolena",
+          "injured_on": "Polovica októbra 2026",
+          "duration": "Cca 8 týždňov",
+          "expected_return": "Polovica decembra 2026",
+          "context": "V zápase (vs. Ipswich Town)",
+          "status": "Intenzívna rehabilitácia"
+        },
+        {
+          "player": "Matheus Nunes",
+          "position": "Stredopoliar",
+          "injury": "Nešpecifikované svalové / kondičné ťažkosti",
+          "injured_on": "November 2026",
+          "duration": "Krátkodobá absencia",
+          "expected_return": "Koniec novembra 2026",
+          "context": "Reprezentačný zraz (Portugalsko)",
+          "status": "Day-to-day (posudzuje sa)"
+        }
+      ]
+    },
+    "La Liga": {
+      "Real Madrid": [
+        {
+          "player": "Rodrygo",
+          "position": "Krídelník",
+          "injury": "Roztrhnutý predný skrížený väz (ACL) a laterálny meniskus pravého kolena",
+          "injured_on": "02. 03. 2026",
+          "duration": "9 – 10 mesiacov",
+          "expected_return": "Koniec decembra 2026 / január 2027",
+          "context": "V zápase (La Liga vs. Getafe)",
+          "status": "Individuálny tréning / rehabilitácia"
+        },
+        {
+          "player": "Raúl Asencio",
+          "position": "Obranca",
+          "injury": "Únavová zlomenina pravej holennej kosti (operácia 1. 10. 2026)",
+          "injured_on": "September 2026",
+          "duration": "3 – 4 mesiace",
+          "expected_return": "Koniec decembra 2026 / január 2027",
+          "context": "Preťaženie z minulej sezóny / tréningový proces",
+          "status": "Rekonvalescencia po operácii"
+        },
+        {
+          "player": "Ferland Mendy",
+          "position": "Ľavý obranca",
+          "injury": "Natrhnutá šľacha priameho svalu stehna (rectus femoris)",
+          "injured_on": "Máj 2026",
+          "duration": "6+ mesiacov",
+          "expected_return": "Zatiaľ neurčený",
+          "context": "V zápase (La Liga vs. Espanyol)",
+          "status": "Individuálny tréning, mimo súpisky"
+        }
+      ],
+      "FC Barcelona": [
+        {
+          "player": "Roony Bardghji",
+          "position": "Krídelník",
+          "injury": "Roztrhnutý predný skrížený väz (ACL) pravého kolena",
+          "injured_on": "August 2026",
+          "duration": "6 – 7 mesiacov",
+          "expected_return": "Február – máj 2027",
+          "context": "Na tréningu (predsezónna príprava, august 2026)",
+          "status": "Dlhodobá rehabilitácia po operácii"
+        },
+        {
+          "player": "Xavi Espart",
+          "position": "Obranca / stredopoliar",
+          "injury": "Poranenie syndesmózy pravého členka",
+          "injured_on": "25. 10. 2026",
+          "duration": "7 – 8 týždňov",
+          "expected_return": "Polovica decembra 2026",
+          "context": "V zápase (El Clásico vs. Real Madrid)",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Andreas Christensen",
+          "position": "Stopér",
+          "injury": "Svalové zranenie lýtka (soleus ľavej nohy)",
+          "injured_on": "November 2026",
+          "duration": "Cca 2 zápasy",
+          "expected_return": "Koniec novembra 2026",
+          "context": "Na tréningu (november 2026)",
+          "status": "Krátkodobá absencia"
+        },
+        {
+          "player": "Pau Cubarsí",
+          "position": "Stopér",
+          "injury": "Napätie v oblasti bedrového ohybača (psoas)",
+          "injured_on": "November 2026",
+          "duration": "Niekoľko dní (otázny štart)",
+          "expected_return": "Koniec novembra 2026",
+          "context": "Reprezentačný zraz (Španielsko)",
+          "status": "Day-to-day (otázny štart)"
+        },
+        {
+          "player": "Rodri",
+          "position": "Stredopoliar",
+          "injury": "Poranenie zadného stehenného svalu (hamstring)",
+          "injured_on": "November 2026",
+          "duration": "Cca 3 – 4 týždne",
+          "expected_return": "Začiatok decembra 2026",
+          "context": "Zápasové zaťaženie (november 2026)",
+          "status": "Mimo hry"
+        }
+      ],
+      "Atlético Madrid": [
+        {
+          "player": "Ademola Lookman",
+          "position": "Útočník / krídelník",
+          "injury": "Ťažšie podvrtnutie kolena (high-grade sprain)",
+          "injured_on": "13. 11. 2026",
+          "duration": "4 – 6 týždňov",
+          "expected_return": "Koniec decembra 2026",
+          "context": "Reprezentačný zápas (Nigéria vs. Tanzánia)",
+          "status": "Rehabilitácia / posilňovňa"
+        },
+        {
+          "player": "Cristian Romero",
+          "position": "Stopér",
+          "injury": "Svalové zranenie",
+          "injured_on": "November 2026",
+          "duration": "Niekoľko týždňov",
+          "expected_return": "Začiatok decembra 2026",
+          "context": "Zápasové zaťaženie (november 2026)",
+          "status": "Mimo súpisky"
+        },
+        {
+          "player": "Marc Pubill",
+          "position": "Pravý obranca",
+          "injury": "Bolesti / podvrtnutie členka",
+          "injured_on": "November 2026",
+          "duration": "Krátkodobá absencia",
+          "expected_return": "Koniec novembra 2026",
+          "context": "Reprezentačný zraz (Španielsko)",
+          "status": "Day-to-day"
+        }
+      ]
+    },
+    "Serie A": {
+      "Inter Miláno": [
+        {
+          "player": "Marcus Thuram",
+          "position": "Útočník",
+          "injury": "Natiahnutý zadný stehenný sval (biceps femoris)",
+          "injured_on": "November 2026",
+          "duration": "2 – 3 týždne",
+          "expected_return": "Koniec novembra 2026 (vs. Genoa 28. 11.)",
+          "context": "V zápase (Serie A vs. Como)",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Ange-Yoan Bonny",
+          "position": "Útočník",
+          "injury": "Natiahnutý ohybač pravého stehna",
+          "injured_on": "November 2026",
+          "duration": "Cca 1 mesiac",
+          "expected_return": "Polovica decembra 2026",
+          "context": "V zápase (Serie A vs. Como)",
+          "status": "Rehabilitácia"
+        },
+        {
+          "player": "Aleksandar Stanković",
+          "position": "Stredopoliar",
+          "injury": "Svalové zranenie",
+          "injured_on": "November 2026",
+          "duration": "Cca 1 mesiac",
+          "expected_return": "Polovica decembra 2026",
+          "context": "Na tréningu (reprezentačný zraz Srbska)",
+          "status": "Mimo hry"
+        }
+      ],
+      "AC Miláno": [
+        {
+          "player": "Samuel Chukwueze",
+          "position": "Krídelník",
+          "injury": "Dlhodobé problémy s bedrovým ohybačom",
+          "injured_on": "Jeseň 2026",
+          "duration": "Niekoľko mesiacov",
+          "expected_return": "Február 2027",
+          "context": "Dlhodobé preťaženie / zápasové zaťaženie",
+          "status": "Dlhodobá absencia"
+        },
+        {
+          "player": "Fikayo Tomori",
+          "position": "Stopér",
+          "injury": "Natiahnutý hamstring",
+          "injured_on": "November 2026",
+          "duration": "2 – 3 týždne",
+          "expected_return": "Koniec novembra / začiatok decembra 2026",
+          "context": "Klubové / tréningové zaťaženie",
+          "status": "Individuálna príprava"
+        },
+        {
+          "player": "Ruben Loftus-Cheek",
+          "position": "Stredopoliar",
+          "injury": "Svalové zranenie",
+          "injured_on": "November 2026",
+          "duration": "2 – 3 týždne",
+          "expected_return": "Koniec novembra 2026",
+          "context": "Klubové / tréningové zaťaženie",
+          "status": "Blízko návratu"
+        }
+      ],
+      "Juventus": [
+        {
+          "player": "Manuel Locatelli",
+          "position": "Stredopoliar",
+          "injury": "Ťažké poškodenie menisku (po operácii)",
+          "injured_on": "Jeseň 2026",
+          "duration": "Niekoľko mesiacov",
+          "expected_return": "Začiatok roka 2027",
+          "context": "V zápase / klubové zaťaženie",
+          "status": "Dlhodobá rehabilitácia"
+        },
+        {
+          "player": "Khéphren Thuram",
+          "position": "Stredopoliar",
+          "injury": "Artroskopická operácia kolena",
+          "injured_on": "Jeseň 2026",
+          "duration": "Niekoľko mesiacov",
+          "expected_return": "Začiatok roka 2027",
+          "context": "Klubové zaťaženie",
+          "status": "Dlhodobá rehabilitácia"
+        },
+        {
+          "player": "Kenan Yıldız",
+          "position": "Krídelník / podhrot",
+          "injury": "Rekonvalescencia po operácii chodidla",
+          "injured_on": "Október 2026",
+          "duration": "Cca 2 mesiace",
+          "expected_return": "Začiatok až polovica decembra 2026",
+          "context": "Klubové zaťaženie",
+          "status": "Individuálny tréning"
+        },
+        {
+          "player": "Pierre Kalulu",
+          "position": "Obranca",
+          "injury": "Svalové / lýtkové ťažkosti",
+          "injured_on": "November 2026",
+          "duration": "1 – 2 týždne",
+          "expected_return": "Koniec novembra 2026",
+          "context": "Na tréningu / zápasové zaťaženie",
+          "status": "Krátkodobá absencia"
+        }
+      ]
+    },
+    "Bundesliga": {
+      "Bayern Mníchov": [
+        {
+          "player": "Harry Kane",
+          "position": "Útočník",
+          "injury": "Natrhnutý väz v ľavom členku",
+          "injured_on": "November 2026",
+          "duration": "Niekoľko mesiacov",
+          "expected_return": "Začiatok roka 2027",
+          "context": "V zápase (Bundesliga vs. 1. FC Köln 1:1)",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Manuel Neuer",
+          "position": "Brankár",
+          "injury": "Pretrvávajúce problémy s chodidlom / členkom",
+          "injured_on": "Jeseň 2026",
+          "duration": "Niekoľko mesiacov",
+          "expected_return": "Koniec januára 2027",
+          "context": "Dlhodobé zaťaženie / tréningový proces",
+          "status": "Rehabilitácia"
+        },
+        {
+          "player": "Serge Gnabry",
+          "position": "Krídelník",
+          "injury": "Ťažšie natiahnutie hamstringu",
+          "injured_on": "November 2026",
+          "duration": "6 – 8 týždňov",
+          "expected_return": "Koniec decembra 2026 / január 2027",
+          "context": "Klubové / zápasové zaťaženie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Alphonso Davies",
+          "position": "Ľavý obranca",
+          "injury": "Svalové zranenie / bolesti chrbta",
+          "injured_on": "November 2026",
+          "duration": "2 – 3 týždne",
+          "expected_return": "Koniec novembra / začiatok decembra 2026",
+          "context": "Reprezentačný zraz (Kanada)",
+          "status": "Rehabilitácia"
+        },
+        {
+          "player": "Luis Díaz",
+          "position": "Krídelník",
+          "injury": "Natiahnutý hamstring",
+          "injured_on": "November 2026",
+          "duration": "2 – 3 týždne",
+          "expected_return": "Koniec novembra 2026",
+          "context": "Zápasové zaťaženie",
+          "status": "Blízko návratu"
+        }
+      ],
+      "Borussia Dortmund": [
+        {
+          "player": "Giannis Konstantelias",
+          "position": "Stredopoliar",
+          "injury": "Vážne zranenie kolena",
+          "injured_on": "Jeseň 2026",
+          "duration": "Niekoľko mesiacov",
+          "expected_return": "Koniec apríla 2027",
+          "context": "Zápasové zaťaženie",
+          "status": "Dlhodobá rehabilitácia"
+        },
+        {
+          "player": "Emre Can",
+          "position": "Stredopoliar / stopér",
+          "injury": "Poranenie väzov kolena (ACL / MCL)",
+          "injured_on": "2026",
+          "duration": "Niekoľko mesiacov",
+          "expected_return": "Koniec novembra / december 2026",
+          "context": "V zápase",
+          "status": "Záverečná fáza návratu"
+        },
+        {
+          "player": "Serhou Guirassy",
+          "position": "Útočník",
+          "injury": "Natiahnutý hamstring / stehno",
+          "injured_on": "November 2026",
+          "duration": "1 – 2 týždne",
+          "expected_return": "Koniec novembra 2026",
+          "context": "Pred reprezentačnou prestávkou",
+          "status": "Day-to-day"
+        },
+        {
+          "player": "Waldemar Anton",
+          "position": "Stopér",
+          "injury": "Svalové problémy",
+          "injured_on": "November 2026",
+          "duration": "1 – 2 týždne",
+          "expected_return": "Koniec novembra 2026",
+          "context": "Tréningové / zápasové zaťaženie",
+          "status": "Krátkodobá absencia"
+        }
+      ],
+      "Bayer Leverkusen": [
+        {
+          "player": "Martin Terrier",
+          "position": "Útočník / krídelník",
+          "injury": "Zranenie hamstringu",
+          "injured_on": "Jeseň 2026",
+          "duration": "Niekoľko mesiacov",
+          "expected_return": "Koniec januára 2027",
+          "context": "Klubové zaťaženie",
+          "status": "Dlhodobá absencia"
+        },
+        {
+          "player": "Ibrahim Maza",
+          "position": "Stredopoliar",
+          "injury": "Problémy s členkom",
+          "injured_on": "November 2026",
+          "duration": "Niekoľko dní",
+          "expected_return": "Koniec novembra 2026 (okamžitý návrat)",
+          "context": "Reprezentačný zraz (Alžírsko)",
+          "status": "Day-to-day"
+        }
+      ]
+    },
+    "Ligue 1": {
+      "Paris Saint-Germain": [
+        {
+          "player": "Désiré Doué",
+          "position": "Krídelník / stredopoliar",
+          "injury": "Roztrhnutý predný skrížený väz (ACL) pravého kolena",
+          "injured_on": "November 2026",
+          "duration": "Cca 6+ mesiacov",
+          "expected_return": "Leto 2027 (dlhodobá absencia)",
+          "context": "V zápase (Ligue 1 vs. Nice)",
+          "status": "Pred operáciou / dlhodobá absencia"
+        },
+        {
+          "player": "Khvicha Kvaratskhelia",
+          "position": "Krídelník",
+          "injury": "Roztrhnutý predný skrížený väz (ACL)",
+          "injured_on": "Jeseň 2026",
+          "duration": "Cca 6+ mesiacov",
+          "expected_return": "Jar / leto 2027",
+          "context": "V zápase",
+          "status": "Dlhodobá rehabilitácia"
+        }
+      ],
+      "Olympique Marseille": [
+        {
+          "player": "Emerson",
+          "position": "Ľavý obranca",
+          "injury": "Rekonvalescencia po operácii kolena",
+          "injured_on": "Jeseň 2026",
+          "duration": "Niekoľko mesiacov",
+          "expected_return": "Koniec decembra 2026",
+          "context": "Klubové zaťaženie",
+          "status": "Rehabilitácia po operácii"
+        },
+        {
+          "player": "Derek Cornelius",
+          "position": "Stopér",
+          "injury": "Poranenie bedra",
+          "injured_on": "November 2026",
+          "duration": "Cca 6 – 8 týždňov",
+          "expected_return": "Začiatok januára 2027",
+          "context": "Zápasové zaťaženie",
+          "status": "Mimo hry"
+        }
+      ],
+      "AS Monaco": [
+        {
+          "player": "Ansu Fati",
+          "position": "Krídelník",
+          "injury": "Natiahnutý hamstring",
+          "injured_on": "November 2026",
+          "duration": "3 – 4 týždne",
+          "expected_return": "Začiatok až polovica decembra 2026",
+          "context": "Zápasové / tréningové zaťaženie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Aleksandr Golovin",
+          "position": "Stredopoliar",
+          "injury": "Svalové zranenie lýtka",
+          "injured_on": "November 2026",
+          "duration": "2 – 3 týždne",
+          "expected_return": "Koniec novembra / začiatok decembra 2026",
+          "context": "Klubové zaťaženie",
+          "status": "Rehabilitácia"
+        },
+        {
+          "player": "Christian Mawissa",
+          "position": "Obranca",
+          "injury": "Pubalgia (bolesti slabín)",
+          "injured_on": "November 2026",
+          "duration": "Priebežné sledovanie",
+          "expected_return": "Podľa týždenných kontrol",
+          "context": "Tréningové zaťaženie",
+          "status": "Week-to-week"
+        }
+      ]
+    }
+  }
+}

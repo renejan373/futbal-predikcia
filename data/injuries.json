@@ -17,30 +17,30 @@
           "player": "David Raya",
           "position": "Brankár",
           "injury": "Other",
-          "injured_on": "Sezóna 2026/27 (aktuálne)",
-          "duration": "Neurčená",
+          "injured_on": "November 2026",
+          "duration": "V štádiu vyšetrení (MRI)",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (11 zápasov v sezóne)",
+          "context": "V zápase (Premier League vs. Newcastle 2:2)",
           "status": "Mimo hry"
         },
         {
           "player": "Martin Zubimendi",
           "position": "Stredopoliar",
           "injury": "Zranenie stehna (Thigh)",
-          "injured_on": "Sezóna 2026/27 (aktuálne)",
-          "duration": "Cca 3 týždne",
+          "injured_on": "November 2026",
+          "duration": "Cca 4 týždne",
           "expected_return": "13. 12. 2026",
-          "context": "V zápase / na tréningu (7 zápasov v sezóne)",
+          "context": "Reprezentačný zraz (Španielsko)",
           "status": "Mimo hry"
         },
         {
           "player": "Bukayo Saka",
           "position": "Útočník",
           "injury": "Zranenie stehna (Thigh)",
-          "injured_on": "Sezóna 2026/27 (aktuálne)",
-          "duration": "Cca 4 týždne",
+          "injured_on": "Október 2026",
+          "duration": "Cca 8 týždňov",
           "expected_return": "20. 12. 2026",
-          "context": "V zápase / na tréningu (7 zápasov v sezóne)",
+          "context": "V zápase (Liga majstrov vs. Bayern Mníchov)",
           "status": "Mimo hry"
         }
       ],
@@ -52,7 +52,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Cca 4 dní",
           "expected_return": "28. 11. 2026",
-          "context": "V zápase / na tréningu (8 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -62,7 +62,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "1 týždeň",
           "expected_return": "02. 12. 2026",
-          "context": "V zápase / na tréningu (4 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -72,7 +72,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Cca 6 mesiacov",
           "expected_return": "01. 06. 2027",
-          "context": "V zápase / na tréningu (Premier League)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         }
       ],
@@ -84,7 +84,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (1 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -94,7 +94,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Cca 2 mesiace",
           "expected_return": "06. 02. 2027",
-          "context": "V zápase / na tréningu (2 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         }
       ],
@@ -116,7 +116,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (4 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -126,7 +126,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (10 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -136,7 +136,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (Premier League)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         }
       ],
@@ -158,7 +158,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (1 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -168,7 +168,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Cca 2 týždne",
           "expected_return": "05. 12. 2026",
-          "context": "V zápase / na tréningu (Premier League)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -178,7 +178,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Cca 2 mesiace",
           "expected_return": "16. 01. 2027",
-          "context": "V zápase / na tréningu (Premier League)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -188,7 +188,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "1 týždeň",
           "expected_return": "02. 12. 2026",
-          "context": "V zápase / na tréningu (Premier League)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -198,7 +198,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (Premier League)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         }
       ],
@@ -210,7 +210,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (7 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -220,7 +220,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Cca 2 týždne",
           "expected_return": "06. 12. 2026",
-          "context": "V zápase / na tréningu (1 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -230,7 +230,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Cca 2 týždne",
           "expected_return": "05. 12. 2026",
-          "context": "V zápase / na tréningu (Premier League)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -240,7 +240,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Cca 2 týždne",
           "expected_return": "05. 12. 2026",
-          "context": "V zápase / na tréningu (6 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -250,7 +250,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Cca 2 týždne",
           "expected_return": "05. 12. 2026",
-          "context": "V zápase / na tréningu (8 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -260,7 +260,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Cca 2 týždne",
           "expected_return": "05. 12. 2026",
-          "context": "V zápase / na tréningu (6 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -270,7 +270,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Cca 6 týždňov",
           "expected_return": "03. 01. 2027",
-          "context": "V zápase / na tréningu (4 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         }
       ],
@@ -282,7 +282,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (9 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -292,7 +292,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Cca 4 dní",
           "expected_return": "28. 11. 2026",
-          "context": "V zápase / na tréningu (7 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -302,7 +302,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Cca 4 týždne",
           "expected_return": "19. 12. 2026",
-          "context": "V zápase / na tréningu (Premier League)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -312,7 +312,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "1 týždeň",
           "expected_return": "02. 12. 2026",
-          "context": "V zápase / na tréningu (Premier League)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -322,7 +322,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Cca 4 týždne",
           "expected_return": "19. 12. 2026",
-          "context": "V zápase / na tréningu (4 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         }
       ],
@@ -344,7 +344,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Cca 5 dní",
           "expected_return": "29. 11. 2026",
-          "context": "V zápase / na tréningu (4 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -354,7 +354,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Cca 3 týždne",
           "expected_return": "13. 12. 2026",
-          "context": "V zápase / na tréningu (2 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -364,7 +364,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Cca 6 mesiacov",
           "expected_return": "07. 06. 2027",
-          "context": "V zápase / na tréningu (1 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         }
       ],
@@ -388,7 +388,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Cca 6 mesiacov",
           "expected_return": "01. 06. 2027",
-          "context": "V zápase / na tréningu (Premier League)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -398,7 +398,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Cca 5 dní",
           "expected_return": "29. 11. 2026",
-          "context": "V zápase / na tréningu (4 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         }
       ],
@@ -410,7 +410,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (9 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -420,7 +420,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Cca 5 dní",
           "expected_return": "29. 11. 2026",
-          "context": "V zápase / na tréningu (Premier League)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -430,7 +430,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Cca 2 týždne",
           "expected_return": "05. 12. 2026",
-          "context": "V zápase / na tréningu (Premier League)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -440,7 +440,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Cca 4 týždne",
           "expected_return": "19. 12. 2026",
-          "context": "V zápase / na tréningu (1 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -450,7 +450,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Cca 3 mesiace",
           "expected_return": "20. 02. 2027",
-          "context": "V zápase / na tréningu (Premier League)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         }
       ],
@@ -462,7 +462,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (11 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -472,7 +472,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (Premier League)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         }
       ],
@@ -484,7 +484,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Cca 2 mesiace",
           "expected_return": "30. 01. 2027",
-          "context": "V zápase / na tréningu (Premier League)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         }
       ],
@@ -496,7 +496,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Cca 6 týždňov",
           "expected_return": "02. 01. 2027",
-          "context": "V zápase / na tréningu (Premier League)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -506,17 +506,17 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Cca 6 týždňov",
           "expected_return": "02. 01. 2027",
-          "context": "V zápase / na tréningu (Premier League)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
           "player": "Hugo Ekitike",
           "position": "Útočník",
           "injury": "Zranenie lýtka (Calf)",
-          "injured_on": "Sezóna 2026/27 (aktuálne)",
-          "duration": "Cca 6 týždňov",
+          "injured_on": "Apríl 2026",
+          "duration": "Cca 9 mesiacov",
           "expected_return": "02. 01. 2027",
-          "context": "V zápase / na tréningu (Premier League)",
+          "context": "V zápase / dlhodobá absencia (apríl 2026)",
           "status": "Mimo hry"
         },
         {
@@ -526,7 +526,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (Premier League)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         }
       ],
@@ -545,10 +545,10 @@
           "player": "Antoine Semenyo",
           "position": "Útočník",
           "injury": "Zranenie kolena (Knee)",
-          "injured_on": "Sezóna 2026/27 (aktuálne)",
-          "duration": "Cca 4 týždne",
+          "injured_on": "Polovica októbra 2026",
+          "duration": "Cca 8 týždňov",
           "expected_return": "19. 12. 2026",
-          "context": "V zápase / na tréningu (7 zápasov v sezóne)",
+          "context": "V zápase (vs. Ipswich Town)",
           "status": "Mimo hry"
         }
       ],
@@ -570,7 +570,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "1 týždeň",
           "expected_return": "02. 12. 2026",
-          "context": "V zápase / na tréningu (6 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -580,7 +580,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "1 týždeň",
           "expected_return": "02. 12. 2026",
-          "context": "V zápase / na tréningu (5 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -590,7 +590,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "1 týždeň",
           "expected_return": "02. 12. 2026",
-          "context": "V zápase / na tréningu (4 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -600,7 +600,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Cca 6 týždňov",
           "expected_return": "02. 01. 2027",
-          "context": "V zápase / na tréningu (4 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -610,7 +610,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Cca 4 mesiace",
           "expected_return": "03. 04. 2027",
-          "context": "V zápase / na tréningu (Premier League)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         }
       ],
@@ -622,7 +622,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (11 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -632,7 +632,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Cca 2 týždne",
           "expected_return": "06. 12. 2026",
-          "context": "V zápase / na tréningu (4 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -642,7 +642,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Cca 3 týždne",
           "expected_return": "12. 12. 2026",
-          "context": "V zápase / na tréningu (Premier League)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         }
       ],
@@ -654,7 +654,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Cca 3 dní",
           "expected_return": "27. 11. 2026",
-          "context": "V zápase / na tréningu (4 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -664,7 +664,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Cca 6 týždňov",
           "expected_return": "02. 01. 2027",
-          "context": "V zápase / na tréningu (2 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         }
       ],
@@ -676,7 +676,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "1 týždeň",
           "expected_return": "02. 12. 2026",
-          "context": "V zápase / na tréningu (8 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -686,7 +686,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Cca 2 týždne",
           "expected_return": "06. 12. 2026",
-          "context": "V zápase / na tréningu (4 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -696,7 +696,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Cca 3 týždne",
           "expected_return": "13. 12. 2026",
-          "context": "V zápase / na tréningu (10 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -706,7 +706,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Cca 5 týždňov",
           "expected_return": "26. 12. 2026",
-          "context": "V zápase / na tréningu (5 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -716,7 +716,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Cca 5 týždňov",
           "expected_return": "26. 12. 2026",
-          "context": "V zápase / na tréningu (1 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -726,7 +726,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (Premier League)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         }
       ],
@@ -738,7 +738,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (5 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -748,7 +748,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Cca 5 dní",
           "expected_return": "29. 11. 2026",
-          "context": "V zápase / na tréningu (2 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -758,7 +758,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Cca 3 týždne",
           "expected_return": "14. 12. 2026",
-          "context": "V zápase / na tréningu (8 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -768,7 +768,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Cca 2 mesiace",
           "expected_return": "06. 02. 2027",
-          "context": "V zápase / na tréningu (Premier League)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -778,7 +778,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Cca 3 mesiace",
           "expected_return": "20. 02. 2027",
-          "context": "V zápase / na tréningu (Premier League)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         }
       ]
@@ -792,7 +792,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Cca 6 týždňov",
           "expected_return": "05. 01. 2027",
-          "context": "V zápase / na tréningu (La Liga)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -802,7 +802,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Cca 4 mesiace",
           "expected_return": "04. 04. 2027",
-          "context": "V zápase / na tréningu (3 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         }
       ],
@@ -824,7 +824,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (3 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -834,7 +834,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Cca 3 týždne",
           "expected_return": "12. 12. 2026",
-          "context": "V zápase / na tréningu (7 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -844,7 +844,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Cca 7 mesiacov",
           "expected_return": "19. 06. 2027",
-          "context": "V zápase / na tréningu (5 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -854,7 +854,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Cca 2 mesiace",
           "expected_return": "16. 01. 2027",
-          "context": "V zápase / na tréningu (La Liga)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         }
       ],
@@ -873,30 +873,30 @@
           "player": "Marc Pubill",
           "position": "Obranca",
           "injury": "Other",
-          "injured_on": "Sezóna 2026/27 (aktuálne)",
-          "duration": "Neurčená",
+          "injured_on": "November 2026",
+          "duration": "Krátkodobá absencia",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (10 zápasov v sezóne)",
+          "context": "Reprezentačný zraz (Španielsko)",
           "status": "Mimo hry"
         },
         {
           "player": "Ademola Lookman",
           "position": "Útočník",
           "injury": "Zranenie lýtka (Calf)",
-          "injured_on": "Sezóna 2026/27 (aktuálne)",
-          "duration": "Neurčená",
+          "injured_on": "13. 11. 2026",
+          "duration": "4 – 6 týždňov",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (11 zápasov v sezóne)",
+          "context": "Reprezentačný zápas (Nigéria vs. Tanzánia)",
           "status": "Mimo hry"
         },
         {
           "player": "Cristian Romero",
           "position": "Obranca",
           "injury": "Other",
-          "injured_on": "Sezóna 2026/27 (aktuálne)",
-          "duration": "Neurčená",
+          "injured_on": "November 2026",
+          "duration": "Niekoľko týždňov",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (6 zápasov v sezóne)",
+          "context": "Zápasové zaťaženie (november 2026)",
           "status": "Mimo hry"
         }
       ],
@@ -915,20 +915,20 @@
           "player": "Rodri",
           "position": "Stredopoliar",
           "injury": "Svalové zranenie zadného stehna (hamstring)",
-          "injured_on": "Sezóna 2026/27 (aktuálne)",
-          "duration": "Cca 4 dní",
+          "injured_on": "November 2026",
+          "duration": "Cca 3 – 4 týždne",
           "expected_return": "28. 11. 2026",
-          "context": "V zápase / na tréningu (10 zápasov v sezóne)",
+          "context": "Zápasové zaťaženie (november 2026)",
           "status": "Mimo hry"
         },
         {
           "player": "Roony Bardghji",
           "position": "Stredopoliar",
           "injury": "Cruciate ligame",
-          "injured_on": "Sezóna 2026/27 (aktuálne)",
-          "duration": "Cca 7 mesiacov",
+          "injured_on": "August 2026",
+          "duration": "6 – 7 mesiacov",
           "expected_return": "12. 06. 2027",
-          "context": "V zápase / na tréningu (La Liga)",
+          "context": "Na tréningu (predsezónna príprava, august 2026)",
           "status": "Mimo hry"
         }
       ],
@@ -940,7 +940,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (3 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -950,7 +950,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (3 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -960,7 +960,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (7 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         }
       ],
@@ -972,7 +972,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (6 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -982,7 +982,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (4 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         }
       ],
@@ -994,7 +994,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (4 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -1004,7 +1004,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (6 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -1014,7 +1014,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (La Liga)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         }
       ],
@@ -1036,7 +1036,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (11 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -1046,7 +1046,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Cca 2 mesiace",
           "expected_return": "15. 01. 2027",
-          "context": "V zápase / na tréningu (La Liga)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         }
       ],
@@ -1098,7 +1098,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Cca 7 mesiacov",
           "expected_return": "12. 06. 2027",
-          "context": "V zápase / na tréningu (La Liga)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         }
       ],
@@ -1111,7 +1111,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (12 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -1121,7 +1121,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Cca 7 mesiacov",
           "expected_return": "30. 06. 2027",
-          "context": "V zápase / na tréningu (1 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -1131,7 +1131,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (La Liga)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         }
       ],
@@ -1163,7 +1163,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (12 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         }
       ],
@@ -1175,7 +1175,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (7 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -1185,7 +1185,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (10 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -1195,7 +1195,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (6 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         }
       ],
@@ -1217,7 +1217,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (9 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -1227,7 +1227,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (La Liga)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -1237,7 +1237,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Cca 2 mesiace",
           "expected_return": "09. 01. 2027",
-          "context": "V zápase / na tréningu (2 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         }
       ],
@@ -1259,7 +1259,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (8 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         }
       ],
@@ -1268,10 +1268,10 @@
           "player": "Raul Asencio",
           "position": "Obranca",
           "injury": "Lower leg",
-          "injured_on": "Sezóna 2026/27 (aktuálne)",
-          "duration": "Neurčená",
+          "injured_on": "September 2026",
+          "duration": "3 – 4 mesiace",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (La Liga)",
+          "context": "Preťaženie z minulej sezóny / tréningový proces",
           "status": "Mimo hry"
         }
       ],
@@ -1283,7 +1283,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (11 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         }
       ],
@@ -1305,7 +1305,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (5 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -1315,7 +1315,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (La Liga)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -1325,7 +1325,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (8 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         }
       ],
@@ -1347,7 +1347,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (10 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -1357,7 +1357,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Cca 5 týždňov",
           "expected_return": "01. 01. 2027",
-          "context": "V zápase / na tréningu (La Liga)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         }
       ],
@@ -1379,7 +1379,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (La Liga)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -1389,7 +1389,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (6 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -1399,7 +1399,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (10 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -1409,7 +1409,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (9 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         }
       ]
@@ -1430,30 +1430,30 @@
           "player": "Ruben Loftus-Cheek",
           "position": "Stredopoliar",
           "injury": "Zranenie stehna (Thigh)",
-          "injured_on": "Sezóna 2026/27 (aktuálne)",
-          "duration": "Cca 2 týždne",
+          "injured_on": "November 2026",
+          "duration": "2 – 3 týždne",
           "expected_return": "06. 12. 2026",
-          "context": "V zápase / na tréningu (7 zápasov v sezóne)",
+          "context": "Klubové / tréningové zaťaženie",
           "status": "Mimo hry"
         },
         {
           "player": "Samuel Chukwueze",
           "position": "Útočník",
           "injury": "Zranenie bedra (Hip)",
-          "injured_on": "Sezóna 2026/27 (aktuálne)",
-          "duration": "Cca 3 mesiace",
+          "injured_on": "Jeseň 2026",
+          "duration": "Niekoľko mesiacov",
           "expected_return": "14. 02. 2027",
-          "context": "V zápase / na tréningu (7 zápasov v sezóne)",
+          "context": "Dlhodobé preťaženie / zápasové zaťaženie",
           "status": "Mimo hry"
         },
         {
           "player": "Fikayo Tomori",
           "position": "Obranca",
           "injury": "Svalové zranenie zadného stehna (hamstring)",
-          "injured_on": "Sezóna 2026/27 (aktuálne)",
-          "duration": "Cca 6 dní",
+          "injured_on": "November 2026",
+          "duration": "2 – 3 týždne",
           "expected_return": "30. 11. 2026",
-          "context": "V zápase / na tréningu (3 zápasov v sezóne)",
+          "context": "Klubové / tréningové zaťaženie",
           "status": "Mimo hry"
         },
         {
@@ -1463,7 +1463,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (Serie A)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -1473,7 +1473,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Cca 2 mesiace",
           "expected_return": "17. 01. 2027",
-          "context": "V zápase / na tréningu (3 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -1483,7 +1483,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Cca 4 mesiace",
           "expected_return": "13. 03. 2027",
-          "context": "V zápase / na tréningu (4 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -1493,7 +1493,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (Serie A)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         }
       ],
@@ -1516,7 +1516,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Cca 3 dní",
           "expected_return": "27. 11. 2026",
-          "context": "V zápase / na tréningu (10 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -1526,7 +1526,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Cca 6 týždňov",
           "expected_return": "02. 01. 2027",
-          "context": "V zápase / na tréningu (10 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -1536,7 +1536,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (Serie A)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -1546,7 +1546,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Cca 2 mesiace",
           "expected_return": "31. 01. 2027",
-          "context": "V zápase / na tréningu (5 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -1556,7 +1556,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (Serie A)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         }
       ],
@@ -1578,7 +1578,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (12 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -1588,7 +1588,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (4 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -1598,7 +1598,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (8 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -1608,7 +1608,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Cca 5 týždňov",
           "expected_return": "31. 12. 2026",
-          "context": "V zápase / na tréningu (1 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -1618,7 +1618,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Cca 7 mesiacov",
           "expected_return": "01. 07. 2027",
-          "context": "V zápase / na tréningu (2 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         }
       ],
@@ -1640,7 +1640,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Cca 6 týždňov",
           "expected_return": "02. 01. 2027",
-          "context": "V zápase / na tréningu (4 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -1650,7 +1650,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (3 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         }
       ],
@@ -1672,7 +1672,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (11 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -1682,7 +1682,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Cca 5 dní",
           "expected_return": "29. 11. 2026",
-          "context": "V zápase / na tréningu (5 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -1692,7 +1692,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Cca 2 mesiace",
           "expected_return": "17. 01. 2027",
-          "context": "V zápase / na tréningu (Serie A)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -1702,7 +1702,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (Serie A)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -1712,7 +1712,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (4 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         }
       ],
@@ -1724,7 +1724,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (1 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         }
       ],
@@ -1746,7 +1746,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (Serie A)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         }
       ],
@@ -1758,17 +1758,17 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (10 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
           "player": "Ange-Yoan Bonny",
           "position": "Útočník",
           "injury": "Svalové zranenie (Muscle)",
-          "injured_on": "Sezóna 2026/27 (aktuálne)",
-          "duration": "Cca 7 dní",
+          "injured_on": "November 2026",
+          "duration": "Cca 1 mesiac",
           "expected_return": "01. 12. 2026",
-          "context": "V zápase / na tréningu (10 zápasov v sezóne)",
+          "context": "V zápase (Serie A vs. Como)",
           "status": "Mimo hry"
         }
       ],
@@ -1787,10 +1787,10 @@
           "player": "Pierre Kalulu",
           "position": "Obranca",
           "injury": "Zranenie stehna (Thigh)",
-          "injured_on": "Sezóna 2026/27 (aktuálne)",
-          "duration": "Cca 6 dní",
+          "injured_on": "November 2026",
+          "duration": "1 – 2 týždne",
           "expected_return": "30. 11. 2026",
-          "context": "V zápase / na tréningu (11 zápasov v sezóne)",
+          "context": "Na tréningu / zápasové zaťaženie",
           "status": "Mimo hry"
         },
         {
@@ -1800,7 +1800,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Cca 3 týždne",
           "expected_return": "12. 12. 2026",
-          "context": "V zápase / na tréningu (1 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -1810,17 +1810,17 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Cca 5 dní",
           "expected_return": "29. 11. 2026",
-          "context": "V zápase / na tréningu (6 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
           "player": "Manuel Locatelli",
           "position": "Stredopoliar",
           "injury": "Zranenie kolena (Knee)",
-          "injured_on": "Sezóna 2026/27 (aktuálne)",
-          "duration": "Cca 2 mesiace",
+          "injured_on": "Jeseň 2026",
+          "duration": "Niekoľko mesiacov",
           "expected_return": "06. 02. 2027",
-          "context": "V zápase / na tréningu (3 zápasov v sezóne)",
+          "context": "V zápase / klubové zaťaženie",
           "status": "Mimo hry"
         },
         {
@@ -1830,7 +1830,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (Serie A)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -1840,7 +1840,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Cca 2 mesiace",
           "expected_return": "15. 01. 2027",
-          "context": "V zápase / na tréningu (Serie A)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         }
       ],
@@ -1882,7 +1882,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Cca 3 týždne",
           "expected_return": "13. 12. 2026",
-          "context": "V zápase / na tréningu (11 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -1892,7 +1892,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (1 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -1902,7 +1902,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (10 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -1912,7 +1912,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (Serie A)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         }
       ],
@@ -1924,7 +1924,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Cca 7 mesiacov",
           "expected_return": "30. 06. 2027",
-          "context": "V zápase / na tréningu (Serie A)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -1934,7 +1934,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (7 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         }
       ],
@@ -1958,7 +1958,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (8 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -1968,7 +1968,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Cca 5 dní",
           "expected_return": "29. 11. 2026",
-          "context": "V zápase / na tréningu (7 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -1978,7 +1978,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Cca 5 dní",
           "expected_return": "29. 11. 2026",
-          "context": "V zápase / na tréningu (10 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -1988,7 +1988,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (4 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -1998,7 +1998,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (7 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -2008,7 +2008,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Cca 4 týždne",
           "expected_return": "20. 12. 2026",
-          "context": "V zápase / na tréningu (9 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -2018,7 +2018,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (Serie A)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         }
       ],
@@ -2040,7 +2040,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Cca 6 týždňov",
           "expected_return": "05. 01. 2027",
-          "context": "V zápase / na tréningu (9 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -2050,7 +2050,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (1 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         }
       ],
@@ -2072,7 +2072,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (7 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -2082,7 +2082,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Cca 6 týždňov",
           "expected_return": "02. 01. 2027",
-          "context": "V zápase / na tréningu (2 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         }
       ],
@@ -2104,7 +2104,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (9 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -2114,7 +2114,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (Serie A)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -2124,7 +2124,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (Serie A)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -2134,7 +2134,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Cca 6 týždňov",
           "expected_return": "03. 01. 2027",
-          "context": "V zápase / na tréningu (Serie A)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         }
       ],
@@ -2146,7 +2146,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (5 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -2156,7 +2156,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (Serie A)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         }
       ],
@@ -2198,7 +2198,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (5 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -2208,7 +2208,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Cca 6 týždňov",
           "expected_return": "03. 01. 2027",
-          "context": "V zápase / na tréningu (4 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         }
       ],
@@ -2220,7 +2220,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (Serie A)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -2230,7 +2230,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Cca 2 týždne",
           "expected_return": "06. 12. 2026",
-          "context": "V zápase / na tréningu (Serie A)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -2240,7 +2240,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (Serie A)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -2250,7 +2250,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (Serie A)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -2260,7 +2260,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Cca 3 týždne",
           "expected_return": "12. 12. 2026",
-          "context": "V zápase / na tréningu (2 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         }
       ]
@@ -2294,7 +2294,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Cca 4 týždne",
           "expected_return": "21. 12. 2026",
-          "context": "V zápase / na tréningu (Bundesliga)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -2304,7 +2304,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (9 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -2314,7 +2314,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (4 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -2324,7 +2324,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (Bundesliga)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         }
       ],
@@ -2346,7 +2346,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (8 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -2356,7 +2356,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (3 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -2366,7 +2366,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (7 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -2376,7 +2376,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (3 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -2386,7 +2386,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Cca 6 mesiacov",
           "expected_return": "01. 06. 2027",
-          "context": "V zápase / na tréningu (Bundesliga)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         }
       ],
@@ -2395,10 +2395,10 @@
           "player": "Harry Kane",
           "position": "Útočník",
           "injury": "Zranenie členka (Ankle)",
-          "injured_on": "Sezóna 2026/27 (aktuálne)",
-          "duration": "Neurčená",
+          "injured_on": "November 2026",
+          "duration": "Niekoľko mesiacov",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (10 zápasov v sezóne)",
+          "context": "V zápase (Bundesliga vs. 1. FC Köln 1:1)",
           "status": "Mimo hry"
         },
         {
@@ -2408,37 +2408,37 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (10 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
           "player": "Alphonso Davies",
           "position": "Obranca",
           "injury": "Svalové zranenie zadného stehna (hamstring)",
-          "injured_on": "Sezóna 2026/27 (aktuálne)",
-          "duration": "Neurčená",
+          "injured_on": "November 2026",
+          "duration": "2 – 3 týždne",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (8 zápasov v sezóne)",
+          "context": "Reprezentačný zraz (Kanada)",
           "status": "Mimo hry"
         },
         {
           "player": "Manuel Neuer",
           "position": "Brankár",
           "injury": "Zranenie chodidla (Foot)",
-          "injured_on": "Sezóna 2026/27 (aktuálne)",
-          "duration": "Cca 6 týždňov",
+          "injured_on": "Jeseň 2026",
+          "duration": "Niekoľko mesiacov",
           "expected_return": "02. 01. 2027",
-          "context": "V zápase / na tréningu (5 zápasov v sezóne)",
+          "context": "Dlhodobé zaťaženie / tréningový proces",
           "status": "Mimo hry"
         },
         {
           "player": "Serge Gnabry",
           "position": "Útočník",
           "injury": "Svalové zranenie zadného stehna (hamstring)",
-          "injured_on": "Sezóna 2026/27 (aktuálne)",
-          "duration": "Cca 5 týždňov",
+          "injured_on": "November 2026",
+          "duration": "6 – 8 týždňov",
           "expected_return": "31. 12. 2026",
-          "context": "V zápase / na tréningu (5 zápasov v sezóne)",
+          "context": "Klubové / zápasové zaťaženie",
           "status": "Mimo hry"
         },
         {
@@ -2448,17 +2448,17 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (8 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
           "player": "Luis Diaz",
           "position": "Útočník",
           "injury": "Svalové zranenie (Muscle)",
-          "injured_on": "Sezóna 2026/27 (aktuálne)",
-          "duration": "Neurčená",
+          "injured_on": "November 2026",
+          "duration": "2 – 3 týždne",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (6 zápasov v sezóne)",
+          "context": "Zápasové zaťaženie",
           "status": "Mimo hry"
         },
         {
@@ -2468,7 +2468,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (Bundesliga)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         }
       ],
@@ -2477,10 +2477,10 @@
           "player": "Emre Can",
           "position": "Stredopoliar",
           "injury": "Cruciate ligame",
-          "injured_on": "Sezóna 2026/27 (aktuálne)",
-          "duration": "Cca 2 mesiace",
+          "injured_on": "2026",
+          "duration": "Niekoľko mesiacov",
           "expected_return": "23. 01. 2027",
-          "context": "V zápase / na tréningu (Bundesliga)",
+          "context": "V zápase",
           "status": "Mimo hry"
         },
         {
@@ -2490,7 +2490,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (4 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -2500,7 +2500,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Cca 6 mesiacov",
           "expected_return": "01. 06. 2027",
-          "context": "V zápase / na tréningu (1 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -2510,7 +2510,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (Bundesliga)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         }
       ],
@@ -2522,7 +2522,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (5 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -2532,7 +2532,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (Bundesliga)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         }
       ],
@@ -2554,7 +2554,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (Bundesliga)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -2564,7 +2564,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (5 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -2574,7 +2574,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (2 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -2584,7 +2584,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (Bundesliga)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         }
       ],
@@ -2616,7 +2616,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (8 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -2626,7 +2626,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (Bundesliga)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         }
       ],
@@ -2648,7 +2648,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (Bundesliga)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -2658,7 +2658,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Cca 2 mesiace",
           "expected_return": "15. 01. 2027",
-          "context": "V zápase / na tréningu (Bundesliga)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         }
       ],
@@ -2670,7 +2670,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (6 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -2680,7 +2680,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (5 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -2690,7 +2690,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (7 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -2700,7 +2700,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (7 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -2710,7 +2710,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (5 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -2720,7 +2720,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (4 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         }
       ],
@@ -2742,7 +2742,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (5 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -2752,7 +2752,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (2 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -2762,7 +2762,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (2 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -2772,7 +2772,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (4 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         }
       ],
@@ -2781,10 +2781,10 @@
           "player": "Martin Terrier",
           "position": "Útočník",
           "injury": "Svalové zranenie zadného stehna (hamstring)",
-          "injured_on": "Sezóna 2026/27 (aktuálne)",
-          "duration": "Neurčená",
+          "injured_on": "Jeseň 2026",
+          "duration": "Niekoľko mesiacov",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (2 zápasov v sezóne)",
+          "context": "Klubové zaťaženie",
           "status": "Mimo hry"
         },
         {
@@ -2794,7 +2794,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (1 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -2804,7 +2804,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (Bundesliga)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         }
       ],
@@ -2816,7 +2816,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (1 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         }
       ],
@@ -2828,7 +2828,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (Bundesliga)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         }
       ],
@@ -2850,7 +2850,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (Bundesliga)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -2860,7 +2860,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (Bundesliga)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -2870,7 +2870,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Cca 4 týždne",
           "expected_return": "25. 12. 2026",
-          "context": "V zápase / na tréningu (1 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -2880,7 +2880,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (1 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         }
       ],
@@ -2892,7 +2892,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (Bundesliga)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -2902,7 +2902,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (1 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -2912,7 +2912,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (8 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -2922,7 +2922,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (6 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -2932,7 +2932,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (3 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         }
       ],
@@ -2944,7 +2944,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (2 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -2954,7 +2954,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (7 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         }
       ],
@@ -2976,7 +2976,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (Bundesliga)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -2986,7 +2986,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (1 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -2996,7 +2996,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Cca 4 mesiace",
           "expected_return": "02. 04. 2027",
-          "context": "V zápase / na tréningu (Bundesliga)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         }
       ],
@@ -3008,7 +3008,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Cca 4 dní",
           "expected_return": "28. 11. 2026",
-          "context": "V zápase / na tréningu (Bundesliga)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -3018,7 +3018,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (9 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -3028,7 +3028,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (Bundesliga)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -3038,7 +3038,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (6 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -3048,7 +3048,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (Bundesliga)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -3058,7 +3058,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (3 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -3068,7 +3068,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Cca 2 mesiace",
           "expected_return": "05. 02. 2027",
-          "context": "V zápase / na tréningu (Bundesliga)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -3078,7 +3078,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Cca 2 mesiace",
           "expected_return": "09. 01. 2027",
-          "context": "V zápase / na tréningu (Bundesliga)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         }
       ]
@@ -3114,7 +3114,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (10 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -3124,7 +3124,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (Ligue 1)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -3134,7 +3134,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Cca 5 mesiacov",
           "expected_return": "01. 05. 2027",
-          "context": "V zápase / na tréningu (Ligue 1)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -3144,7 +3144,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Cca 2 mesiace",
           "expected_return": "30. 01. 2027",
-          "context": "V zápase / na tréningu (Ligue 1)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         }
       ],
@@ -3156,7 +3156,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (11 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -3166,7 +3166,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (Ligue 1)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         }
       ],
@@ -3188,7 +3188,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (8 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -3198,7 +3198,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (9 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -3208,7 +3208,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (3 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         }
       ],
@@ -3220,7 +3220,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (5 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         }
       ],
@@ -3232,7 +3232,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (8 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -3242,7 +3242,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (6 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -3252,7 +3252,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Cca 6 mesiacov",
           "expected_return": "15. 05. 2027",
-          "context": "V zápase / na tréningu (2 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         }
       ],
@@ -3264,7 +3264,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (5 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -3274,7 +3274,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (6 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         }
       ],
@@ -3286,7 +3286,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (5 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -3296,7 +3296,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (5 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         }
       ],
@@ -3318,7 +3318,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (2 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -3328,7 +3328,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (7 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -3338,7 +3338,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (7 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         }
       ],
@@ -3347,20 +3347,20 @@
           "player": "Emerson",
           "position": "Obranca",
           "injury": "Zranenie kolena (Knee)",
-          "injured_on": "Sezóna 2026/27 (aktuálne)",
-          "duration": "Neurčená",
+          "injured_on": "Jeseň 2026",
+          "duration": "Niekoľko mesiacov",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (9 zápasov v sezóne)",
+          "context": "Klubové zaťaženie",
           "status": "Mimo hry"
         },
         {
           "player": "Derek Cornelius",
           "position": "Obranca",
           "injury": "Zranenie bedra (Hip)",
-          "injured_on": "Sezóna 2026/27 (aktuálne)",
-          "duration": "Neurčená",
+          "injured_on": "November 2026",
+          "duration": "Cca 6 – 8 týždňov",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (3 zápasov v sezóne)",
+          "context": "Zápasové zaťaženie",
           "status": "Mimo hry"
         }
       ],
@@ -3369,30 +3369,30 @@
           "player": "Christian Mawissa",
           "position": "Obranca",
           "injury": "Zranenie slabín (Groin)",
-          "injured_on": "Sezóna 2026/27 (aktuálne)",
-          "duration": "Neurčená",
+          "injured_on": "November 2026",
+          "duration": "Priebežné sledovanie",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (4 zápasov v sezóne)",
+          "context": "Tréningové zaťaženie",
           "status": "Mimo hry"
         },
         {
           "player": "Aleksandr Golovin",
           "position": "Stredopoliar",
           "injury": "Zranenie lýtka (Calf)",
-          "injured_on": "Sezóna 2026/27 (aktuálne)",
-          "duration": "Neurčená",
+          "injured_on": "November 2026",
+          "duration": "2 – 3 týždne",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (10 zápasov v sezóne)",
+          "context": "Klubové zaťaženie",
           "status": "Mimo hry"
         },
         {
           "player": "Ansu Fati",
           "position": "Útočník",
           "injury": "Svalové zranenie zadného stehna (hamstring)",
-          "injured_on": "Sezóna 2026/27 (aktuálne)",
-          "duration": "Neurčená",
+          "injured_on": "November 2026",
+          "duration": "3 – 4 týždne",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (3 zápasov v sezóne)",
+          "context": "Zápasové / tréningové zaťaženie",
           "status": "Mimo hry"
         },
         {
@@ -3402,7 +3402,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (5 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         }
       ],
@@ -3414,7 +3414,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (10 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -3424,7 +3424,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Cca 6 mesiacov",
           "expected_return": "29. 05. 2027",
-          "context": "V zápase / na tréningu (3 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -3434,7 +3434,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Cca 5 mesiacov",
           "expected_return": "24. 04. 2027",
-          "context": "V zápase / na tréningu (Ligue 1)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         }
       ],
@@ -3443,10 +3443,10 @@
           "player": "Desire Doue",
           "position": "Stredopoliar",
           "injury": "Other",
-          "injured_on": "Sezóna 2026/27 (aktuálne)",
-          "duration": "Neurčená",
+          "injured_on": "November 2026",
+          "duration": "Cca 6+ mesiacov",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (10 zápasov v sezóne)",
+          "context": "V zápase (Ligue 1 vs. Nice)",
           "status": "Mimo hry"
         },
         {
@@ -3456,7 +3456,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (7 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         }
       ],
@@ -3500,7 +3500,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (11 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         }
       ],
@@ -3512,7 +3512,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (10 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -3522,7 +3522,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (4 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         },
         {
@@ -3532,7 +3532,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Cca 2 týždne",
           "expected_return": "05. 12. 2026",
-          "context": "V zápase / na tréningu (Ligue 1)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         }
       ],
@@ -3556,7 +3556,7 @@
           "injured_on": "Sezóna 2026/27 (aktuálne)",
           "duration": "Neurčená",
           "expected_return": "Neurčený",
-          "context": "V zápase / na tréningu (4 zápasov v sezóne)",
+          "context": "Nezverejnené (zdroj neuvádza konkrétny zápas ani tréning)",
           "status": "Mimo hry"
         }
       ]
