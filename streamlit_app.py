@@ -37,6 +37,7 @@ get_league_paths = _config_mod.get_league_paths
 CLUB_LOGOS = _injuries_mod.CLUB_LOGOS
 get_team_logo_data_uri = _injuries_mod.get_team_logo_data_uri
 get_player_photo_data_uri = _injuries_mod.get_player_photo_data_uri
+fetch_live_injuries_by_league = _injuries_mod.fetch_live_injuries_by_league
 load_injuries_by_league = _injuries_mod.load_injuries_by_league
 update_live_season_pipeline = _updater_mod.update_live_season_pipeline
 INITIAL_BALANCE = _dennik_mod.INITIAL_BALANCE
@@ -90,6 +91,11 @@ SYSTEM_NAMES = {
 @st.cache_data(ttl=900)
 def load_upcoming_fixtures(league: str) -> list[dict]:
     return fetch_next_match_per_team(league)
+
+
+@st.cache_data(ttl=3600)
+def load_cached_injuries() -> tuple[str, dict[str, dict[str, pd.DataFrame]]]:
+    return fetch_live_injuries_by_league()
 
 
 @st.cache_data(ttl=600)
@@ -1233,7 +1239,7 @@ def main() -> None:
 
     elif active_section == "🏥 Zranenia":
         st.subheader("Prehľad zranených hráčov (Top 5 líg)")
-        updated_at, injuries_by_league = load_injuries_by_league()
+        updated_at, injuries_by_league = load_cached_injuries()
         league_options = list(LEAGUES)
 
         selected_league = (
@@ -1252,7 +1258,11 @@ def main() -> None:
         all_league_clubs = sorted(lg_ratings[lg_ratings["season"] == lg_season]["team"].unique())
 
         injuries_by_club = injuries_by_league.get(selected_league, {})
-        featured_clubs = [c for c in injuries_by_club.keys() if c in all_league_clubs]
+        featured_clubs = sorted(
+            [c for c in all_league_clubs if not injuries_by_club.get(c, pd.DataFrame()).empty],
+            key=lambda c: len(injuries_by_club.get(c, pd.DataFrame())),
+            reverse=True,
+        )[:3]
 
         club_key = f"injuries_club_select_{selected_league}"
         if club_key not in st.session_state or st.session_state[club_key] not in all_league_clubs:
@@ -1296,13 +1306,13 @@ def main() -> None:
         if club_df.empty:
             st.info(f"Pre klub **{selected_club}** momentálne nie je nikto zranený.")
         else:
-            in_match = int(club_df["Kde sa zranil (zápas / tréning)"].str.contains("zápas", case=False, na=False).sum())
-            in_training = int(club_df["Kde sa zranil (zápas / tréning)"].str.contains("tréning", case=False, na=False).sum())
+            n_inj = int((club_df["Stav"] != "Suspendovaný").sum())
+            n_susp = int((club_df["Stav"] == "Suspendovaný").sum())
 
             m_cols = st.columns(3)
-            m_cols[0].metric("Zranení hráči spolu", len(club_df))
-            m_cols[1].metric("Zranení v zápase", in_match)
-            m_cols[2].metric("Na tréningu / preťaženie", in_training)
+            m_cols[0].metric("Absencie spolu", len(club_df))
+            m_cols[1].metric("Zranení hráči", n_inj)
+            m_cols[2].metric("Suspendovaní / trest", n_susp)
 
             st.markdown("")
             card_cols = st.columns(2)
@@ -1330,6 +1340,14 @@ def main() -> None:
                 inj_muted = "#94a3b8" if is_dark else "#475569"
                 inj_pill_bg = "rgba(56,189,248,0.16)" if is_dark else "#e0f2fe"
                 inj_pill_txt = "#38bdf8" if is_dark else "#0369a1"
+                extra_dates = ""
+                if str(row.get("Kedy sa zranil", "")).strip() or str(row.get("Na ako dlho", "")).strip():
+                    extra_dates = (
+                        f"<div style='display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:4px;'>"
+                        f"<div><b style='color:{inj_bold};'>Kedy:</b> {row['Kedy sa zranil']}</div>"
+                        f"<div><b style='color:{inj_bold};'>Na ako dlho:</b> {row['Na ako dlho']}</div>"
+                        f"</div>"
+                    )
                 card_html = (
                     f"<div style='border:1px solid {inj_bd};border-radius:12px;padding:12px 14px;"
                     f"margin-bottom:10px;background:{inj_bg};'>"
@@ -1342,19 +1360,15 @@ def main() -> None:
                     f" &nbsp;·&nbsp; <b style='color:{inj_bold};'>{row['Stav']}</b></div>"
                     f"</div></div>"
                     f"<div style='font-size:13.5px;line-height:1.5;color:{inj_txt};'>"
-                    f"<div><b style='color:{inj_bold};'>Zranenie:</b> {row['Zranenie']}</div>"
-                    f"<div style='display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:4px;'>"
-                    f"<div><b style='color:{inj_bold};'>Kedy:</b> {row['Kedy sa zranil']}</div>"
-                    f"<div><b style='color:{inj_bold};'>Na ako dlho:</b> {row['Na ako dlho']}</div>"
-                    f"</div>"
-                    f"<div style='margin-top:4px;'><b style='color:{inj_bold};'>Návrat:</b> {row['Predpokladaný návrat']}</div>"
-                    f"<div style='margin-top:2px;'><b style='color:{inj_bold};'>Kde sa zranil:</b> {row['Kde sa zranil (zápas / tréning)']}</div>"
+                    f"<div><b style='color:{inj_bold};'>Zranenie / dôvod:</b> {row['Zranenie']}</div>"
+                    f"{extra_dates}"
+                    f"<div style='margin-top:4px;'><b style='color:{inj_bold};'>Predpokladaný návrat:</b> {row['Predpokladaný návrat']}</div>"
                     f"</div></div>"
                 )
                 col.markdown(card_html, unsafe_allow_html=True)
 
         if updated_at:
-            st.caption(f"Údaje aktualizované k {updated_at} (zdroj: `data/injuries.json`).")
+            st.caption(f"Údaje aktualizované k {updated_at} (živé dáta + záloha `data/injuries.json`).")
 
     elif active_section == "📝 Tipérsky denník":
         st.subheader(f"Najbližšie neodohrané zápasy – {active_league}")

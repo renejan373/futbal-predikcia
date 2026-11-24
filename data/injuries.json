@@ -1,513 +1,3563 @@
 {
-  "updated_at": "2026-11-22",
+  "updated_at": "2026-11-24",
   "leagues": {
     "Premier League": {
       "Arsenal": [
         {
+          "player": "Max Dowman",
+          "position": "Stredopoliar",
+          "injury": "Red card (direct)",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2026-11-29",
+          "context": "Trest / suspendácia",
+          "status": "Suspendovaný"
+        },
+        {
           "player": "David Raya",
           "position": "Brankár",
-          "injury": "Podozrenie na poranenie ramena",
-          "injured_on": "November 2026",
-          "duration": "V štádiu vyšetrení (MRI)",
-          "expected_return": "Zatiaľ neurčený",
-          "context": "V zápase (Premier League vs. Newcastle 2:2)",
-          "status": "Vyšetrenia / mimo hry"
+          "injury": "Other",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Martin Zubimendi",
+          "position": "Stredopoliar",
+          "injury": "Thigh",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2026-12-13",
+          "context": "Zranenie",
+          "status": "Mimo hry"
         },
         {
           "player": "Bukayo Saka",
-          "position": "Krídelník",
-          "injury": "Svalové zranenie stehna (quadriceps)",
-          "injured_on": "Október 2026",
-          "duration": "Cca 8 týždňov",
-          "expected_return": "Polovica až koniec decembra 2026",
-          "context": "V zápase (Liga majstrov vs. Bayern Mníchov)",
-          "status": "Rehabilitácia (v polovici liečby)"
+          "position": "Útočník",
+          "injury": "Thigh",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2026-12-20",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        }
+      ],
+      "Aston Villa": [
+        {
+          "player": "Matty Cash",
+          "position": "Obranca",
+          "injury": "Head",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2026-11-28",
+          "context": "Zranenie",
+          "status": "Mimo hry"
         },
         {
-          "player": "Martín Zubimendi",
+          "player": "Matteo Ruggeri",
           "position": "Stredopoliar",
-          "injury": "Stredne ťažké zranenie hamstringu",
-          "injured_on": "November 2026",
-          "duration": "Cca 4 týždne",
-          "expected_return": "Polovica decembra 2026",
-          "context": "Reprezentačný zraz (Španielsko)",
+          "injury": "Thigh",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2026-12-02",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Amadou Onana",
+          "position": "Stredopoliar",
+          "injury": "Knee",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2027-06-01",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        }
+      ],
+      "Bournemouth": [
+        {
+          "player": "Juanlu Sanchez",
+          "position": "Obranca",
+          "injury": "Ankle",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Alex Toth",
+          "position": "Stredopoliar",
+          "injury": "Thigh",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2027-02-06",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        }
+      ],
+      "Brentford": [
+        {
+          "player": "Igor Thiago",
+          "position": "Útočník",
+          "injury": "Red card (direct)",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2026-12-05",
+          "context": "Trest / suspendácia",
+          "status": "Suspendovaný"
+        },
+        {
+          "player": "Nathan Collins",
+          "position": "Obranca",
+          "injury": "Knee",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Aaron Hickey",
+          "position": "Obranca",
+          "injury": "Other",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Joshua Dasilva",
+          "position": "Stredopoliar",
+          "injury": "Thigh",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        }
+      ],
+      "Brighton": [
+        {
+          "player": "Costinha",
+          "position": "Obranca",
+          "injury": "2nd yellow (Red)",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2026-12-02",
+          "context": "Trest / suspendácia",
+          "status": "Suspendovaný"
+        },
+        {
+          "player": "Zadok Yohanna",
+          "position": "Stredopoliar",
+          "injury": "Other",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Kaoru Mitoma",
+          "position": "Stredopoliar",
+          "injury": "Hamstring",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2026-12-05",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Evan Ferguson",
+          "position": "Útočník",
+          "injury": "Ankle",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2027-01-16",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Stefanos Tzimas",
+          "position": "Útočník",
+          "injury": "Cruciate ligame",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2026-12-02",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Eiran Cashin",
+          "position": "Obranca",
+          "injury": "Calf",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        }
+      ],
+      "Chelsea": [
+        {
+          "player": "Moises Caicedo",
+          "position": "Stredopoliar",
+          "injury": "Other",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Mykhaylo Mudryk",
+          "position": "Útočník",
+          "injury": "Ankle",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2026-12-06",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Jamie Gittens",
+          "position": "Stredopoliar",
+          "injury": "Ankle",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2026-12-05",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Jorrel Hato",
+          "position": "Obranca",
+          "injury": "Other",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2026-12-05",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Maxence Lacroix",
+          "position": "Obranca",
+          "injury": "Thigh",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2026-12-05",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Joao Pedro",
+          "position": "Útočník",
+          "injury": "Thigh",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2026-12-05",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Reece James",
+          "position": "Obranca",
+          "injury": "Thigh",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2027-01-03",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        }
+      ],
+      "Coventry": [
+        {
+          "player": "Taiwo Awoniyi",
+          "position": "Útočník",
+          "injury": "Other",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Ephron Mason-Clark",
+          "position": "Útočník",
+          "injury": "Knee",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2026-11-28",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Josh Eccles",
+          "position": "Stredopoliar",
+          "injury": "Other",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2026-12-19",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Haji Wright",
+          "position": "Útočník",
+          "injury": "Thigh",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2026-12-02",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Aurele Amenda",
+          "position": "Obranca",
+          "injury": "Calf",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2026-12-19",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        }
+      ],
+      "Crystal Palace": [
+        {
+          "player": "Jean-Philippe Mateta",
+          "position": "Útočník",
+          "injury": "Red card (direct)",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2026-12-02",
+          "context": "Trest / suspendácia",
+          "status": "Suspendovaný"
+        },
+        {
+          "player": "Takehiro Tomiyasu",
+          "position": "Obranca",
+          "injury": "Calf",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2026-11-29",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Ismaila Sarr",
+          "position": "Útočník",
+          "injury": "Groin",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2026-12-13",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Chadi Riad",
+          "position": "Obranca",
+          "injury": "Knee",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2027-06-07",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        }
+      ],
+      "Everton": [
+        {
+          "player": "James Tarkowski",
+          "position": "Obranca",
+          "injury": "Red card (direct)",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2026-12-02",
+          "context": "Trest / suspendácia",
+          "status": "Suspendovaný"
+        }
+      ],
+      "Fulham": [
+        {
+          "player": "Benjamin Lecomte",
+          "position": "Brankár",
+          "injury": "Calf",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2027-06-01",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Emile Smith Rowe",
+          "position": "Stredopoliar",
+          "injury": "Other",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2026-11-29",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        }
+      ],
+      "Hull": [
+        {
+          "player": "Tim Iroegbunam",
+          "position": "Stredopoliar",
+          "injury": "Other",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Charlie Hughes",
+          "position": "Obranca",
+          "injury": "Groin",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2026-11-29",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Ilyas Ansah",
+          "position": "Útočník",
+          "injury": "Upper back",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2026-12-05",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Matt Targett",
+          "position": "Obranca",
+          "injury": "Ankle",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2026-12-19",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Eliot Matazo",
+          "position": "Stredopoliar",
+          "injury": "Knee",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2027-02-20",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        }
+      ],
+      "Ipswich": [
+        {
+          "player": "Leif Davis",
+          "position": "Obranca",
+          "injury": "Other",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Sammie Szmodics",
+          "position": "Stredopoliar",
+          "injury": "Knee",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        }
+      ],
+      "Leeds": [
+        {
+          "player": "Mateo Joseph",
+          "position": "Útočník",
+          "injury": "Ankle",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2027-01-30",
+          "context": "Zranenie",
           "status": "Mimo hry"
         }
       ],
       "Liverpool": [
         {
+          "player": "Conor Bradley",
+          "position": "Obranca",
+          "injury": "Knee",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2027-01-02",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Giovanni Leoni",
+          "position": "Obranca",
+          "injury": "Cruciate ligame",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2027-01-02",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
           "player": "Hugo Ekitike",
           "position": "Útočník",
-          "injury": "Roztrhnutá Achillova šľacha",
-          "injured_on": "Apríl 2026",
-          "duration": "Cca 9 mesiacov",
-          "expected_return": "Január 2027",
-          "context": "V zápase / dlhodobá absencia (apríl 2026)",
-          "status": "Dlhodobá rehabilitácia"
+          "injury": "Calf",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2027-01-02",
+          "context": "Zranenie",
+          "status": "Mimo hry"
         },
         {
-          "player": "Cody Gakpo",
-          "position": "Útočník / krídelník",
-          "injury": "Poranenie lýtkového svalu (soleus)",
-          "injured_on": "November 2026",
-          "duration": "2 – 3 týždne",
-          "expected_return": "Začiatok až polovica decembra 2026",
-          "context": "Reprezentačný zraz (Holandsko)",
-          "status": "Day-to-day / posudzuje sa"
-        },
-        {
-          "player": "Ryan Gravenberch",
-          "position": "Stredopoliar",
-          "injury": "Pretrvávajúca bolesť päty",
-          "injured_on": "November 2026",
-          "duration": "Krátkodobá absencia",
-          "expected_return": "Koniec novembra 2026",
-          "context": "Zápasové zaťaženie / tréningový proces",
-          "status": "Day-to-day (otázny štart)"
+          "player": "Vitezslav Jaros",
+          "position": "Brankár",
+          "injury": "Other",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
         }
       ],
       "Man City": [
         {
-          "player": "Antoine Semenyo",
-          "position": "Krídelník / útočník",
-          "injury": "Poranenie kolena",
-          "injured_on": "Polovica októbra 2026",
-          "duration": "Cca 8 týždňov",
-          "expected_return": "Polovica decembra 2026",
-          "context": "V zápase (vs. Ipswich Town)",
-          "status": "Intenzívna rehabilitácia"
+          "player": "Mateo Kovacic",
+          "position": "Stredopoliar",
+          "injury": "Red card (direct)",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Trest / suspendácia",
+          "status": "Suspendovaný"
         },
         {
-          "player": "Matheus Nunes",
+          "player": "Antoine Semenyo",
+          "position": "Útočník",
+          "injury": "Knee",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2026-12-19",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        }
+      ],
+      "Man United": [
+        {
+          "player": "Leny Yoro",
+          "position": "Obranca",
+          "injury": "Red card (direct)",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2026-12-02",
+          "context": "Trest / suspendácia",
+          "status": "Suspendovaný"
+        },
+        {
+          "player": "Marcus Rashford",
+          "position": "Útočník",
+          "injury": "Groin",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2026-12-02",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Luke Shaw",
+          "position": "Obranca",
+          "injury": "Other",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2026-12-02",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Carlos Baleba",
           "position": "Stredopoliar",
-          "injury": "Nešpecifikované svalové / kondičné ťažkosti",
-          "injured_on": "November 2026",
-          "duration": "Krátkodobá absencia",
-          "expected_return": "Koniec novembra 2026",
-          "context": "Reprezentačný zraz (Portugalsko)",
-          "status": "Day-to-day (posudzuje sa)"
+          "injury": "Thigh",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2026-12-02",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Benjamin Sesko",
+          "position": "Útočník",
+          "injury": "Calf",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2027-01-02",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Manuel Ugarte",
+          "position": "Stredopoliar",
+          "injury": "Cruciate ligame",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2027-04-03",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        }
+      ],
+      "Newcastle": [
+        {
+          "player": "Lewis Hall",
+          "position": "Obranca",
+          "injury": "Other",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Joelinton",
+          "position": "Stredopoliar",
+          "injury": "Thigh",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2026-12-06",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Ewen Jaouen",
+          "position": "Brankár",
+          "injury": "Thigh",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2026-12-12",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        }
+      ],
+      "Nott'm Forest": [
+        {
+          "player": "Callum Hudson-Odoi",
+          "position": "Útočník",
+          "injury": "Groin",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2026-11-27",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Nicolas Dominguez",
+          "position": "Stredopoliar",
+          "injury": "Other",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2027-01-02",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        }
+      ],
+      "Sunderland": [
+        {
+          "player": "Brian Brobbey",
+          "position": "Útočník",
+          "injury": "Thigh",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2026-12-02",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Habib Diarra",
+          "position": "Stredopoliar",
+          "injury": "Thigh",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2026-12-06",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Granit Xhaka",
+          "position": "Stredopoliar",
+          "injury": "Calf",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2026-12-13",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Daniel Ballard",
+          "position": "Obranca",
+          "injury": "Thigh",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2026-12-26",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Romaine Mundle",
+          "position": "Útočník",
+          "injury": "Knee",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2026-12-26",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Simon Adingra",
+          "position": "Útočník",
+          "injury": "Physical discom",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        }
+      ],
+      "Tottenham": [
+        {
+          "player": "Savio",
+          "position": "Stredopoliar",
+          "injury": "Other",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Tosin Adarabioyo",
+          "position": "Obranca",
+          "injury": "Calf",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2026-11-29",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Mathys Tel",
+          "position": "Útočník",
+          "injury": "Ankle",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2026-12-14",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Wilson Odobert",
+          "position": "Útočník",
+          "injury": "Knee",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2027-02-06",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Xavi Simons",
+          "position": "Stredopoliar",
+          "injury": "Cruciate ligame",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2027-02-20",
+          "context": "Zranenie",
+          "status": "Mimo hry"
         }
       ]
     },
     "La Liga": {
-      "Real Madrid": [
+      "Alaves": [
         {
-          "player": "Rodrygo",
-          "position": "Krídelník",
-          "injury": "Roztrhnutý predný skrížený väz (ACL) a laterálny meniskus pravého kolena",
-          "injured_on": "02. 03. 2026",
-          "duration": "9 – 10 mesiacov",
-          "expected_return": "Koniec decembra 2026 / január 2027",
-          "context": "V zápase (La Liga vs. Getafe)",
-          "status": "Individuálny tréning / rehabilitácia"
-        },
-        {
-          "player": "Raúl Asencio",
+          "player": "Facundo Garces",
           "position": "Obranca",
-          "injury": "Únavová zlomenina pravej holennej kosti (operácia 1. 10. 2026)",
-          "injured_on": "September 2026",
-          "duration": "3 – 4 mesiace",
-          "expected_return": "Koniec decembra 2026 / január 2027",
-          "context": "Preťaženie z minulej sezóny / tréningový proces",
-          "status": "Rekonvalescencia po operácii"
-        },
-        {
-          "player": "Ferland Mendy",
-          "position": "Ľavý obranca",
-          "injury": "Natrhnutá šľacha priameho svalu stehna (rectus femoris)",
-          "injured_on": "Máj 2026",
-          "duration": "6+ mesiacov",
-          "expected_return": "Zatiaľ neurčený",
-          "context": "V zápase (La Liga vs. Espanyol)",
-          "status": "Individuálny tréning, mimo súpisky"
-        }
-      ],
-      "FC Barcelona": [
-        {
-          "player": "Roony Bardghji",
-          "position": "Krídelník",
-          "injury": "Roztrhnutý predný skrížený väz (ACL) pravého kolena",
-          "injured_on": "August 2026",
-          "duration": "6 – 7 mesiacov",
-          "expected_return": "Február – máj 2027",
-          "context": "Na tréningu (predsezónna príprava, august 2026)",
-          "status": "Dlhodobá rehabilitácia po operácii"
-        },
-        {
-          "player": "Xavi Espart",
-          "position": "Obranca / stredopoliar",
-          "injury": "Poranenie syndesmózy pravého členka",
-          "injured_on": "25. 10. 2026",
-          "duration": "7 – 8 týždňov",
-          "expected_return": "Polovica decembra 2026",
-          "context": "V zápase (El Clásico vs. Real Madrid)",
+          "injury": "Cruciate ligame",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2027-01-05",
+          "context": "Zranenie",
           "status": "Mimo hry"
         },
         {
-          "player": "Andreas Christensen",
-          "position": "Stopér",
-          "injury": "Svalové zranenie lýtka (soleus ľavej nohy)",
-          "injured_on": "November 2026",
-          "duration": "Cca 2 zápasy",
-          "expected_return": "Koniec novembra 2026",
-          "context": "Na tréningu (november 2026)",
-          "status": "Krátkodobá absencia"
+          "player": "Mikel Rodriguez",
+          "position": "Stredopoliar",
+          "injury": "Cruciate ligame",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2027-04-04",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        }
+      ],
+      "Ath Bilbao": [
+        {
+          "player": "Yuri Berchiche",
+          "position": "Obranca",
+          "injury": "Yellow cards",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Trest / suspendácia",
+          "status": "Suspendovaný"
         },
         {
-          "player": "Pau Cubarsí",
-          "position": "Stopér",
-          "injury": "Napätie v oblasti bedrového ohybača (psoas)",
-          "injured_on": "November 2026",
-          "duration": "Niekoľko dní (otázny štart)",
-          "expected_return": "Koniec novembra 2026",
-          "context": "Reprezentačný zraz (Španielsko)",
-          "status": "Day-to-day (otázny štart)"
+          "player": "Daniel Vivian",
+          "position": "Obranca",
+          "injury": "Thigh",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Maroan Sannadi",
+          "position": "Útočník",
+          "injury": "Muscle",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2026-12-12",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Gorka Guruzeta",
+          "position": "Útočník",
+          "injury": "Cruciate ligame",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2027-06-19",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Unai Eguiluz",
+          "position": "Obranca",
+          "injury": "Knee",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2027-01-16",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        }
+      ],
+      "Ath Madrid": [
+        {
+          "player": "Robin Le Normand",
+          "position": "Obranca",
+          "injury": "Yellow cards",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Trest / suspendácia",
+          "status": "Suspendovaný"
+        },
+        {
+          "player": "Marc Pubill",
+          "position": "Obranca",
+          "injury": "Other",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Ademola Lookman",
+          "position": "Útočník",
+          "injury": "Calf",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Cristian Romero",
+          "position": "Obranca",
+          "injury": "Other",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        }
+      ],
+      "Barcelona": [
+        {
+          "player": "Fermin Lopez",
+          "position": "Stredopoliar",
+          "injury": "Red card (direct)",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2026-12-02",
+          "context": "Trest / suspendácia",
+          "status": "Suspendovaný"
         },
         {
           "player": "Rodri",
           "position": "Stredopoliar",
-          "injury": "Poranenie zadného stehenného svalu (hamstring)",
-          "injured_on": "November 2026",
-          "duration": "Cca 3 – 4 týždne",
-          "expected_return": "Začiatok decembra 2026",
-          "context": "Zápasové zaťaženie (november 2026)",
+          "injury": "Hamstring",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2026-11-28",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Roony Bardghji",
+          "position": "Stredopoliar",
+          "injury": "Cruciate ligame",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2027-06-12",
+          "context": "Zranenie",
           "status": "Mimo hry"
         }
       ],
-      "Atlético Madrid": [
+      "Celta": [
         {
-          "player": "Ademola Lookman",
-          "position": "Útočník / krídelník",
-          "injury": "Ťažšie podvrtnutie kolena (high-grade sprain)",
-          "injured_on": "13. 11. 2026",
-          "duration": "4 – 6 týždňov",
-          "expected_return": "Koniec decembra 2026",
-          "context": "Reprezentačný zápas (Nigéria vs. Tanzánia)",
-          "status": "Rehabilitácia / posilňovňa"
+          "player": "Borja Iglesias",
+          "position": "Útočník",
+          "injury": "Calf",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
         },
         {
-          "player": "Cristian Romero",
-          "position": "Stopér",
-          "injury": "Svalové zranenie",
-          "injured_on": "November 2026",
-          "duration": "Niekoľko týždňov",
-          "expected_return": "Začiatok decembra 2026",
-          "context": "Zápasové zaťaženie (november 2026)",
-          "status": "Mimo súpisky"
+          "player": "Carl Starfelt",
+          "position": "Obranca",
+          "injury": "Hamstring",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
         },
         {
-          "player": "Marc Pubill",
-          "position": "Pravý obranca",
-          "injury": "Bolesti / podvrtnutie členka",
-          "injured_on": "November 2026",
-          "duration": "Krátkodobá absencia",
-          "expected_return": "Koniec novembra 2026",
-          "context": "Reprezentačný zraz (Španielsko)",
-          "status": "Day-to-day"
+          "player": "Miguel Roman",
+          "position": "Stredopoliar",
+          "injury": "Knee",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        }
+      ],
+      "La Coruna": [
+        {
+          "player": "Bright Ede",
+          "position": "Obranca",
+          "injury": "Hamstring",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Zakaria Eddahchouri",
+          "position": "Stredopoliar",
+          "injury": "Wrist",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        }
+      ],
+      "Elche": [
+        {
+          "player": "Ali Houary",
+          "position": "Útočník",
+          "injury": "Ankle",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Marc Aguado",
+          "position": "Stredopoliar",
+          "injury": "Ankle",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Yago Santiago",
+          "position": "Stredopoliar",
+          "injury": "Knee",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        }
+      ],
+      "Espanol": [
+        {
+          "player": "Pol Lozano",
+          "position": "Stredopoliar",
+          "injury": "Yellow cards",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Trest / suspendácia",
+          "status": "Suspendovaný"
+        },
+        {
+          "player": "Alex Calatrava",
+          "position": "Útočník",
+          "injury": "Knee",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Kike Garcia",
+          "position": "Útočník",
+          "injury": "Hamstring",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2027-01-15",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        }
+      ],
+      "Getafe": [
+        {
+          "player": "Djene",
+          "position": "Obranca",
+          "injury": "Red card (direct)",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2026-12-06",
+          "context": "Trest / suspendácia",
+          "status": "Suspendovaný"
+        },
+        {
+          "player": "Nemanja Gudelj",
+          "position": "Stredopoliar",
+          "injury": "Yellow cards",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2026-11-30",
+          "context": "Trest / suspendácia",
+          "status": "Suspendovaný"
+        },
+        {
+          "player": "Djene",
+          "position": "Obranca",
+          "injury": "Red card (direct)",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Trest / suspendácia",
+          "status": "Suspendovaný"
+        },
+        {
+          "player": "Martin Satriano",
+          "position": "Útočník",
+          "injury": "Yellow cards",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Trest / suspendácia",
+          "status": "Suspendovaný"
+        },
+        {
+          "player": "Christantus Uche",
+          "position": "Stredopoliar",
+          "injury": "Knee",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2027-06-12",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        }
+      ],
+      "Levante": [],
+      "Malaga": [
+        {
+          "player": "Rafita",
+          "position": "Obranca",
+          "injury": "Hamstring",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Julen Lobete",
+          "position": "Útočník",
+          "injury": "Knee",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2027-06-30",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Aaron Ochoa",
+          "position": "Stredopoliar",
+          "injury": "Other",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        }
+      ],
+      "Osasuna": [
+        {
+          "player": "Alejandro Catena",
+          "position": "Obranca",
+          "injury": "2nd yellow (Red)",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2026-12-06",
+          "context": "Trest / suspendácia",
+          "status": "Suspendovaný"
+        },
+        {
+          "player": "Iker Munoz",
+          "position": "Stredopoliar",
+          "injury": "Yellow cards",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Trest / suspendácia",
+          "status": "Suspendovaný"
+        },
+        {
+          "player": "Abel Bretones",
+          "position": "Stredopoliar",
+          "injury": "Calf",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        }
+      ],
+      "Santander": [
+        {
+          "player": "Maguette Gueye",
+          "position": "Stredopoliar",
+          "injury": "Other",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Alvaro Mantilla",
+          "position": "Obranca",
+          "injury": "Knee",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Andres Martin",
+          "position": "Stredopoliar",
+          "injury": "Muscle",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        }
+      ],
+      "Vallecano": [
+        {
+          "player": "Unai Lopez",
+          "position": "Stredopoliar",
+          "injury": "Yellow cards",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Trest / suspendácia",
+          "status": "Suspendovaný"
+        },
+        {
+          "player": "Oscar Valentin",
+          "position": "Stredopoliar",
+          "injury": "Knee",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Luiz Felipe",
+          "position": "Obranca",
+          "injury": "Other",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Augusto Batalla",
+          "position": "Brankár",
+          "injury": "Lower leg",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2027-01-09",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        }
+      ],
+      "Betis": [
+        {
+          "player": "Facundo Bernal",
+          "position": "Stredopoliar",
+          "injury": "Red card (direct)",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2026-12-20",
+          "context": "Trest / suspendácia",
+          "status": "Suspendovaný"
+        },
+        {
+          "player": "Dani Ceballos",
+          "position": "Stredopoliar",
+          "injury": "Hamstring",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        }
+      ],
+      "Real Madrid": [
+        {
+          "player": "Raul Asencio",
+          "position": "Obranca",
+          "injury": "Lower leg",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        }
+      ],
+      "Sociedad": [
+        {
+          "player": "Ander Barrenetxea",
+          "position": "Útočník",
+          "injury": "Hamstring",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        }
+      ],
+      "Sevilla": [
+        {
+          "player": "Isaac Romero",
+          "position": "Útočník",
+          "injury": "Red card (direct)",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Trest / suspendácia",
+          "status": "Suspendovaný"
+        },
+        {
+          "player": "Jose Angel Carmona",
+          "position": "Obranca",
+          "injury": "Other",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Marcao",
+          "position": "Obranca",
+          "injury": "Muscle",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Miguel Angel Sierra",
+          "position": "Útočník",
+          "injury": "Other",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        }
+      ],
+      "Valencia": [
+        {
+          "player": "Jose Gaya",
+          "position": "Obranca",
+          "injury": "Red card (direct)",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2026-11-29",
+          "context": "Trest / suspendácia",
+          "status": "Suspendovaný"
+        },
+        {
+          "player": "Jesus Vazquez",
+          "position": "Obranca",
+          "injury": "Muscle",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Sergi Canos",
+          "position": "Útočník",
+          "injury": "Cruciate ligame",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2027-01-01",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        }
+      ],
+      "Villarreal": [
+        {
+          "player": "Pau Navarro",
+          "position": "Obranca",
+          "injury": "2nd yellow (Red)",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2026-12-05",
+          "context": "Trest / suspendácia",
+          "status": "Suspendovaný"
+        },
+        {
+          "player": "Alassane Diatta",
+          "position": "Stredopoliar",
+          "injury": "Hamstring",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Juan Foyth",
+          "position": "Obranca",
+          "injury": "Other",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Gerard Moreno",
+          "position": "Útočník",
+          "injury": "Other",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Ilias Akhomach",
+          "position": "Útočník",
+          "injury": "Other",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
         }
       ]
     },
     "Serie A": {
-      "Inter Miláno": [
+      "Milan": [
         {
-          "player": "Marcus Thuram",
+          "player": "Santiago Gimenez",
           "position": "Útočník",
-          "injury": "Natiahnutý zadný stehenný sval (biceps femoris)",
-          "injured_on": "November 2026",
-          "duration": "2 – 3 týždne",
-          "expected_return": "Koniec novembra 2026 (vs. Genoa 28. 11.)",
-          "context": "V zápase (Serie A vs. Como)",
+          "injury": "Red card (direct)",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Trest / suspendácia",
+          "status": "Suspendovaný"
+        },
+        {
+          "player": "Ruben Loftus-Cheek",
+          "position": "Stredopoliar",
+          "injury": "Thigh",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2026-12-06",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Samuel Chukwueze",
+          "position": "Útočník",
+          "injury": "Hip",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2027-02-14",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Fikayo Tomori",
+          "position": "Obranca",
+          "injury": "Hamstring",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2026-11-30",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Warren Bondo",
+          "position": "Stredopoliar",
+          "injury": "Not registered",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Matteo Gabbia",
+          "position": "Obranca",
+          "injury": "Other",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2027-01-17",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Alexis Saelemaekers",
+          "position": "Stredopoliar",
+          "injury": "Ankle",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2027-03-13",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Pietro Terracciano",
+          "position": "Brankár",
+          "injury": "Shoulder",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        }
+      ],
+      "Atalanta": [],
+      "Bologna": [
+        {
+          "player": "Riccardo Stivanello",
+          "position": "Obranca",
+          "injury": "2nd yellow (Red)",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2026-11-29",
+          "context": "Trest / suspendácia",
+          "status": "Suspendovaný"
+        },
+        {
+          "player": "Juan Miranda",
+          "position": "Obranca",
+          "injury": "Thigh",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2026-11-27",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Antonio Raimondo",
+          "position": "Útočník",
+          "injury": "Ankle",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2027-01-02",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Thomas Gillier",
+          "position": "Brankár",
+          "injury": "Low back",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Emil Holm",
+          "position": "Obranca",
+          "injury": "Thigh",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2027-01-31",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Thijs Dallinga",
+          "position": "Útočník",
+          "injury": "Cruciate ligame",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        }
+      ],
+      "Cagliari": [
+        {
+          "player": "Roberto Gagliardini",
+          "position": "Stredopoliar",
+          "injury": "Yellow cards",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Trest / suspendácia",
+          "status": "Suspendovaný"
+        },
+        {
+          "player": "Michel Ndary Adopo",
+          "position": "Stredopoliar",
+          "injury": "Other",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Yerry Mina",
+          "position": "Obranca",
+          "injury": "Thigh",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Harry Winks",
+          "position": "Stredopoliar",
+          "injury": "Low back",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Kingstone Mutandwa",
+          "position": "Útočník",
+          "injury": "Ankle",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2026-12-31",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Mattia Felici",
+          "position": "Stredopoliar",
+          "injury": "Cruciate ligame",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2027-07-01",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        }
+      ],
+      "Como": [
+        {
+          "player": "Edoardo Goldaniga",
+          "position": "Obranca",
+          "injury": "Yellow cards",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Trest / suspendácia",
+          "status": "Suspendovaný"
+        },
+        {
+          "player": "Jesus Rodriguez",
+          "position": "Útočník",
+          "injury": "Knee",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2027-01-02",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Jayden Addai",
+          "position": "Útočník",
+          "injury": "Muscle",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        }
+      ],
+      "Fiorentina": [
+        {
+          "player": "Luca Ranieri",
+          "position": "Obranca",
+          "injury": "Red card (direct)",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Trest / suspendácia",
+          "status": "Suspendovaný"
+        },
+        {
+          "player": "Viery",
+          "position": "Obranca",
+          "injury": "Other",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Marin Pongracic",
+          "position": "Obranca",
+          "injury": "Thigh",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2026-11-29",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Fabiano Parisi",
+          "position": "Obranca",
+          "injury": "Cruciate ligame",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2027-01-17",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Riccardo Sottil",
+          "position": "Útočník",
+          "injury": "Low back",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Moise Kean",
+          "position": "Útočník",
+          "injury": "Lower leg",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        }
+      ],
+      "Frosinone": [
+        {
+          "player": "Florian Grillitsch",
+          "position": "Stredopoliar",
+          "injury": "Thigh",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        }
+      ],
+      "Genoa": [
+        {
+          "player": "Vitinha",
+          "position": "Útočník",
+          "injury": "Yellow cards",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Trest / suspendácia",
+          "status": "Suspendovaný"
+        },
+        {
+          "player": "Joi Xheto Nuredini",
+          "position": "Útočník",
+          "injury": "Other",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        }
+      ],
+      "Inter": [
+        {
+          "player": "Hakan Calhanoglu",
+          "position": "Stredopoliar",
+          "injury": "Other",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
           "status": "Mimo hry"
         },
         {
           "player": "Ange-Yoan Bonny",
           "position": "Útočník",
-          "injury": "Natiahnutý ohybač pravého stehna",
-          "injured_on": "November 2026",
-          "duration": "Cca 1 mesiac",
-          "expected_return": "Polovica decembra 2026",
-          "context": "V zápase (Serie A vs. Como)",
-          "status": "Rehabilitácia"
-        },
-        {
-          "player": "Aleksandar Stanković",
-          "position": "Stredopoliar",
-          "injury": "Svalové zranenie",
-          "injured_on": "November 2026",
-          "duration": "Cca 1 mesiac",
-          "expected_return": "Polovica decembra 2026",
-          "context": "Na tréningu (reprezentačný zraz Srbska)",
+          "injury": "Muscle",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2026-12-01",
+          "context": "Zranenie",
           "status": "Mimo hry"
-        }
-      ],
-      "AC Miláno": [
-        {
-          "player": "Samuel Chukwueze",
-          "position": "Krídelník",
-          "injury": "Dlhodobé problémy s bedrovým ohybačom",
-          "injured_on": "Jeseň 2026",
-          "duration": "Niekoľko mesiacov",
-          "expected_return": "Február 2027",
-          "context": "Dlhodobé preťaženie / zápasové zaťaženie",
-          "status": "Dlhodobá absencia"
-        },
-        {
-          "player": "Fikayo Tomori",
-          "position": "Stopér",
-          "injury": "Natiahnutý hamstring",
-          "injured_on": "November 2026",
-          "duration": "2 – 3 týždne",
-          "expected_return": "Koniec novembra / začiatok decembra 2026",
-          "context": "Klubové / tréningové zaťaženie",
-          "status": "Individuálna príprava"
-        },
-        {
-          "player": "Ruben Loftus-Cheek",
-          "position": "Stredopoliar",
-          "injury": "Svalové zranenie",
-          "injured_on": "November 2026",
-          "duration": "2 – 3 týždne",
-          "expected_return": "Koniec novembra 2026",
-          "context": "Klubové / tréningové zaťaženie",
-          "status": "Blízko návratu"
         }
       ],
       "Juventus": [
         {
-          "player": "Manuel Locatelli",
-          "position": "Stredopoliar",
-          "injury": "Ťažké poškodenie menisku (po operácii)",
-          "injured_on": "Jeseň 2026",
-          "duration": "Niekoľko mesiacov",
-          "expected_return": "Začiatok roka 2027",
-          "context": "V zápase / klubové zaťaženie",
-          "status": "Dlhodobá rehabilitácia"
-        },
-        {
-          "player": "Khéphren Thuram",
-          "position": "Stredopoliar",
-          "injury": "Artroskopická operácia kolena",
-          "injured_on": "Jeseň 2026",
-          "duration": "Niekoľko mesiacov",
-          "expected_return": "Začiatok roka 2027",
-          "context": "Klubové zaťaženie",
-          "status": "Dlhodobá rehabilitácia"
-        },
-        {
-          "player": "Kenan Yıldız",
-          "position": "Krídelník / podhrot",
-          "injury": "Rekonvalescencia po operácii chodidla",
-          "injured_on": "Október 2026",
-          "duration": "Cca 2 mesiace",
-          "expected_return": "Začiatok až polovica decembra 2026",
-          "context": "Klubové zaťaženie",
-          "status": "Individuálny tréning"
+          "player": "Gleison Bremer",
+          "position": "Obranca",
+          "injury": "Yellow cards",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Trest / suspendácia",
+          "status": "Suspendovaný"
         },
         {
           "player": "Pierre Kalulu",
           "position": "Obranca",
-          "injury": "Svalové / lýtkové ťažkosti",
-          "injured_on": "November 2026",
-          "duration": "1 – 2 týždne",
-          "expected_return": "Koniec novembra 2026",
-          "context": "Na tréningu / zápasové zaťaženie",
-          "status": "Krátkodobá absencia"
+          "injury": "Thigh",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2026-11-30",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Kenan Yildiz",
+          "position": "Útočník",
+          "injury": "Foot",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2026-12-12",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Nico Gonzalez",
+          "position": "Útočník",
+          "injury": "Muscle",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2026-11-29",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Manuel Locatelli",
+          "position": "Stredopoliar",
+          "injury": "Knee",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2027-02-06",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Arkadiusz Milik",
+          "position": "Útočník",
+          "injury": "Other",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "K. Thuram-Ulien",
+          "position": "Stredopoliar",
+          "injury": "Knee",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2027-01-15",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        }
+      ],
+      "Lazio": [
+        {
+          "player": "Nicolo Rovella",
+          "position": "Stredopoliar",
+          "injury": "Red card (direct)",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Trest / suspendácia",
+          "status": "Suspendovaný"
+        },
+        {
+          "player": "Nuno Tavares",
+          "position": "Obranca",
+          "injury": "Yellow cards",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Trest / suspendácia",
+          "status": "Suspendovaný"
+        },
+        {
+          "player": "Kenneth Taylor",
+          "position": "Stredopoliar",
+          "injury": "Yellow cards",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Trest / suspendácia",
+          "status": "Suspendovaný"
+        },
+        {
+          "player": "Nuno Tavares",
+          "position": "Obranca",
+          "injury": "Lower leg",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2026-12-13",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Adam Marusic",
+          "position": "Stredopoliar",
+          "injury": "Hamstring",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Mattia Zaccagni",
+          "position": "Stredopoliar",
+          "injury": "Thigh",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Alessio Furlanetto",
+          "position": "Brankár",
+          "injury": "Cruciate ligame",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        }
+      ],
+      "Lecce": [
+        {
+          "player": "Filip Marchwinski",
+          "position": "Stredopoliar",
+          "injury": "Cruciate ligame",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2027-06-30",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Santiago Pierotti",
+          "position": "Útočník",
+          "injury": "Ankle",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        }
+      ],
+      "Monza": [
+        {
+          "player": "Ivan Juric",
+          "position": "Stredopoliar",
+          "injury": "Red card (direct)",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2026-11-29",
+          "context": "Trest / suspendácia",
+          "status": "Suspendovaný"
+        }
+      ],
+      "Napoli": [
+        {
+          "player": "Antonio Vergara",
+          "position": "Stredopoliar",
+          "injury": "Other",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Michael Folorunsho",
+          "position": "Stredopoliar",
+          "injury": "Calf",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2026-11-29",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Giovanni Di Lorenzo",
+          "position": "Obranca",
+          "injury": "Thigh",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2026-11-29",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Alisson Santos",
+          "position": "Stredopoliar",
+          "injury": "Muscle",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Alex Meret",
+          "position": "Brankár",
+          "injury": "Low back",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Stanislav Lobotka",
+          "position": "Stredopoliar",
+          "injury": "Ankle",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2026-12-20",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "A. Buongiorno",
+          "position": "Obranca",
+          "injury": "Knee",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        }
+      ],
+      "Parma": [
+        {
+          "player": "Abdoulaye N'Diaye",
+          "position": "Obranca",
+          "injury": "Red card (direct)",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2026-11-28",
+          "context": "Trest / suspendácia",
+          "status": "Suspendovaný"
+        },
+        {
+          "player": "David Romero",
+          "position": "Útočník",
+          "injury": "Shoulder",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2027-01-05",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Lautaro Valenti",
+          "position": "Obranca",
+          "injury": "Banned by club",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        }
+      ],
+      "Roma": [
+        {
+          "player": "Wesley",
+          "position": "Obranca",
+          "injury": "Red card (direct)",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Trest / suspendácia",
+          "status": "Suspendovaný"
+        },
+        {
+          "player": "Devyne Rensch",
+          "position": "Obranca",
+          "injury": "Thigh",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Lorenzo Pellegrini",
+          "position": "Stredopoliar",
+          "injury": "Thigh",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2027-01-02",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        }
+      ],
+      "Sassuolo": [
+        {
+          "player": "Jay Idzes",
+          "position": "Stredopoliar",
+          "injury": "Yellow cards",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Trest / suspendácia",
+          "status": "Suspendovaný"
+        },
+        {
+          "player": "Vasilije Adzic",
+          "position": "Stredopoliar",
+          "injury": "Knee",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Yeferson Paz",
+          "position": "Obranca",
+          "injury": "Cruciate ligame",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Daniel Boloca",
+          "position": "Stredopoliar",
+          "injury": "Knee",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Ismael Kone",
+          "position": "Stredopoliar",
+          "injury": "Lower leg",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2027-01-03",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        }
+      ],
+      "Torino": [
+        {
+          "player": "Ivan Ilic",
+          "position": "Stredopoliar",
+          "injury": "Thigh",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Franco Israel",
+          "position": "Brankár",
+          "injury": "Shoulder",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        }
+      ],
+      "Udinese": [
+        {
+          "player": "Hassane Kamara",
+          "position": "Stredopoliar",
+          "injury": "Yellow cards",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Trest / suspendácia",
+          "status": "Suspendovaný"
+        },
+        {
+          "player": "Thomas Kristensen",
+          "position": "Obranca",
+          "injury": "Yellow cards",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Trest / suspendácia",
+          "status": "Suspendovaný"
+        },
+        {
+          "player": "Sandi Lovric",
+          "position": "Stredopoliar",
+          "injury": "Yellow cards",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Trest / suspendácia",
+          "status": "Suspendovaný"
+        },
+        {
+          "player": "Nicolo Bertola",
+          "position": "Obranca",
+          "injury": "Thigh",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Idrissa Gueye",
+          "position": "Útočník",
+          "injury": "Ankle",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2027-01-03",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        }
+      ],
+      "Venezia": [
+        {
+          "player": "Marin Sverko",
+          "position": "Obranca",
+          "injury": "Hip",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Daniel Fila",
+          "position": "Útočník",
+          "injury": "Hamstring",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2026-12-06",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Seid Korac",
+          "position": "Obranca",
+          "injury": "Cruciate ligame",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Mattia Compagnon",
+          "position": "Stredopoliar",
+          "injury": "Knee",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Bartol Franjic",
+          "position": "Obranca",
+          "injury": "Shoulder",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2026-12-12",
+          "context": "Zranenie",
+          "status": "Mimo hry"
         }
       ]
     },
     "Bundesliga": {
-      "Bayern Mníchov": [
+      "Augsburg": [
+        {
+          "player": "Manuel Baum",
+          "position": "-",
+          "injury": "Red card (direct)",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2026-12-05",
+          "context": "Trest / suspendácia",
+          "status": "Suspendovaný"
+        },
+        {
+          "player": "Kristijan Jakic",
+          "position": "Stredopoliar",
+          "injury": "Yellow cards",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Trest / suspendácia",
+          "status": "Suspendovaný"
+        },
+        {
+          "player": "Kristijan Jakic",
+          "position": "Stredopoliar",
+          "injury": "Knee",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2026-12-21",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Chrislain Matsima",
+          "position": "Obranca",
+          "injury": "Muscle",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Noahkai Banks",
+          "position": "Obranca",
+          "injury": "Knee",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Steve Mounie",
+          "position": "Útočník",
+          "injury": "Other",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        }
+      ],
+      "M'gladbach": [
+        {
+          "player": "Ko Itakura",
+          "position": "Obranca",
+          "injury": "2nd yellow (Red)",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2026-11-27",
+          "context": "Trest / suspendácia",
+          "status": "Suspendovaný"
+        },
+        {
+          "player": "Lukas Ullrich",
+          "position": "Obranca",
+          "injury": "Shoulder",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Tim Kleindienst",
+          "position": "Útočník",
+          "injury": "Muscle",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Hugo Bolin",
+          "position": "Stredopoliar",
+          "injury": "Muscle",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Jan Leszcynski",
+          "position": "Obranca",
+          "injury": "Knee",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Enzo Leopold",
+          "position": "Stredopoliar",
+          "injury": "Cruciate ligame",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2027-06-01",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        }
+      ],
+      "Bayern Munich": [
         {
           "player": "Harry Kane",
           "position": "Útočník",
-          "injury": "Natrhnutý väz v ľavom členku",
-          "injured_on": "November 2026",
-          "duration": "Niekoľko mesiacov",
-          "expected_return": "Začiatok roka 2027",
-          "context": "V zápase (Bundesliga vs. 1. FC Köln 1:1)",
+          "injury": "Ankle",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Michael Olise",
+          "position": "Útočník",
+          "injury": "Other",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Alphonso Davies",
+          "position": "Obranca",
+          "injury": "Hamstring",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
           "status": "Mimo hry"
         },
         {
           "player": "Manuel Neuer",
           "position": "Brankár",
-          "injury": "Pretrvávajúce problémy s chodidlom / členkom",
-          "injured_on": "Jeseň 2026",
-          "duration": "Niekoľko mesiacov",
-          "expected_return": "Koniec januára 2027",
-          "context": "Dlhodobé zaťaženie / tréningový proces",
-          "status": "Rehabilitácia"
-        },
-        {
-          "player": "Serge Gnabry",
-          "position": "Krídelník",
-          "injury": "Ťažšie natiahnutie hamstringu",
-          "injured_on": "November 2026",
-          "duration": "6 – 8 týždňov",
-          "expected_return": "Koniec decembra 2026 / január 2027",
-          "context": "Klubové / zápasové zaťaženie",
+          "injury": "Foot",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2027-01-02",
+          "context": "Zranenie",
           "status": "Mimo hry"
         },
         {
-          "player": "Alphonso Davies",
-          "position": "Ľavý obranca",
-          "injury": "Svalové zranenie / bolesti chrbta",
-          "injured_on": "November 2026",
-          "duration": "2 – 3 týždne",
-          "expected_return": "Koniec novembra / začiatok decembra 2026",
-          "context": "Reprezentačný zraz (Kanada)",
-          "status": "Rehabilitácia"
+          "player": "Serge Gnabry",
+          "position": "Útočník",
+          "injury": "Hamstring",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2026-12-31",
+          "context": "Zranenie",
+          "status": "Mimo hry"
         },
         {
-          "player": "Luis Díaz",
-          "position": "Krídelník",
-          "injury": "Natiahnutý hamstring",
-          "injured_on": "November 2026",
-          "duration": "2 – 3 týždne",
-          "expected_return": "Koniec novembra 2026",
-          "context": "Zápasové zaťaženie",
-          "status": "Blízko návratu"
+          "player": "Ismael Saibari",
+          "position": "Stredopoliar",
+          "injury": "Ankle",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Luis Diaz",
+          "position": "Útočník",
+          "injury": "Muscle",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Tarek Buchmann",
+          "position": "Obranca",
+          "injury": "Foot",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
         }
       ],
-      "Borussia Dortmund": [
-        {
-          "player": "Giannis Konstantelias",
-          "position": "Stredopoliar",
-          "injury": "Vážne zranenie kolena",
-          "injured_on": "Jeseň 2026",
-          "duration": "Niekoľko mesiacov",
-          "expected_return": "Koniec apríla 2027",
-          "context": "Zápasové zaťaženie",
-          "status": "Dlhodobá rehabilitácia"
-        },
+      "Dortmund": [
         {
           "player": "Emre Can",
-          "position": "Stredopoliar / stopér",
-          "injury": "Poranenie väzov kolena (ACL / MCL)",
-          "injured_on": "2026",
-          "duration": "Niekoľko mesiacov",
-          "expected_return": "Koniec novembra / december 2026",
-          "context": "V zápase",
-          "status": "Záverečná fáza návratu"
+          "position": "Stredopoliar",
+          "injury": "Cruciate ligame",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2027-01-23",
+          "context": "Zranenie",
+          "status": "Mimo hry"
         },
         {
-          "player": "Serhou Guirassy",
+          "player": "Carney Chukwuemeka",
+          "position": "Stredopoliar",
+          "injury": "Hamstring",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "G. Konstantelias",
+          "position": "Stredopoliar",
+          "injury": "Cruciate ligame",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2027-06-01",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Justin Lerma",
           "position": "Útočník",
-          "injury": "Natiahnutý hamstring / stehno",
-          "injured_on": "November 2026",
-          "duration": "1 – 2 týždne",
-          "expected_return": "Koniec novembra 2026",
-          "context": "Pred reprezentačnou prestávkou",
-          "status": "Day-to-day"
-        },
-        {
-          "player": "Waldemar Anton",
-          "position": "Stopér",
-          "injury": "Svalové problémy",
-          "injured_on": "November 2026",
-          "duration": "1 – 2 týždne",
-          "expected_return": "Koniec novembra 2026",
-          "context": "Tréningové / zápasové zaťaženie",
-          "status": "Krátkodobá absencia"
+          "injury": "Muscle",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
         }
       ],
-      "Bayer Leverkusen": [
+      "Elversberg": [
         {
-          "player": "Martin Terrier",
-          "position": "Útočník / krídelník",
-          "injury": "Zranenie hamstringu",
-          "injured_on": "Jeseň 2026",
-          "duration": "Niekoľko mesiacov",
-          "expected_return": "Koniec januára 2027",
-          "context": "Klubové zaťaženie",
-          "status": "Dlhodobá absencia"
+          "player": "Nicholas Mickelson",
+          "position": "Obranca",
+          "injury": "Knee",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
         },
         {
-          "player": "Ibrahim Maza",
+          "player": "Luis Seifert",
+          "position": "Obranca",
+          "injury": "Foot",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        }
+      ],
+      "FC Koln": [
+        {
+          "player": "Jusuf Gazibegovic",
+          "position": "Obranca",
+          "injury": "Red card (direct)",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2026-12-05",
+          "context": "Trest / suspendácia",
+          "status": "Suspendovaný"
+        },
+        {
+          "player": "Rav van den Berg",
+          "position": "Obranca",
+          "injury": "Muscle",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Ellyes Skhiri",
           "position": "Stredopoliar",
-          "injury": "Problémy s členkom",
-          "injured_on": "November 2026",
-          "duration": "Niekoľko dní",
-          "expected_return": "Koniec novembra 2026 (okamžitý návrat)",
-          "context": "Reprezentačný zraz (Alžírsko)",
-          "status": "Day-to-day"
+          "injury": "Ankle",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Imad Rondic",
+          "position": "Stredopoliar",
+          "injury": "Hamstring",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Timo Huebers",
+          "position": "Obranca",
+          "injury": "Knee",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        }
+      ],
+      "Ein Frankfurt": [
+        {
+          "player": "Fousseny Doumbia",
+          "position": "Obranca",
+          "injury": "Red card (direct)",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2026-12-12",
+          "context": "Trest / suspendácia",
+          "status": "Suspendovaný"
+        },
+        {
+          "player": "Elias Baum",
+          "position": "Obranca",
+          "injury": "2nd yellow (Red)",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2026-11-28",
+          "context": "Trest / suspendácia",
+          "status": "Suspendovaný"
+        },
+        {
+          "player": "Can Uzun",
+          "position": "Útočník",
+          "injury": "Illness",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Jessic Ngankam",
+          "position": "Útočník",
+          "injury": "Thigh",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        }
+      ],
+      "Freiburg": [
+        {
+          "player": "Berkay Yilmaz",
+          "position": "Obranca",
+          "injury": "Red card (direct)",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2026-11-29",
+          "context": "Trest / suspendácia",
+          "status": "Suspendovaný"
+        },
+        {
+          "player": "Karl Steinmann",
+          "position": "Obranca",
+          "injury": "Hamstring",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Florent Muslija",
+          "position": "Stredopoliar",
+          "injury": "Cruciate ligame",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2027-01-15",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        }
+      ],
+      "Hamburg": [
+        {
+          "player": "Miro Muheim",
+          "position": "Obranca",
+          "injury": "Other",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Jordan Torunarigha",
+          "position": "Obranca",
+          "injury": "Hip",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Yussuf Poulsen",
+          "position": "Útočník",
+          "injury": "Calf",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Albert Sambi Lokonga",
+          "position": "Stredopoliar",
+          "injury": "Calf",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Nicolai Remberg",
+          "position": "Stredopoliar",
+          "injury": "Knee",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Bilal Nadir",
+          "position": "Stredopoliar",
+          "injury": "Thigh",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        }
+      ],
+      "Hoffenheim": [
+        {
+          "player": "Ozan Kabak",
+          "position": "Obranca",
+          "injury": "Red card (direct)",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2026-12-05",
+          "context": "Trest / suspendácia",
+          "status": "Suspendovaný"
+        },
+        {
+          "player": "Robin Hranac",
+          "position": "Obranca",
+          "injury": "Knee",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Valentin Gendrey",
+          "position": "Obranca",
+          "injury": "Lower leg",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Nathan De Cat",
+          "position": "Stredopoliar",
+          "injury": "Knee",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Albian Hajdari",
+          "position": "Obranca",
+          "injury": "Knee",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        }
+      ],
+      "Leverkusen": [
+        {
+          "player": "Martin Terrier",
+          "position": "Útočník",
+          "injury": "Hamstring",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Guela Doue",
+          "position": "Obranca",
+          "injury": "Calf",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Kennet Eichhorn",
+          "position": "Stredopoliar",
+          "injury": "Illness",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        }
+      ],
+      "Mainz": [
+        {
+          "player": "Dominik Kohr",
+          "position": "Stredopoliar",
+          "injury": "Ankle",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        }
+      ],
+      "Paderborn": [
+        {
+          "player": "Timur Gayret",
+          "position": "Stredopoliar",
+          "injury": "Knee",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        }
+      ],
+      "RB Leipzig": [
+        {
+          "player": "Lukas Klostermann",
+          "position": "Obranca",
+          "injury": "Yellow cards",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Trest / suspendácia",
+          "status": "Suspendovaný"
+        },
+        {
+          "player": "Viggo Gebel",
+          "position": "Stredopoliar",
+          "injury": "Other",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Benno Kaltefleiter",
+          "position": "Stredopoliar",
+          "injury": "Knock",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "F. Assan Ouedraogo",
+          "position": "Stredopoliar",
+          "injury": "Shoulder",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2026-12-25",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Marc Guiu",
+          "position": "Útočník",
+          "injury": "Hamstring",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        }
+      ],
+      "Schalke 04": [
+        {
+          "player": "Mika Wallentowitz",
+          "position": "Útočník",
+          "injury": "Muscle",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Luca Vozar",
+          "position": "Stredopoliar",
+          "injury": "Thigh",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Timo Becker",
+          "position": "Obranca",
+          "injury": "Foot",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Maximilian Woeber",
+          "position": "Obranca",
+          "injury": "Thigh",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Ron Schallenberg",
+          "position": "Stredopoliar",
+          "injury": "Lower leg",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        }
+      ],
+      "Stuttgart": [
+        {
+          "player": "Luca Jaquez",
+          "position": "Obranca",
+          "injury": "Rib",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Angelo Stiller",
+          "position": "Stredopoliar",
+          "injury": "Groin",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        }
+      ],
+      "Union Berlin": [
+        {
+          "player": "Derrick Koehn",
+          "position": "Obranca",
+          "injury": "Yellow cards",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Trest / suspendácia",
+          "status": "Suspendovaný"
+        },
+        {
+          "player": "Stanley N'Soki",
+          "position": "Obranca",
+          "injury": "Calf",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Robert Skov",
+          "position": "Stredopoliar",
+          "injury": "Knock",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Andrik Markgraf",
+          "position": "Obranca",
+          "injury": "Knee",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2027-04-02",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        }
+      ],
+      "Werder Bremen": [
+        {
+          "player": "Felix Agu",
+          "position": "Obranca",
+          "injury": "Muscle",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2026-11-28",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Marco Gruell",
+          "position": "Útočník",
+          "injury": "Calf",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Markus Kolke",
+          "position": "Brankár",
+          "injury": "Other",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Mitchell Weiser",
+          "position": "Obranca",
+          "injury": "Muscle",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Skelly Alvero",
+          "position": "Stredopoliar",
+          "injury": "Calf",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Salim Musah",
+          "position": "Útočník",
+          "injury": "Hamstring",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Keke Topp",
+          "position": "Útočník",
+          "injury": "Cruciate ligame",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2027-02-05",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Jens Stage",
+          "position": "Stredopoliar",
+          "injury": "Thigh",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2027-01-09",
+          "context": "Zranenie",
+          "status": "Mimo hry"
         }
       ]
     },
     "Ligue 1": {
-      "Paris Saint-Germain": [
+      "Angers": [
         {
-          "player": "Désiré Doué",
-          "position": "Krídelník / stredopoliar",
-          "injury": "Roztrhnutý predný skrížený väz (ACL) pravého kolena",
-          "injured_on": "November 2026",
-          "duration": "Cca 6+ mesiacov",
-          "expected_return": "Leto 2027 (dlhodobá absencia)",
-          "context": "V zápase (Ligue 1 vs. Nice)",
-          "status": "Pred operáciou / dlhodobá absencia"
+          "player": "Jordan Lefort",
+          "position": "Obranca",
+          "injury": "Yellow cards",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2026-11-28",
+          "context": "Trest / suspendácia",
+          "status": "Suspendovaný"
         },
         {
-          "player": "Khvicha Kvaratskhelia",
-          "position": "Krídelník",
-          "injury": "Roztrhnutý predný skrížený väz (ACL)",
-          "injured_on": "Jeseň 2026",
-          "duration": "Cca 6+ mesiacov",
-          "expected_return": "Jar / leto 2027",
-          "context": "V zápase",
-          "status": "Dlhodobá rehabilitácia"
+          "player": "Yassin Belkhdim",
+          "position": "Stredopoliar",
+          "injury": "Yellow cards",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Trest / suspendácia",
+          "status": "Suspendovaný"
         }
       ],
-      "Olympique Marseille": [
+      "Auxerre": [
         {
-          "player": "Emerson",
-          "position": "Ľavý obranca",
-          "injury": "Rekonvalescencia po operácii kolena",
-          "injured_on": "Jeseň 2026",
-          "duration": "Niekoľko mesiacov",
-          "expected_return": "Koniec decembra 2026",
-          "context": "Klubové zaťaženie",
-          "status": "Rehabilitácia po operácii"
+          "player": "Danny Namaso",
+          "position": "Útočník",
+          "injury": "Ankle",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
         },
         {
-          "player": "Derek Cornelius",
-          "position": "Stopér",
-          "injury": "Poranenie bedra",
-          "injured_on": "November 2026",
-          "duration": "Cca 6 – 8 týždňov",
-          "expected_return": "Začiatok januára 2027",
-          "context": "Zápasové zaťaženie",
+          "player": "Sekou Fofana",
+          "position": "Obranca",
+          "injury": "Groin",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Assane Diousse",
+          "position": "Stredopoliar",
+          "injury": "Knee",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2027-05-01",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Bryan Okoh",
+          "position": "Obranca",
+          "injury": "Cruciate ligame",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2027-01-30",
+          "context": "Zranenie",
           "status": "Mimo hry"
         }
       ],
-      "AS Monaco": [
+      "Brest": [
         {
-          "player": "Ansu Fati",
-          "position": "Krídelník",
-          "injury": "Natiahnutý hamstring",
-          "injured_on": "November 2026",
-          "duration": "3 – 4 týždne",
-          "expected_return": "Začiatok až polovica decembra 2026",
-          "context": "Zápasové / tréningové zaťaženie",
+          "player": "Kenny Lala",
+          "position": "Obranca",
+          "injury": "Other",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Brendan Chardonnet",
+          "position": "Obranca",
+          "injury": "Calf",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        }
+      ],
+      "Le Havre": [
+        {
+          "player": "Ayumu Seko",
+          "position": "Stredopoliar",
+          "injury": "Yellow cards",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Trest / suspendácia",
+          "status": "Suspendovaný"
+        },
+        {
+          "player": "Rassoul Ndiaye",
+          "position": "Stredopoliar",
+          "injury": "Thigh",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Sota Nakamura",
+          "position": "Útočník",
+          "injury": "Other",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Timothee Pembele",
+          "position": "Obranca",
+          "injury": "Other",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        }
+      ],
+      "Le Mans": [
+        {
+          "player": "Djibril Sidibe",
+          "position": "Obranca",
+          "injury": "Foot",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        }
+      ],
+      "Lens": [
+        {
+          "player": "Andrija Bulatovic",
+          "position": "Stredopoliar",
+          "injury": "Neck",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Odsonne Edouard",
+          "position": "Útočník",
+          "injury": "Other",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Maik Nawrocki",
+          "position": "Obranca",
+          "injury": "Cruciate ligame",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2027-05-15",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        }
+      ],
+      "Lille": [
+        {
+          "player": "Tanguy Nianzou",
+          "position": "Obranca",
+          "injury": "Other",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Tiago Santos",
+          "position": "Obranca",
+          "injury": "Other",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        }
+      ],
+      "Lorient": [
+        {
+          "player": "Souleymane Toure",
+          "position": "Obranca",
+          "injury": "Groin",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Panos Katseris",
+          "position": "Obranca",
+          "injury": "Muscle",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        }
+      ],
+      "Lyon": [
+        {
+          "player": "Keito Nakamura",
+          "position": "Útočník",
+          "injury": "Yellow cards",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Trest / suspendácia",
+          "status": "Suspendovaný"
+        },
+        {
+          "player": "Clinton Mata",
+          "position": "Obranca",
+          "injury": "Other",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Tyler Morton",
+          "position": "Stredopoliar",
+          "injury": "Groin",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Pavel Sulc",
+          "position": "Stredopoliar",
+          "injury": "Knee",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        }
+      ],
+      "Marseille": [
+        {
+          "player": "Emerson",
+          "position": "Obranca",
+          "injury": "Knee",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Derek Cornelius",
+          "position": "Obranca",
+          "injury": "Hip",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        }
+      ],
+      "Monaco": [
+        {
+          "player": "Christian Mawissa",
+          "position": "Obranca",
+          "injury": "Groin",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
           "status": "Mimo hry"
         },
         {
           "player": "Aleksandr Golovin",
           "position": "Stredopoliar",
-          "injury": "Svalové zranenie lýtka",
-          "injured_on": "November 2026",
-          "duration": "2 – 3 týždne",
-          "expected_return": "Koniec novembra / začiatok decembra 2026",
-          "context": "Klubové zaťaženie",
-          "status": "Rehabilitácia"
+          "injury": "Calf",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
         },
         {
-          "player": "Christian Mawissa",
+          "player": "Ansu Fati",
+          "position": "Útočník",
+          "injury": "Hamstring",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Stanis Idumbo",
+          "position": "Stredopoliar",
+          "injury": "Other",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        }
+      ],
+      "Nice": [
+        {
+          "player": "Mohamed Abdelmonem",
           "position": "Obranca",
-          "injury": "Pubalgia (bolesti slabín)",
-          "injured_on": "November 2026",
-          "duration": "Priebežné sledovanie",
-          "expected_return": "Podľa týždenných kontrol",
-          "context": "Tréningové zaťaženie",
-          "status": "Week-to-week"
+          "injury": "Hamstring",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Antoine Mendy",
+          "position": "Obranca",
+          "injury": "Cruciate ligame",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2027-05-29",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Laurent Abergel",
+          "position": "Stredopoliar",
+          "injury": "Knee",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2027-04-24",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        }
+      ],
+      "Paris SG": [
+        {
+          "player": "Desire Doue",
+          "position": "Stredopoliar",
+          "injury": "Other",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "K. Kvaratskhelia",
+          "position": "Útočník",
+          "injury": "Cruciate ligame",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        }
+      ],
+      "Paris FC": [
+        {
+          "player": "Mamadou Mbow",
+          "position": "Obranca",
+          "injury": "Yellow cards",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Trest / suspendácia",
+          "status": "Suspendovaný"
+        }
+      ],
+      "Rennes": [
+        {
+          "player": "Adrien Thomasson",
+          "position": "Stredopoliar",
+          "injury": "Red card (direct)",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2026-12-06",
+          "context": "Trest / suspendácia",
+          "status": "Suspendovaný"
+        },
+        {
+          "player": "Brice Samba",
+          "position": "Brankár",
+          "injury": "Yellow cards",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Trest / suspendácia",
+          "status": "Suspendovaný"
+        },
+        {
+          "player": "Valentin Rongier",
+          "position": "Stredopoliar",
+          "injury": "Other",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        }
+      ],
+      "Strasbourg": [
+        {
+          "player": "Giovanni Reyna",
+          "position": "Stredopoliar",
+          "injury": "Thigh",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Fabio Balde",
+          "position": "Útočník",
+          "injury": "Lower leg",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        },
+        {
+          "player": "Joaquin Panichelli",
+          "position": "Útočník",
+          "injury": "Knee",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "2026-12-05",
+          "context": "Zranenie",
+          "status": "Mimo hry"
+        }
+      ],
+      "Toulouse": [
+        {
+          "player": "Aron Doennum",
+          "position": "Stredopoliar",
+          "injury": "2nd yellow (Red)",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Trest / suspendácia",
+          "status": "Suspendovaný"
+        }
+      ],
+      "Troyes": [
+        {
+          "player": "Paolo Gozzi",
+          "position": "Obranca",
+          "injury": "Hamstring",
+          "injured_on": "",
+          "duration": "",
+          "expected_return": "Neurčený",
+          "context": "Zranenie",
+          "status": "Mimo hry"
         }
       ]
     }

@@ -3,15 +3,19 @@
 from __future__ import annotations
 
 import base64
+import concurrent.futures
+import html as html_lib
 import json
 import re
 import unicodedata
+import urllib.request
+from datetime import date
 from functools import lru_cache
 from pathlib import Path
 
 import pandas as pd
 
-from src.config import DATA_DIR, PROJECT_DIR
+from src.config import DATA_DIR, PROJECT_DIR, TEAM_ALIASES
 
 INJURIES_JSON: Path = DATA_DIR / "injuries.json"
 LOGOS_DIR: Path = PROJECT_DIR / "assets" / "logos"
@@ -176,6 +180,7 @@ COLUMN_RENAME = {
 
 
 INJURY_CLUB_ALIASES: dict[str, str] = {
+    **TEAM_ALIASES,
     "Atlético Madrid": "Ath Madrid",
     "FC Barcelona": "Barcelona",
     "Inter Miláno": "Inter",
@@ -186,7 +191,147 @@ INJURY_CLUB_ALIASES: dict[str, str] = {
     "Paris Saint-Germain": "Paris SG",
     "Olympique Marseille": "Marseille",
     "AS Monaco": "Monaco",
+    # SportsGambler -> canonical names
+    "Nott’m Forest": "Nott'm Forest",
+    "Brighton & Hove Albion": "Brighton",
+    "Coventry City": "Coventry",
+    "Alavés": "Alaves",
+    "Athletic Club": "Ath Bilbao",
+    "Celta Vigo": "Celta",
+    "Deportivo": "La Coruna",
+    "Deportivo La Coruña": "La Coruna",
+    "Espanyol": "Espanol",
+    "Málaga": "Malaga",
+    "Racing Club": "Santander",
+    "Racing Santander": "Santander",
+    "Rayo Vallecano": "Vallecano",
+    "Real Betis": "Betis",
+    "Real Sociedad": "Sociedad",
+    "AC Milan": "Milan",
+    "AS Roma": "Roma",
+    "Inter Milan": "Inter",
+    "Internazionale": "Inter",
+    "1. FC Union Berlin": "Union Berlin",
+    "B. M'gladbach": "M'gladbach",
+    "Borussia Mönchengladbach": "M'gladbach",
+    "Eintracht Frankfurt": "Ein Frankfurt",
+    "Frankfurt": "Ein Frankfurt",
+    "FC Augsburg": "Augsburg",
+    "FC Cologne": "FC Koln",
+    "1. FC Köln": "FC Koln",
+    "Hamburg SV": "Hamburg",
+    "Hamburger SV": "Hamburg",
+    "Mainz 05": "Mainz",
+    "SC Freiburg": "Freiburg",
+    "SC Paderborn 07": "Paderborn",
+    "SV Elversberg": "Elversberg",
+    "TSG Hoffenheim": "Hoffenheim",
+    "VfB Stuttgart": "Stuttgart",
+    "AJ Auxerre": "Auxerre",
+    "Le Havre AC": "Le Havre",
+    "PSG": "Paris SG",
+    "Stade Rennais": "Rennes",
 }
+
+SPORTSGAMBLER_SLUGS: dict[str, str] = {
+    "Premier League": "england-premier-league",
+    "La Liga": "spain-la-liga",
+    "Serie A": "italy-serie-a",
+    "Bundesliga": "germany-bundesliga",
+    "Ligue 1": "france-ligue-1",
+}
+
+_POS_MAP_SK: dict[str, str] = {
+    "G": "Brankár",
+    "D": "Obranca",
+    "M": "Stredopoliar",
+    "F": "Útočník",
+}
+
+
+def _scrape_sportsgambler_league(league: str, slug: str) -> tuple[str, dict[str, list[dict]]]:
+    url = f"https://www.sportsgambler.com/injuries/football/{slug}/"
+    req = urllib.request.Request(
+        url,
+        headers={"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"},
+    )
+    raw = urllib.request.urlopen(req, timeout=15).read().decode("utf-8", "ignore")
+
+    blocks = raw.split('<div class="injury-block">')[1:]
+    clubs: dict[str, list[dict]] = {}
+    for blk in blocks:
+        m_team = re.search(r'<h3 class="injuries-title"[^>]*>.*?<a[^>]*>(.*?)</a>', blk, re.S)
+        if not m_team:
+            m_team = re.search(r'<h3 class="injuries-title"[^>]*>(.*?)</h3>', blk, re.S)
+        if not m_team:
+            continue
+        raw_team = html_lib.unescape(re.sub(r"<[^>]+>", "", m_team.group(1))).strip()
+        canonical_team = INJURY_CLUB_ALIASES.get(raw_team, raw_team)
+
+        rows = blk.split('<div class="inj-row">')[1:]
+        players: list[dict] = []
+        for r in rows:
+            def _grab(cls_pat: str) -> str:
+                m = re.search(rf'<span class="{cls_pat}"[^>]*>(.*?)</span>', r, re.S)
+                return html_lib.unescape(re.sub(r"<[^>]+>", "", m.group(1))).strip() if m else ""
+
+            m_type = re.search(r'<span class="inj-type\s+([^"]+)"', r)
+            inj_type = m_type.group(1).strip() if m_type else "injury"
+            name = _grab("inj-player")
+            if not name:
+                continue
+            pos_raw = _grab(r'inj-position[^"]*')
+            info = _grab("inj-info")
+            ret = _grab(r'inj-return[^"]*')
+            is_susp = "redcard" in inj_type or "susp" in inj_type
+            players.append(
+                {
+                    "player": name,
+                    "position": _POS_MAP_SK.get(pos_raw, pos_raw or "Hráč"),
+                    "injury": info or ("Trest / suspendovaný" if is_susp else "Zranenie"),
+                    "injured_on": "",
+                    "duration": "",
+                    "expected_return": ret if ret and ret not in ("-", "?") else "Neurčený",
+                    "context": "Trest / suspendácia" if is_susp else "Zranenie",
+                    "status": "Suspendovaný" if is_susp else "Mimo hry",
+                }
+            )
+        clubs[canonical_team] = players
+    return league, clubs
+
+
+def fetch_live_injuries_by_league(save_snapshot: bool = False) -> tuple[str, dict[str, dict[str, pd.DataFrame]]]:
+    """Stiahne aktuálne zranenia pre všetky kluby Top 5 líg; pri chybe použije `data/injuries.json`."""
+    try:
+        with concurrent.futures.ThreadPoolExecutor(max_workers=5) as ex:
+            results = list(
+                ex.map(
+                    lambda item: _scrape_sportsgambler_league(item[0], item[1]),
+                    SPORTSGAMBLER_SLUGS.items(),
+                )
+            )
+        today_str = date.today().isoformat()
+        raw_leagues = {lg: clubs for lg, clubs in results if clubs}
+        if not raw_leagues:
+            return load_injuries_by_league()
+
+        if save_snapshot:
+            INJURIES_JSON.parent.mkdir(parents=True, exist_ok=True)
+            INJURIES_JSON.write_text(
+                json.dumps({"updated_at": today_str, "leagues": raw_leagues}, ensure_ascii=False, indent=2),
+                encoding="utf-8",
+            )
+
+        df_leagues: dict[str, dict[str, pd.DataFrame]] = {
+            lg: {
+                club: pd.DataFrame(records).rename(columns=COLUMN_RENAME)
+                for club, records in clubs.items()
+            }
+            for lg, clubs in raw_leagues.items()
+        }
+        return today_str, df_leagues
+    except Exception:
+        return load_injuries_by_league()
 
 
 def load_injuries_by_league() -> tuple[str, dict[str, dict[str, pd.DataFrame]]]:
