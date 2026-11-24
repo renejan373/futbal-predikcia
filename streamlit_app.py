@@ -1234,34 +1234,34 @@ def main() -> None:
     elif active_section == "🏥 Zranenia":
         st.subheader("Prehľad zranených hráčov (Top 5 líg)")
         updated_at, injuries_by_league = load_injuries_by_league()
-        league_options = list(injuries_by_league.keys())
+        league_options = list(LEAGUES)
 
-        if not league_options:
-            st.info("Chýbajú dáta o zraneniach (`data/injuries.json`).")
-        else:
-            selected_league = (
-                st.segmented_control(
-                    "Vyber ligu",
-                    options=league_options,
-                    default="La Liga" if "La Liga" in league_options else league_options[0],
-                    key="injuries_league_toggle",
-                )
-                or league_options[0]
+        selected_league = (
+            st.segmented_control(
+                "Vyber ligu",
+                options=league_options,
+                default=active_league if active_league in league_options else league_options[0],
+                key="injuries_league_toggle",
             )
+            or league_options[0]
+        )
 
-            injuries_by_club = injuries_by_league[selected_league]
-            club_options = list(injuries_by_club.keys())
+        lg_ratings, _, _, _ = load_data(selected_league)
+        lg_seasons = sorted(lg_ratings["season"].unique(), reverse=True)
+        lg_season = CURRENT_SEASON if CURRENT_SEASON in lg_seasons else lg_seasons[0]
+        all_league_clubs = sorted(lg_ratings[lg_ratings["season"] == lg_season]["team"].unique())
 
-            if (
-                "injuries_club" not in st.session_state
-                or st.session_state["injuries_club"] not in club_options
-            ):
-                st.session_state["injuries_club"] = club_options[0]
+        injuries_by_club = injuries_by_league.get(selected_league, {})
+        featured_clubs = [c for c in injuries_by_club.keys() if c in all_league_clubs]
 
-            # Výber z 3 top klubov vybranej ligy s logom
-            sel_cols = st.columns(len(club_options))
-            for idx, club_name in enumerate(club_options):
-                is_selected = st.session_state["injuries_club"] == club_name
+        club_key = f"injuries_club_select_{selected_league}"
+        if club_key not in st.session_state or st.session_state[club_key] not in all_league_clubs:
+            st.session_state[club_key] = featured_clubs[0] if featured_clubs else all_league_clubs[0]
+
+        if featured_clubs:
+            sel_cols = st.columns(len(featured_clubs))
+            for idx, club_name in enumerate(featured_clubs):
+                is_selected = st.session_state[club_key] == club_name
                 club_count = len(injuries_by_club.get(club_name, pd.DataFrame()))
                 with sel_cols[idx].container(border=True):
                     c_logo, c_info = st.columns([1, 2.2], vertical_alignment="center")
@@ -1275,78 +1275,83 @@ def main() -> None:
                         type="primary" if is_selected else "secondary",
                         use_container_width=True,
                     ):
-                        st.session_state["injuries_club"] = club_name
+                        st.session_state[club_key] = club_name
                         st.rerun()
 
-            selected_club = st.session_state["injuries_club"]
-            club_df = injuries_by_club.get(selected_club, pd.DataFrame())
+        selected_club = st.selectbox(
+            f"Vyber ľubovoľný klub ({selected_league} – {len(all_league_clubs)} klubov)",
+            options=all_league_clubs,
+            key=club_key,
+            format_func=lambda c: f"{c} ({len(injuries_by_club[c])} zran.)" if c in injuries_by_club and not injuries_by_club[c].empty else f"{c} (0 zran.)",
+        )
+        club_df = injuries_by_club.get(selected_club, pd.DataFrame())
 
-            st.divider()
-            hdr_logo, hdr_title = st.columns([0.8, 9.2], vertical_alignment="center")
-            sel_logo = CLUB_LOGOS.get(selected_club)
-            if sel_logo and sel_logo.exists():
-                hdr_logo.image(str(sel_logo), width=48)
-            hdr_title.markdown(f"### {selected_club} ({selected_league}) – aktuálne zranenia")
+        st.divider()
+        hdr_logo, hdr_title = st.columns([0.8, 9.2], vertical_alignment="center")
+        sel_logo = CLUB_LOGOS.get(selected_club)
+        if sel_logo and sel_logo.exists():
+            hdr_logo.image(str(sel_logo), width=48)
+        hdr_title.markdown(f"### {selected_club} ({selected_league}) – aktuálne zranenia")
 
-            if club_df.empty:
-                st.info(f"Pre klub {selected_club} zatiaľ nie sú evidované žiadne zranenia.")
-            else:
-                in_match = int(club_df["Kde sa zranil (zápas / tréning)"].str.contains("zápas", case=False, na=False).sum())
-                in_training = int(club_df["Kde sa zranil (zápas / tréning)"].str.contains("tréning", case=False, na=False).sum())
+        if club_df.empty:
+            st.info(f"Pre klub **{selected_club}** momentálne nie je nikto zranený.")
+        else:
+            in_match = int(club_df["Kde sa zranil (zápas / tréning)"].str.contains("zápas", case=False, na=False).sum())
+            in_training = int(club_df["Kde sa zranil (zápas / tréning)"].str.contains("tréning", case=False, na=False).sum())
 
-                m_cols = st.columns(3)
-                m_cols[0].metric("Zranení hráči spolu", len(club_df))
-                m_cols[1].metric("Zranení v zápase", in_match)
-                m_cols[2].metric("Na tréningu / preťaženie", in_training)
+            m_cols = st.columns(3)
+            m_cols[0].metric("Zranení hráči spolu", len(club_df))
+            m_cols[1].metric("Zranení v zápase", in_match)
+            m_cols[2].metric("Na tréningu / preťaženie", in_training)
 
-                st.markdown("")
-                card_cols = st.columns(2)
-                for idx, (_, row) in enumerate(club_df.iterrows()):
-                    col = card_cols[idx % 2]
-                    photo_uri = get_player_photo_data_uri(row["Hráč"])
-                    if photo_uri:
-                        avatar_html = (
-                            f"<img src='{photo_uri}' style='width:58px;height:58px;border-radius:50%;"
-                            f"object-fit:cover;object-position:top center;border:2px solid #dfe3ea;flex-shrink:0;' />"
-                        )
-                    else:
-                        initials = "".join(part[0] for part in row["Hráč"].split()[:2]).upper()
-                        avatar_html = (
-                            f"<div style='width:58px;height:58px;border-radius:50%;background:#1d3557;"
-                            f"color:#fff;display:flex;align-items:center;justify-content:center;"
-                            f"font-weight:700;font-size:18px;flex-shrink:0;'>{initials}</div>"
-                        )
-
-                    inj_bg = "rgba(21,31,50,0.92)" if is_dark else "#ffffff"
-                    inj_bd = "rgba(148,163,184,0.18)" if is_dark else "#e2e8f0"
-                    inj_title = "#f8fafc" if is_dark else "#1d3557"
-                    inj_txt = "#cbd5e1" if is_dark else "#334155"
-                    inj_bold = "#f1f5f9" if is_dark else "#0f172a"
-                    inj_muted = "#94a3b8" if is_dark else "#475569"
-                    inj_pill_bg = "rgba(56,189,248,0.16)" if is_dark else "#e0f2fe"
-                    inj_pill_txt = "#38bdf8" if is_dark else "#0369a1"
-                    card_html = (
-                        f"<div style='border:1px solid {inj_bd};border-radius:12px;padding:12px 14px;"
-                        f"margin-bottom:10px;background:{inj_bg};'>"
-                        f"<div style='display:flex;align-items:center;gap:12px;margin-bottom:10px;'>"
-                        f"{avatar_html}"
-                        f"<div>"
-                        f"<div style='font-size:17px;font-weight:700;color:{inj_title};line-height:1.2;'>{row['Hráč']}</div>"
-                        f"<div style='font-size:12px;color:{inj_muted};margin-top:3px;'>"
-                        f"<span style='background:{inj_pill_bg};color:{inj_pill_txt};padding:2px 7px;border-radius:6px;font-weight:600;'>{row['Pozícia']}</span>"
-                        f" &nbsp;·&nbsp; <b style='color:{inj_bold};'>{row['Stav']}</b></div>"
-                        f"</div></div>"
-                        f"<div style='font-size:13.5px;line-height:1.5;color:{inj_txt};'>"
-                        f"<div><b style='color:{inj_bold};'>Zranenie:</b> {row['Zranenie']}</div>"
-                        f"<div style='display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:4px;'>"
-                        f"<div><b style='color:{inj_bold};'>Kedy:</b> {row['Kedy sa zranil']}</div>"
-                        f"<div><b style='color:{inj_bold};'>Na ako dlho:</b> {row['Na ako dlho']}</div>"
-                        f"</div>"
-                        f"<div style='margin-top:4px;'><b style='color:{inj_bold};'>Návrat:</b> {row['Predpokladaný návrat']}</div>"
-                        f"<div style='margin-top:2px;'><b style='color:{inj_bold};'>Kde sa zranil:</b> {row['Kde sa zranil (zápas / tréning)']}</div>"
-                        f"</div></div>"
+            st.markdown("")
+            card_cols = st.columns(2)
+            for idx, (_, row) in enumerate(club_df.iterrows()):
+                col = card_cols[idx % 2]
+                photo_uri = get_player_photo_data_uri(row["Hráč"])
+                if photo_uri:
+                    avatar_html = (
+                        f"<img src='{photo_uri}' style='width:58px;height:58px;border-radius:50%;"
+                        f"object-fit:cover;object-position:top center;border:2px solid #dfe3ea;flex-shrink:0;' />"
                     )
-                    col.markdown(card_html, unsafe_allow_html=True)
+                else:
+                    initials = "".join(part[0] for part in row["Hráč"].split()[:2]).upper()
+                    avatar_html = (
+                        f"<div style='width:58px;height:58px;border-radius:50%;background:#1d3557;"
+                        f"color:#fff;display:flex;align-items:center;justify-content:center;"
+                        f"font-weight:700;font-size:18px;flex-shrink:0;'>{initials}</div>"
+                    )
+
+                inj_bg = "rgba(21,31,50,0.92)" if is_dark else "#ffffff"
+                inj_bd = "rgba(148,163,184,0.18)" if is_dark else "#e2e8f0"
+                inj_title = "#f8fafc" if is_dark else "#1d3557"
+                inj_txt = "#cbd5e1" if is_dark else "#334155"
+                inj_bold = "#f1f5f9" if is_dark else "#0f172a"
+                inj_muted = "#94a3b8" if is_dark else "#475569"
+                inj_pill_bg = "rgba(56,189,248,0.16)" if is_dark else "#e0f2fe"
+                inj_pill_txt = "#38bdf8" if is_dark else "#0369a1"
+                card_html = (
+                    f"<div style='border:1px solid {inj_bd};border-radius:12px;padding:12px 14px;"
+                    f"margin-bottom:10px;background:{inj_bg};'>"
+                    f"<div style='display:flex;align-items:center;gap:12px;margin-bottom:10px;'>"
+                    f"{avatar_html}"
+                    f"<div>"
+                    f"<div style='font-size:17px;font-weight:700;color:{inj_title};line-height:1.2;'>{row['Hráč']}</div>"
+                    f"<div style='font-size:12px;color:{inj_muted};margin-top:3px;'>"
+                    f"<span style='background:{inj_pill_bg};color:{inj_pill_txt};padding:2px 7px;border-radius:6px;font-weight:600;'>{row['Pozícia']}</span>"
+                    f" &nbsp;·&nbsp; <b style='color:{inj_bold};'>{row['Stav']}</b></div>"
+                    f"</div></div>"
+                    f"<div style='font-size:13.5px;line-height:1.5;color:{inj_txt};'>"
+                    f"<div><b style='color:{inj_bold};'>Zranenie:</b> {row['Zranenie']}</div>"
+                    f"<div style='display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:4px;'>"
+                    f"<div><b style='color:{inj_bold};'>Kedy:</b> {row['Kedy sa zranil']}</div>"
+                    f"<div><b style='color:{inj_bold};'>Na ako dlho:</b> {row['Na ako dlho']}</div>"
+                    f"</div>"
+                    f"<div style='margin-top:4px;'><b style='color:{inj_bold};'>Návrat:</b> {row['Predpokladaný návrat']}</div>"
+                    f"<div style='margin-top:2px;'><b style='color:{inj_bold};'>Kde sa zranil:</b> {row['Kde sa zranil (zápas / tréning)']}</div>"
+                    f"</div></div>"
+                )
+                col.markdown(card_html, unsafe_allow_html=True)
 
         if updated_at:
             st.caption(f"Údaje aktualizované k {updated_at} (zdroj: `data/injuries.json`).")

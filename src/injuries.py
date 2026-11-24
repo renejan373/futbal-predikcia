@@ -175,6 +175,20 @@ COLUMN_RENAME = {
 }
 
 
+INJURY_CLUB_ALIASES: dict[str, str] = {
+    "Atlético Madrid": "Ath Madrid",
+    "FC Barcelona": "Barcelona",
+    "Inter Miláno": "Inter",
+    "AC Miláno": "Milan",
+    "Bayern Mníchov": "Bayern Munich",
+    "Borussia Dortmund": "Dortmund",
+    "Bayer Leverkusen": "Leverkusen",
+    "Paris Saint-Germain": "Paris SG",
+    "Olympique Marseille": "Marseille",
+    "AS Monaco": "Monaco",
+}
+
+
 def load_injuries_by_league() -> tuple[str, dict[str, dict[str, pd.DataFrame]]]:
     """Vráti dátum aktualizácie a slovník {liga: {klub: DataFrame zranených hráčov}}."""
     if not INJURIES_JSON.exists():
@@ -188,6 +202,7 @@ def load_injuries_by_league() -> tuple[str, dict[str, dict[str, pd.DataFrame]]]:
     for league, clubs_raw in leagues_raw.items():
         league_clubs: dict[str, pd.DataFrame] = {}
         for club, records in clubs_raw.items():
-            league_clubs[club] = pd.DataFrame(records).rename(columns=COLUMN_RENAME)
+            canonical = INJURY_CLUB_ALIASES.get(club, club)
+            league_clubs[canonical] = pd.DataFrame(records).rename(columns=COLUMN_RENAME)
         result[league] = league_clubs
     return updated_at, result
